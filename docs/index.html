@@ -1051,6 +1051,24 @@
 
   
 
+    /* Gentle C-shaped star drift on mobile only; independent layers avoid collisions. */
+    @keyframes mobile-star-c {
+      0%   { background-position: 12px 18px, 58px 81px, 103px 39px; }
+      25%  { background-position: 20px 24px, 63px 75px, 96px 45px; }
+      50%  { background-position: 25px 35px, 58px 66px, 84px 51px; }
+      75%  { background-position: 18px 42px, 49px 69px, 88px 43px; }
+      100% { background-position: 12px 18px, 58px 81px, 103px 39px; }
+    }
+    @media (max-width: 600px) {
+      body::before {
+        animation: mobile-star-c 28s ease-in-out infinite;
+        will-change: background-position;
+      }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      body::before { animation: none !important; }
+    }
+
     /* Mobile polish: keep desktop color atmosphere and make the star texture clearer.
        The decorative layer never captures taps or sits above interface content. */
     @media (max-width: 600px) {
