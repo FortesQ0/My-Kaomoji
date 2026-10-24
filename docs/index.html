@@ -571,6 +571,75 @@
       .section-alt::before { right: -100px; top: 8%; width: 150px; height: 150px; }
     }
 
+
+    /* New visual stories: expressive collection on the hero, real chat moment in workflow */
+    .mood-board { overflow:hidden; min-height:100%; display:flex; flex-direction:column; justify-content:space-between; padding:clamp(23px,2.8vw,32px); }
+    .mood-live { display:flex; align-items:center; gap:8px; color:#cfc2e7; font-size:.88rem; }
+    .mood-live i,.chat-online i { display:inline-block; width:8px; height:8px; border-radius:50%; background:#aaf0d6; box-shadow:0 0 13px #aaf0d688; }
+    .mood-feature { position:relative; display:flex; flex-direction:column; align-items:center; justify-content:center; min-height:220px; margin:23px 0 20px; padding:22px 12px; overflow:hidden; border:1px solid rgba(221,197,255,.15); border-radius:24px; background:radial-gradient(ellipse at 50% 42%,rgba(197,151,255,.17),transparent 66%),linear-gradient(145deg,rgba(255,255,255,.045),rgba(255,255,255,.012)); }
+    .mood-kicker,.chat-eyebrow { font-size:.82rem; font-weight:800; letter-spacing:.15em; color:#d7baff; }
+    .mood-feature .big-kaomoji { position:relative; z-index:1; padding:22px 0 10px; font-size:clamp(2.4rem,4vw,3.25rem); }
+    .mood-caption { color:#d1c4e3; font-size:.94rem; text-align:center; }
+    .mood-spark { position:absolute; color:#f3b9dd; }
+    .mood-spark-a { left:13%; top:28%; font-size:1.6rem; transform:rotate(-15deg); }
+    .mood-spark-b { right:14%; bottom:22%; font-size:1.8rem; color:#d6c0ff; }
+    .mood-categories { display:flex; flex-wrap:wrap; gap:8px; margin-bottom:17px; }
+    .mood-pill { padding:8px 12px; border:1px solid rgba(225,207,255,.15); border-radius:999px; color:#d5c9e7; background:rgba(255,255,255,.025); font-size:.88rem; }
+    .mood-pill.selected { color:#fff4ff; border-color:rgba(255,172,214,.42); background:linear-gradient(110deg,rgba(197,165,255,.2),rgba(255,172,214,.12)); }
+    .mood-picks { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:9px; }
+    .mood-pick { position:relative; min-width:0; display:flex; flex-direction:column; align-items:center; gap:5px; padding:15px 5px 13px; border:1px solid rgba(224,204,255,.12); border-radius:16px; background:rgba(255,255,255,.035); text-align:center; }
+    .mood-pick > span { color:#f2b7dd; font-size:1rem; }
+    .mood-pick strong { font-size:clamp(.78rem,1.15vw,.96rem); font-weight:700; white-space:nowrap; letter-spacing:-.04em; }
+    .mood-pick small { font-size:.82rem; color:#c6b8dc; }
+    .featured-pick { border-color:rgba(206,177,255,.38); background:linear-gradient(145deg,rgba(197,165,255,.15),rgba(255,172,214,.07)); transform:translateY(-5px); }
+    .mood-footer { display:flex; align-items:center; justify-content:space-between; gap:12px; margin-top:20px; padding-top:16px; border-top:1px solid rgba(224,204,255,.13); color:#b9a9d0; font-size:.88rem; }
+    .mood-footer span:last-child { display:grid; place-items:center; width:30px; height:30px; border-radius:10px; background:rgba(197,165,255,.14); color:#e8d9ff; font-size:1.15rem; }
+    .chat-showcase { min-height:100%; display:flex; flex-direction:column; justify-content:space-between; gap:18px; padding:clamp(25px,3.2vw,38px); overflow:hidden; }
+    .chat-showcase-head { display:flex; justify-content:space-between; align-items:center; gap:12px; }
+    .chat-showcase-head h3 { margin:7px 0 0; font-size:clamp(1.55rem,2.6vw,2rem); letter-spacing:-.045em; }
+    .chat-online { display:flex; align-items:center; gap:7px; white-space:nowrap; color:#c9bddb; font-size:.88rem; }
+    .chat-stage { position:relative; flex:1; min-height:270px; display:flex; flex-direction:column; justify-content:center; gap:15px; padding:24px 4px 20px; }
+    .chat-day { align-self:center; margin-bottom:2px; color:#9e90b6; font-size:.83rem; letter-spacing:.03em; }
+    .chat-bubble { position:relative; max-width:84%; padding:14px 17px; border:1px solid rgba(226,209,255,.13); border-radius:19px; font-size:1rem; line-height:1.5; box-shadow:0 8px 24px rgba(0,0,0,.12); }
+    .received { align-self:flex-start; border-bottom-left-radius:6px; background:linear-gradient(135deg,rgba(255,255,255,.07),rgba(255,255,255,.025)); color:#f0e8fb; }
+    .bubble-name { display:block; margin-bottom:3px; color:#d8b7ff; font-size:.82rem; font-weight:800; }
+    .sent { align-self:flex-end; display:flex; flex-direction:column; align-items:flex-end; border-color:rgba(218,186,255,.25); border-bottom-right-radius:6px; background:linear-gradient(130deg,rgba(149,107,220,.32),rgba(211,139,192,.19)); }
+    .sent strong { margin-top:5px; color:#fff0ff; font-size:1.35rem; letter-spacing:-.035em; }
+    .bubble-reaction { position:absolute; left:-13px; top:-12px; display:grid; place-items:center; width:27px; height:27px; border:1px solid rgba(255,172,214,.35); border-radius:9px; background:#30223f; color:#ffb8dd; }
+    .bubble-time { margin-top:5px; color:#d5c4ea; font-size:.78rem; }
+    .reply-bubble { max-width:90%; }
+    .reply-bubble span { color:#ffb7db; white-space:nowrap; }
+    .floating-kaomoji { position:absolute; display:grid; place-items:center; border:1px solid rgba(222,199,255,.2); border-radius:14px; background:rgba(43,32,61,.9); box-shadow:0 10px 30px rgba(0,0,0,.15); }
+    .float-heart { top:18%; right:1%; width:39px; height:39px; color:#ffacd6; font-size:1.3rem; transform:rotate(9deg); }
+    .float-star { bottom:16%; left:1%; width:34px; height:34px; color:#d0b4ff; font-size:1.1rem; transform:rotate(-9deg); }
+    .chat-composer { display:flex; align-items:center; gap:12px; min-height:58px; padding:8px 9px 8px 15px; border:1px solid rgba(224,204,255,.16); border-radius:17px; background:rgba(12,9,20,.45); }
+    .composer-face { display:grid; place-items:center; flex:0 0 34px; height:34px; border-radius:11px; background:rgba(197,165,255,.15); color:#e3d0ff; font-size:1.25rem; }
+    .composer-placeholder { flex:1; color:#b5a7ca; font-size:.9rem; }
+    .composer-send { display:grid; place-items:center; flex:0 0 39px; height:39px; border-radius:12px; background:linear-gradient(135deg,#d0b4ff,#ffacd6); color:#261a34; font-size:1.25rem; }
+    .chat-caption { display:flex; flex-wrap:wrap; gap:7px; align-items:center; color:#b9a9d0; font-size:.92rem; }
+    .chat-caption strong { color:#f8eaff; font-weight:800; }
+    @media(max-width:900px) {
+      .mood-board { min-height:0; }
+      .chat-showcase { min-height:0; }
+      .chat-stage { min-height:290px; }
+    }
+    @media(max-width:600px) {
+      .mood-board { padding:18px; }
+      .mood-live { font-size:.78rem; }
+      .mood-feature { min-height:190px; margin:18px 0 16px; }
+      .mood-feature .big-kaomoji { font-size:clamp(1.85rem,7.5vw,2.45rem); }
+      .mood-pill { font-size:.78rem; padding:7px 9px; }
+      .mood-pick { padding:12px 3px 11px; }
+      .mood-pick strong { font-size:clamp(.68rem,2.7vw,.82rem); }
+      .mood-pick small { font-size:.76rem; }
+      .chat-showcase { padding:21px; gap:15px; }
+      .chat-showcase-head h3 { font-size:1.45rem; }
+      .chat-stage { min-height:260px; gap:12px; padding-block:18px; }
+      .chat-bubble { padding:12px 13px; font-size:.91rem; }
+      .sent strong { font-size:1.15rem; }
+      .chat-caption { font-size:.86rem; }
+    }
+
   </style>
 </head>
 <body>
@@ -602,25 +671,27 @@
       </div>
 
       <div class="hero-art" aria-label="Пример коллекции каомодзи">
-        <div class="app-window">
+        <div class="app-window mood-board">
           <div class="window-head">
             <div class="window-brand"><span class="window-mark" aria-hidden="true"><img src="assets/my-kaomoji-icon.svg" alt=""></span> My Kaomoji</div>
-            <span>Твоя коллекция ✦</span>
+            <span class="mood-live"><i></i> Твоё настроение</span>
           </div>
-          <div class="big-kaomoji" aria-label="Улыбающееся лицо">(˶ᵔ ᵕ ᵔ˶)</div>
-          <div class="category-row" aria-label="Примеры категорий">
-            <span class="category active">♡ Любовь</span>
-            <span class="category">✧ Радость</span>
-            <span class="category">☁ Грусть</span>
+          <div class="mood-feature">
+            <span class="mood-kicker">СЕГОДНЯ ТЫ —</span>
+            <div class="big-kaomoji" aria-label="Улыбающееся лицо">(˶ᵔ ᵕ ᵔ˶)</div>
+            <span class="mood-caption">мягкий вайб, большие эмоции</span>
+            <span class="mood-spark mood-spark-a" aria-hidden="true">✳</span>
+            <span class="mood-spark mood-spark-b" aria-hidden="true">✦</span>
           </div>
-          <div class="kaomoji-grid">
-            <div class="kaomoji-tile">(｡♥‿♥｡)</div>
-            <div class="kaomoji-tile">(づ｡◕‿‿◕｡)づ</div>
-            <div class="kaomoji-tile">٩(ˊᗜˋ*)و</div>
-            <div class="kaomoji-tile">(¬‿¬)</div>
-            <div class="kaomoji-tile">(っ˘ω˘ς)</div>
-            <div class="kaomoji-tile">૮ ˶ᵔ ᵕ ᵔ˶ ა</div>
+          <div class="mood-categories" aria-label="Настроения">
+            <span class="mood-pill selected">♡ Влюблённость</span><span class="mood-pill">✧ Радость</span><span class="mood-pill">☾ Спокойствие</span>
           </div>
+          <div class="mood-picks">
+            <div class="mood-pick"><span>♡</span><strong>(｡♥‿♥｡)</strong><small>нежность</small></div>
+            <div class="mood-pick featured-pick"><span>✦</span><strong>٩(ˊᗜˋ*)و</strong><small>ура!</small></div>
+            <div class="mood-pick"><span>☁</span><strong>(っ˘ω˘ς)</strong><small>уют</small></div>
+          </div>
+          <div class="mood-footer"><span>Твоя эмоция — твои правила</span><span aria-hidden="true">↗</span></div>
         </div>
       </div>
     </section>
@@ -655,13 +726,17 @@
             <div class="step"><span class="step-number">03</span><div><h3>Поделись эмоцией</h3><p>Копируй символ или используй клавиатуру в переписке.</p></div></div>
           </div>
         </div>
-        <div class="demo-panel reveal" aria-label="Примеры возможностей приложения">
-          <div class="demo-title"><span>Твои быстрые действия</span><span aria-hidden="true">✦</span></div>
-          <div class="demo-row"><div class="demo-label"><span class="demo-icon" aria-hidden="true">⌕</span><span><strong>Найти</strong><small>Поиск по настроению</small></span></div><span class="demo-tag">Поиск</span></div>
-          <div class="demo-row"><div class="demo-label"><span class="demo-icon" aria-hidden="true">♡</span><span><strong>Сохранить</strong><small>Любимые выражения</small></span></div><span class="demo-tag">Избранное</span></div>
-          <div class="demo-row"><div class="demo-label"><span class="demo-icon" aria-hidden="true">⌨</span><span><strong>Написать</strong><small>Прямо в чате</small></span></div><span class="demo-tag">Клавиатура</span></div>
-          <div class="demo-row"><div class="demo-label"><span class="demo-icon" aria-hidden="true">▦</span><span><strong>Открыть быстрее</strong><small>С главного экрана</small></span></div><span class="demo-tag">Виджет</span></div>
-          
+        <div class="demo-panel reveal chat-showcase" aria-label="Пример сообщения с каомодзи">
+          <div class="chat-showcase-head"><div><span class="chat-eyebrow">МАЛЕНЬКИЙ ЖЕСТ</span><h3>Скажи чуть больше.</h3></div><span class="chat-online"><i></i> в сети</span></div>
+          <div class="chat-stage">
+            <div class="chat-day">сегодня, 19:42</div>
+            <div class="chat-bubble received"><span class="bubble-name">mika</span>ты идёшь? ♡</div>
+            <div class="chat-bubble sent"><span class="bubble-reaction">✦</span>уже лечу!<strong>٩(ˊᗜˋ*)و</strong><span class="bubble-time">19:42&nbsp; ✓✓</span></div>
+            <div class="chat-bubble received reply-bubble">АХАХА, обожаю тебя <span>(｡♥‿♥｡)</span></div>
+            <div class="floating-kaomoji float-heart" aria-hidden="true">♡</div><div class="floating-kaomoji float-star" aria-hidden="true">✦</div>
+          </div>
+          <div class="chat-composer"><span class="composer-face">☺</span><span class="composer-placeholder">Добавь эмоцию к словам…</span><span class="composer-send" aria-hidden="true">↗</span></div>
+          <div class="chat-caption"><span>Не просто текст.</span><strong>Твоё настроение.</strong></div>
         </div>
       </div>
     </section>
