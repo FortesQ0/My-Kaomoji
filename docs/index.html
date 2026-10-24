@@ -814,6 +814,100 @@
       .hero::after { font-size: 1.5rem; }
     }
 
+
+    /* Final visual bug fixes: remove pale card hotspots, soften motion, balance empty space */
+    .feature::before,
+    .feature::after {
+      content: none !important;
+      display: none !important;
+      opacity: 0 !important;
+      filter: none !important;
+      background: none !important;
+      box-shadow: none !important;
+    }
+    .feature {
+      background: linear-gradient(135deg, rgba(197,165,255,.035), rgba(240,169,209,.018) 58%, rgba(255,255,255,.008)) !important;
+      transition: border-color .55s ease, background .7s ease !important;
+    }
+    .feature:hover { background: linear-gradient(135deg, rgba(197,165,255,.065), rgba(240,169,209,.035) 58%, rgba(255,255,255,.012)) !important; }
+    .feature-grid { position: relative; }
+
+    /* Calm, continuous motion: no sharp jumps or conspicuous twinkling */
+    @keyframes ornament-float {
+      0%, 100% { transform: translate3d(0,0,0) rotate(-4deg); opacity: .72; }
+      50% { transform: translate3d(0,-4px,0) rotate(3deg); opacity: .86; }
+    }
+    @keyframes twinkle {
+      0%, 100% { opacity: .38; transform: scale(.98) rotate(0deg); }
+      50% { opacity: .52; transform: scale(1.02) rotate(4deg); }
+    }
+    body::before { animation-duration: 110s !important; }
+    .mood-spark-a, .mood-spark-b, .float-heart { animation: ornament-float 16s ease-in-out infinite !important; }
+    .mood-spark-b, .float-heart { animation-delay: -6s !important; }
+    .mood-feature::after, .chat-showcase::after { animation: none !important; }
+    .chat-showcase::after, .float-star { display: none !important; }
+
+    /* A prominent celestial accent fills the open right side of the features section */
+    .section-alt::before {
+      content: "✦" !important;
+      top: 39% !important; right: max(5%, calc((100vw - var(--content))/2 - 2px)) !important;
+      width: auto !important; height: auto !important;
+      border: 0 !important; border-radius: 0 !important; box-shadow: none !important;
+      background: none !important; filter: none !important;
+      font-size: clamp(4.2rem, 7vw, 6.8rem) !important;
+      line-height: 1 !important; color: rgba(211,185,255,.24) !important;
+      text-shadow: 0 0 34px rgba(194,157,255,.10) !important;
+      animation: ornament-float 18s ease-in-out infinite !important;
+      pointer-events: none;
+    }
+    .section-alt .section-heading::after { display: none !important; }
+    .section:not(.section-alt)::after {
+      font-size: clamp(2.8rem, 4vw, 3.8rem) !important;
+      color: rgba(210,184,255,.25) !important;
+      text-shadow: 0 0 26px rgba(210,184,255,.07) !important;
+      animation: ornament-float 17s ease-in-out infinite !important;
+    }
+    .section-alt::after {
+      font-size: 2.7rem !important;
+      color: rgba(255,173,216,.24) !important;
+      animation: ornament-float 19s ease-in-out infinite reverse !important;
+    }
+
+    /* Give the final call-to-action a large four-point star, with smaller side accents */
+    .cta::before {
+      content: "✦" !important; position: absolute; z-index: 0;
+      right: 34%; bottom: 8%; font-size: clamp(3.8rem, 6vw, 5.8rem);
+      line-height: 1; color: rgba(213,185,255,.20);
+      text-shadow: 0 0 28px rgba(194,157,255,.08);
+      pointer-events: none; animation: ornament-float 18s ease-in-out infinite;
+    }
+    .cta::after {
+      content: "✧" !important; position: absolute;
+      width: auto !important; height: auto !important; right: 5% !important; top: 10% !important;
+      border: 0 !important; border-radius: 0 !important; box-shadow: none !important;
+      font-size: clamp(2.8rem, 4vw, 3.6rem); line-height: 1;
+      color: rgba(255,181,219,.24); animation: ornament-float 20s ease-in-out infinite reverse;
+      pointer-events: none;
+    }
+    .release-cta { position: relative; z-index: 2; }
+    @media (max-width: 900px) {
+      .section-alt::before { top: auto !important; right: 6% !important; bottom: 12% !important; font-size: 3.8rem !important; }
+      .cta::before { right: 7%; bottom: 12%; font-size: 3.4rem; }
+    }
+    @media (max-width: 600px) {
+      .section-alt::before { right: 5% !important; top: 9% !important; bottom: auto !important; font-size: 2.8rem !important; }
+      .section:not(.section-alt)::after { font-size: 2.5rem !important; right: 6% !important; }
+      .section-alt::after { font-size: 2.2rem !important; }
+      .cta::before { right: 8%; bottom: 10%; font-size: 2.8rem; }
+      .cta::after { right: 5% !important; top: auto !important; bottom: 7% !important; font-size: 2.2rem; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      body::before, .hero::before, .hero::after, .section::after, .section-alt::after,
+      .section-alt::before, .cta::before, .cta::after, .mood-spark-a, .mood-spark-b, .float-heart {
+        animation: none !important;
+      }
+    }
+
   </style>
 </head>
 <body>
