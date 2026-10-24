@@ -233,75 +233,83 @@
     }
 
 
-    /* Typography and mockup scale pass: readable at a glance, with a taller app preview */
-    body { font-size: 25.5px; line-height: 1.7; }
-    .topbar, header, nav { font-size: 1.12rem; }
-    .brand { font-size: 1.12rem; }
-    .nav-links { font-size: 1rem; gap: 34px; }
-    .eyebrow, .overline { font-size: .82rem; }
-    h1 { max-width: 850px; font-size: clamp(4.7rem, 9vw, 8.6rem); line-height: .99; letter-spacing: -.055em; }
-    h2 { font-size: clamp(3.3rem, 6vw, 5.6rem); line-height: 1.04; letter-spacing: -.045em; }
-    h3 { font-size: clamp(1.65rem, 2.4vw, 2.2rem); line-height: 1.18; }
-    .hero-copy { max-width: 720px; font-size: clamp(1.45rem, 2vw, 1.8rem); line-height: 1.65; }
-    .section-intro, .feature p, .step p, .cta p { font-size: clamp(1.25rem, 1.6vw, 1.5rem); line-height: 1.75; }
-    .tech-note, .disclaimer, .demo-label small { font-size: 1.05rem; line-height: 1.65; }
-    .button, .button-primary, .button-secondary, .cta a { font-size: 1.12rem; padding: 19px 27px; }
-    .hero { gap: clamp(56px, 8vw, 128px); }
-    .hero-art { transform: scale(1.08); transform-origin: center right; }
+    /* Balanced readability pass: about 25% larger, without stretching the layout */
+    body { font-size: 21.25px; line-height: 1.68; }
+    .nav-links { font-size: .96rem; gap: clamp(16px, 2.6vw, 30px); }
+    .eyebrow, .overline { font-size: .96rem; }
+    h1 { font-size: clamp(3.9rem, 8vw, 7.35rem); line-height: 1.01; letter-spacing: -.06em; }
+    h2 { font-size: clamp(2.65rem, 5.5vw, 4.55rem); line-height: 1.07; letter-spacing: -.045em; }
+    h3 { font-size: 1.28em; line-height: 1.22; }
+    .hero-copy { max-width: 560px; font-size: clamp(1.18rem, 1.65vw, 1.42rem); line-height: 1.72; }
+    .section-intro, .feature p, .step p, .cta p { font-size: 1.12rem; line-height: 1.72; }
+    .tech-note, .disclaimer, .demo-label small { font-size: .96rem; line-height: 1.65; }
+    .button, .cta .button { min-height: 54px; padding: 14px 21px; font-size: 1rem; }
+    .hero { gap: clamp(36px, 5vw, 68px); }
+    .hero-art { min-width: 0; }
     .app-window {
-      width: min(100%, 510px); min-height: 680px; padding: 30px;
-      border-radius: 34px; display: flex; flex-direction: column; gap: 23px;
+      width: min(100%, 460px); padding: 25px;
+      border-radius: 30px; gap: 0;
     }
-    .window-head { min-height: 48px; }
-    .window-title { font-size: 1.28rem; }
-    .window-mark { width: 42px; height: 42px; flex-basis: 42px; border-radius: 13px; }
-    .search-bar { min-height: 58px; padding: 15px 18px; font-size: 1.05rem; }
-    .categories { gap: 10px; }
-    .category { padding: 12px 15px; border-radius: 13px; font-size: 1.05rem; }
-    .kaomoji-grid { gap: 12px; }
-    .kaomoji-tile { min-height: 86px; padding: 12px 6px; border-radius: 16px; font-size: clamp(1.05rem, 1.5vw, 1.3rem); }
-    .window-foot, .window-footer { font-size: 1rem; margin-top: auto; padding-top: 8px; }
-    .feature-grid, .features-grid { gap: 28px; }
-    .feature { padding: 34px; min-height: 230px; }
-    .feature-icon { width: 62px; height: 62px; margin-bottom: 24px; }
-    .steps { gap: 34px; }
-    .step { padding: 32px; min-height: 220px; }
-    .demo-panel { padding: clamp(32px, 4vw, 48px); }
-    .demo-panel .kaomoji-tile { min-height: 95px; font-size: 1.25rem; }
-    .cta { min-height: 300px; padding: clamp(42px, 6vw, 82px); }
-    section { scroll-margin-top: 100px; }
+    .window-head { font-size: 1rem; }
+    .window-mark { width: 36px; height: 36px; flex-basis: 36px; }
+    .big-kaomoji { padding: 27px 0 22px; font-size: clamp(2.4rem, 4.5vw, 3.25rem); }
+    .category { padding: 9px 12px; font-size: .96rem; }
+    .kaomoji-grid { gap: 9px; margin-top: 17px; }
+    .kaomoji-tile { min-height: 72px; padding: 9px 4px; font-size: clamp(.9rem, 1.2vw, 1.08rem); }
+    .feature-grid { column-gap: 36px; }
+    .feature { padding: 27px 0; }
+    .feature h3 { font-size: 1.3rem; }
+    .feature-index { font-size: 1.05rem; }
+    .steps { gap: 26px; }
+    .step h3 { font-size: 1.12rem; }
+    .step-number { width: 42px; height: 42px; }
+    .demo-panel { padding: clamp(24px, 3vw, 34px); }
+    .demo-title { font-size: 1.1rem; }
+    .demo-row { padding: 19px 0; }
+    .demo-icon { flex-basis: 46px; height: 46px; font-size: 1.3rem; }
+    .demo-label strong, .demo-tag { font-size: 1rem; }
+    .cta { padding: clamp(30px, 5vw, 60px); gap: 28px; }
+    .cta h2 { font-size: clamp(2.35rem, 4.7vw, 3.9rem); }
+    .footer { font-size: 1rem; }
     @media (max-width: 900px) {
-      body { font-size: 22px; }
-      .hero { gap: 58px; }
-      .hero-art { transform: none; }
-      .app-window { min-height: 620px; width: min(100%, 540px); }
-      h1 { font-size: clamp(4rem, 10vw, 6.2rem); }
+      body { font-size: 19.5px; }
+      .hero { gap: 30px; }
+      .hero-art { min-height: 0; }
+      .app-window { width: min(100%, 460px); }
+      h1 { font-size: clamp(3.7rem, 9vw, 6rem); }
+      .workflow { gap: 34px; }
     }
     @media (max-width: 600px) {
-      body { font-size: 20px; letter-spacing: .005em; }
-      .topbar, header, nav { font-size: 1rem; }
-      .brand { font-size: 1rem; }
-      .nav-links { gap: 14px; font-size: .9rem; }
-      h1 { font-size: clamp(3.35rem, 15vw, 5rem); line-height: 1.01; }
-      h2 { font-size: clamp(2.7rem, 11vw, 4rem); }
-      h3 { font-size: 1.55rem; }
-      .hero-copy { font-size: 1.28rem; line-height: 1.65; }
-      .section-intro, .feature p, .step p, .cta p { font-size: 1.15rem; line-height: 1.7; }
-      .tech-note, .disclaimer, .demo-label small { font-size: .95rem; }
-      .button, .button-primary, .button-secondary, .cta a { font-size: 1rem; padding: 17px 20px; }
-      .app-window { min-height: 600px; padding: 22px; gap: 20px; border-radius: 27px; }
-      .window-title { font-size: 1.1rem; }
-      .window-mark { width: 38px; height: 38px; flex-basis: 38px; }
-      .search-bar { min-height: 54px; font-size: .95rem; }
-      .category { padding: 10px 12px; font-size: .9rem; }
-      .kaomoji-grid { gap: 9px; }
-      .kaomoji-tile { min-height: 76px; font-size: .92rem; }
-      .feature { min-height: 0; padding: 27px; }
-      .feature-icon { width: 54px; height: 54px; margin-bottom: 18px; }
-      .step { min-height: 0; padding: 26px; }
-      .demo-panel { padding: 22px; }
-      .demo-panel .kaomoji-tile { min-height: 78px; font-size: 1rem; }
-      .cta { min-height: 260px; padding: 30px 24px; }
+      body { font-size: 18px; line-height: 1.68; }
+      .nav-links { gap: 12px; font-size: .9rem; }
+      h1 { font-size: clamp(3.1rem, 13.5vw, 4.25rem); line-height: 1.03; }
+      h2 { font-size: clamp(2.35rem, 10vw, 3.35rem); line-height: 1.08; }
+      h3 { font-size: 1.18em; }
+      .hero-copy { font-size: 1.12rem; line-height: 1.72; }
+      .section-intro, .feature p, .step p, .cta p { font-size: 1.04rem; line-height: 1.72; }
+      .tech-note, .disclaimer, .demo-label small { font-size: .9rem; }
+      .button, .cta .button { min-height: 50px; padding: 13px 17px; font-size: .94rem; }
+      .hero-art { min-height: 0; margin-inline: 0; }
+      .app-window { width: 100%; padding: 18px; border-radius: 24px; }
+      .window-head { font-size: .88rem; }
+      .window-mark { width: 32px; height: 32px; flex-basis: 32px; }
+      .big-kaomoji { padding: 22px 0 18px; font-size: clamp(1.9rem, 8vw, 2.55rem); }
+      .category-row { gap: 6px; }
+      .category { padding: 8px 9px; font-size: .84rem; }
+      .kaomoji-grid { gap: 6px; margin-top: 14px; }
+      .kaomoji-tile { min-height: 61px; padding: 6px 2px; font-size: clamp(.72rem, 3vw, .88rem); }
+      .feature { padding: 22px 0; }
+      .feature h3 { font-size: 1.15rem; }
+      .step { gap: 12px; }
+      .step-number { width: 38px; height: 38px; }
+      .demo-panel { padding: 20px; }
+      .demo-row { gap: 8px; padding: 15px 0; }
+      .demo-icon { flex-basis: 38px; height: 38px; }
+      .demo-label { gap: 9px; }
+      .demo-label strong, .demo-tag { font-size: .86rem; }
+      .demo-tag { padding: 5px 7px; }
+      .cta { padding: 26px 22px; gap: 22px; }
+      .cta h2 { font-size: clamp(2rem, 8.8vw, 2.8rem); }
     }
 
   </style>
