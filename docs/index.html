@@ -3,12 +3,15 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="theme-color" content="#111018">
+  <meta name="theme-color" content="#f7f2ed">
   <meta name="description" content="My Kaomoji — приложение для Android с японскими текстовыми смайликами, поиском, избранным и собственной клавиатурой.">
   <meta property="og:title" content="My Kaomoji — японские смайлики">
-  <meta property="og:description" content="Маленькие символы. Большие эмоции. Собери свою коллекцию каомодзи.">
+  <meta property="og:description" content="Японские текстовые смайлики, избранное и клавиатура для Android.">
   <meta property="og:type" content="website">
-  <title>My Kaomoji ✦ Японские смайлики</title>
+  <title>My Kaomoji — японские смайлики</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Onest:wght@400;500;600;650;700;750;800;850;900&display=swap" rel="stylesheet">
   <style>
     :root {
       color-scheme: dark;
@@ -161,6 +164,204 @@
       *, *::before, *::after { scroll-behavior: auto !important; animation-duration: .01ms !important; animation-iteration-count: 1 !important; transition-duration: .01ms !important; }
       .reveal { opacity: 1; transform: none; }
     }
+
+    /* New visual direction: bold editorial typography, Onest, no decorative noise. */
+    :root {
+      color-scheme: light;
+      --bg: #f7f2ed;
+      --surface: #fffaf6;
+      --surface-raised: #eee5dd;
+      --text: #241c1e;
+      --muted: #55494a;
+      --subtle: #766669;
+      --line: #d8c9c4;
+      --violet: #c83e5b;
+      --pink: #c83e5b;
+      --mint: #c83e5b;
+      --content: 1280px;
+      --gutter: clamp(24px, 6vw, 88px);
+      --radius: 12px;
+      --ease: cubic-bezier(.2,.75,.25,1);
+    }
+    html { scroll-padding-top: 104px; }
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: "Onest", sans-serif;
+      font-size: 21px;
+      line-height: 1.6;
+      letter-spacing: -.015em;
+    }
+    body::before { display: none; }
+    .container { width: min(var(--content), calc(100% - var(--gutter) * 2)); }
+    .topbar { background: var(--bg); border-bottom: 1px solid var(--line); }
+    .topbar.scrolled { background: rgba(247,242,237,.96); border-color: var(--line); backdrop-filter: none; }
+    .nav { min-height: 100px; gap: 32px; }
+    .brand { gap: 16px; font-size: 1.35rem; letter-spacing: -.04em; }
+    .brand-mark { width: 54px; border-radius: 12px; color: #fffaf6; background: var(--violet); font-size: 32px; box-shadow: none; }
+    .brand-name em { color: var(--violet); }
+    .nav-links { gap: clamp(24px,3vw,44px); color: var(--muted); font-size: 1.05rem; font-weight: 600; }
+    .nav-cta { border: 1px solid var(--text); border-radius: 8px; padding: 13px 22px; color: var(--text)!important; }
+    .nav-cta:hover { background: var(--text); color: var(--bg)!important; }
+    .hero {
+      grid-template-columns: minmax(0,1.08fr) minmax(420px,.92fr);
+      gap: clamp(44px,7vw,100px);
+      padding-block: clamp(96px,12vw,164px) clamp(110px,13vw,172px);
+      align-items: center;
+    }
+    .eyebrow {
+      display: inline-flex; padding: 0; border: 0; border-radius: 0;
+      color: var(--violet); background: transparent; font-size: 1.05rem;
+      font-weight: 800; letter-spacing: .02em;
+    }
+    .status-dot { display: none; }
+    h1,h2,h3,p { overflow-wrap: break-word; }
+    h1 {
+      max-width: 800px; margin: 30px 0 30px;
+      font-size: clamp(5rem,9vw,9.5rem); font-weight: 850;
+      line-height: .88; letter-spacing: -.09em;
+    }
+    .gradient { color: var(--violet); }
+    .hero-copy { max-width: 660px; color: var(--muted); font-size: clamp(1.3rem,1.8vw,1.65rem); line-height: 1.55; }
+    .hero-actions { gap: 16px; margin-top: 38px; }
+    .button {
+      min-height: 66px; gap: 12px; padding: 18px 26px;
+      border: 1px solid var(--text); border-radius: 8px;
+      background: transparent; color: var(--text); font-size: 1.05rem;
+      font-weight: 750; transition: background .18s, color .18s, transform .18s;
+    }
+    .button:hover { transform: translateY(-2px); border-color: var(--text); background: #241c1e0b; }
+    .button-primary { color: #fffaf6; border-color: var(--violet); background: var(--violet); box-shadow: none; }
+    .button-primary:hover { color: #fffaf6; border-color: #a52b46; background: #a52b46; }
+    .tech-note { margin-top: 22px; color: var(--subtle); font-size: 1rem; }
+    .hero-art { min-height: 560px; }
+    .app-window {
+      width: min(100%, 530px); padding: 32px;
+      border: 1px solid var(--line); border-radius: 12px;
+      background: var(--surface); box-shadow: 14px 14px 0 #e8d9d1;
+      transform: none; animation: none;
+    }
+    .window-head { gap: 16px; color: var(--muted); font-size: 1rem; }
+    .window-brand { gap: 12px; color: var(--text); font-size: 1.15rem; font-weight: 800; }
+    .window-mark { width: 42px; height: 42px; border-radius: 8px; color: #fffaf6; background: var(--violet); font-size: 25px; }
+    .big-kaomoji { padding: 40px 0 34px; color: var(--violet); font-size: clamp(2.8rem,4.2vw,4.3rem); font-weight: 600; letter-spacing: -.08em; }
+    .category-row { justify-content: flex-start; gap: 10px; }
+    .category { padding: 11px 15px; border: 1px solid var(--line); border-radius: 7px; color: var(--muted); background: transparent; font-size: 1rem; font-weight: 600; }
+    .category.active { color: #fffaf6; border-color: var(--violet); background: var(--violet); }
+    .kaomoji-grid { gap: 10px; margin-top: 24px; }
+    .kaomoji-tile {
+      min-height: 82px; padding: 12px 5px; border: 1px solid var(--line);
+      border-radius: 7px; background: var(--bg); color: var(--text);
+      font-size: clamp(.95rem,1.35vw,1.15rem); transition: background .18s,border-color .18s;
+    }
+    .kaomoji-tile:hover { transform: none; border-color: var(--violet); background: #c83e5b0d; }
+    .section { padding-block: clamp(100px,12vw,160px); }
+    .section-alt { border-block: 1px solid var(--line); background: #efe7e0; }
+    .section-heading { max-width: 860px; margin-bottom: 64px; }
+    .overline { margin-bottom: 20px; color: var(--violet); font-size: 1rem; font-weight: 850; letter-spacing: .04em; }
+    h2 { margin-bottom: 24px; font-size: clamp(3.4rem,6.2vw,6.5rem); line-height: .96; letter-spacing: -.075em; font-weight: 850; }
+    .section-intro { max-width: 760px; color: var(--muted); font-size: clamp(1.2rem,1.8vw,1.45rem); line-height: 1.6; }
+    .feature-grid { grid-template-columns: repeat(2,minmax(0,1fr)); column-gap: 72px; border-top: 2px solid var(--text); }
+    .feature { grid-template-columns: 58px minmax(0,1fr); gap: 22px; padding: 34px 0 36px; border-bottom: 1px solid var(--line); }
+    .feature-index { padding-top: 4px; color: var(--violet); font-size: 1.2rem; font-weight: 850; }
+    .feature h3 { margin-bottom: 12px; font-size: clamp(1.45rem,2vw,1.8rem); letter-spacing: -.04em; font-weight: 800; }
+    .feature p { margin-bottom: 0; color: var(--muted); font-size: 1.15rem; line-height: 1.6; }
+    .workflow { grid-template-columns: minmax(0,.95fr) minmax(0,1.05fr); gap: clamp(50px,8vw,110px); }
+    .steps { gap: 30px; margin-top: 42px; }
+    .step { grid-template-columns: 54px 1fr; gap: 20px; }
+    .step-number { width: 52px; height: 52px; border: 1px solid var(--line); border-radius: 8px; background: transparent; color: var(--violet); font-size: 1.1rem; font-weight: 850; }
+    .step h3 { margin: 3px 0 8px; font-size: 1.35rem; font-weight: 800; letter-spacing: -.03em; }
+    .step p { margin-bottom: 0; color: var(--muted); font-size: 1.1rem; line-height: 1.55; }
+    .demo-panel { padding: clamp(28px,4vw,44px); border: 1px solid var(--line); border-radius: 12px; background: var(--surface); box-shadow: 12px 12px 0 #e8d9d1; }
+    .demo-title { margin-bottom: 18px; font-size: 1.35rem; font-weight: 850; }
+    .demo-row { gap: 18px; padding: 23px 0; border-color: var(--line); }
+    .demo-label { gap: 17px; }
+    .demo-icon { flex-basis: 54px; height: 54px; border-radius: 8px; background: #efe7e0; color: var(--violet); font-size: 1.65rem; }
+    .demo-label strong { font-size: 1.15rem; font-weight: 800; }
+    .demo-label small { color: var(--muted); font-size: 1rem; }
+    .demo-tag { padding: 8px 11px; border-radius: 6px; color: var(--violet); background: #c83e5b10; font-size: .95rem; font-weight: 750; }
+    .disclaimer { margin-top: 22px; color: var(--subtle); font-size: .95rem; }
+    .cta-wrap { padding-block: clamp(100px,12vw,156px); }
+    .cta {
+      gap: 48px; padding: clamp(40px,7vw,88px);
+      border: 1px solid var(--text); border-radius: 12px; background: var(--text); color: var(--bg);
+    }
+    .cta .overline { color: #f1a7c0; }
+    .cta h2 { font-size: clamp(3rem,5.3vw,5.4rem); }
+    .cta p { color: #e0d4d0; font-size: 1.2rem; line-height: 1.6; }
+    .cta .button-primary { flex: 0 0 auto; color: #fffaf6; border-color: var(--violet); background: var(--violet); }
+    .footer { gap: 28px; padding-block: 34px 44px; border-color: var(--line); color: var(--muted); font-size: 1rem; }
+    .footer strong { color: var(--text); }
+    .footer-links { gap: 26px; }
+    .reveal { opacity: 1; transform: none; transition: none; }
+    .reveal.visible { opacity: 1; transform: none; }
+    .feature:nth-child(2), .step:nth-child(2), .feature:nth-child(3), .step:nth-child(3) { transition-delay: 0s; }
+    @media (max-width: 1000px) {
+      .hero { grid-template-columns: 1fr; gap: 48px; padding-block: 88px 110px; }
+      .hero-content { max-width: 900px; }
+      .hero-art { min-height: 0; }
+      .app-window { width: min(100%, 600px); }
+      h1 { font-size: clamp(5rem,13vw,8rem); }
+      .workflow { grid-template-columns: 1fr; gap: 56px; }
+      .demo-panel { max-width: none; }
+    }
+    @media (max-width: 600px) {
+      :root { --gutter: 22px; }
+      body { font-size: 18px; }
+      .nav { min-height: 78px; }
+      .brand { gap: 11px; font-size: 1.05rem; }
+      .brand-mark { width: 42px; border-radius: 9px; font-size: 25px; }
+      .nav-links { gap: 10px; font-size: .95rem; }
+      .nav-links a:not(.nav-cta) { display: none; }
+      .nav-cta { padding: 10px 14px; }
+      .hero { padding-block: 72px 90px; gap: 40px; }
+      h1 { margin: 24px 0; font-size: clamp(4.25rem,17vw,6.5rem); }
+      .hero-copy { font-size: 1.2rem; line-height: 1.55; }
+      .hero-actions { flex-direction: column; align-items: stretch; margin-top: 30px; }
+      .button { width: 100%; min-height: 60px; padding: 16px 20px; font-size: 1rem; }
+      .tech-note { font-size: .95rem; line-height: 1.5; }
+      .app-window { padding: 22px; box-shadow: 8px 8px 0 #e8d9d1; }
+      .window-head { font-size: .85rem; }
+      .window-brand { font-size: .95rem; }
+      .window-mark { width: 34px; height: 34px; }
+      .big-kaomoji { padding-block: 30px 24px; font-size: clamp(2.3rem,10vw,3.2rem); }
+      .category-row { gap: 7px; }
+      .category { padding: 8px 10px; font-size: .85rem; }
+      .kaomoji-grid { gap: 7px; }
+      .kaomoji-tile { min-height: 65px; font-size: .8rem; }
+      .section { padding-block: 88px; }
+      .section-heading { margin-bottom: 38px; }
+      h2 { font-size: clamp(3rem,12vw,4.5rem); }
+      .section-intro { font-size: 1.1rem; }
+      .feature-grid { grid-template-columns: 1fr; }
+      .feature { grid-template-columns: 44px minmax(0,1fr); gap: 14px; padding: 25px 0; }
+      .feature-index { font-size: 1rem; }
+      .feature h3 { font-size: 1.35rem; }
+      .feature p { font-size: 1.05rem; }
+      .steps { gap: 26px; margin-top: 32px; }
+      .step { grid-template-columns: 46px 1fr; gap: 14px; }
+      .step-number { width: 44px; height: 44px; }
+      .step h3 { font-size: 1.15rem; }
+      .step p { font-size: 1rem; }
+      .demo-panel { padding: 22px; box-shadow: 7px 7px 0 #e8d9d1; }
+      .demo-title { font-size: 1.1rem; }
+      .demo-row { gap: 8px; padding: 17px 0; }
+      .demo-label { gap: 10px; }
+      .demo-icon { flex-basis: 42px; height: 42px; font-size: 1.25rem; }
+      .demo-label strong { font-size: 1rem; }
+      .demo-label small { font-size: .84rem; }
+      .demo-tag { display: none; }
+      .disclaimer { font-size: .82rem; }
+      .cta-wrap { padding-block: 88px; }
+      .cta { gap: 26px; padding: 28px 24px; }
+      .cta h2 { font-size: clamp(2.8rem,11vw,4rem); }
+      .cta p { font-size: 1.05rem; }
+      .footer { gap: 20px; padding-block: 28px 36px; font-size: .95rem; }
+      .footer-links { gap: 18px; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after { scroll-behavior: auto !important; animation: none !important; transition: none !important; }
+    }
   </style>
 </head>
 <body>
@@ -195,7 +396,7 @@
         <div class="app-window">
           <div class="window-head">
             <div class="window-brand"><span class="window-mark" aria-hidden="true">☺</span> My Kaomoji</div>
-            <span>Твоя коллекция ✦</span>
+            <span>Коллекция каомодзи</span>
           </div>
           <div class="big-kaomoji" aria-label="Улыбающееся лицо">(˶ᵔ ᵕ ᵔ˶)</div>
           <div class="category-row" aria-label="Примеры категорий">
@@ -246,7 +447,7 @@
           </div>
         </div>
         <div class="demo-panel reveal" aria-label="Примеры возможностей приложения">
-          <div class="demo-title"><span>Твои быстрые действия</span><span aria-hidden="true">✦</span></div>
+          <div class="demo-title"><span>Что можно сделать</span></div>
           <div class="demo-row"><div class="demo-label"><span class="demo-icon" aria-hidden="true">⌕</span><span><strong>Найти</strong><small>Поиск по настроению</small></span></div><span class="demo-tag">Поиск</span></div>
           <div class="demo-row"><div class="demo-label"><span class="demo-icon" aria-hidden="true">♡</span><span><strong>Сохранить</strong><small>Любимые выражения</small></span></div><span class="demo-tag">Избранное</span></div>
           <div class="demo-row"><div class="demo-label"><span class="demo-icon" aria-hidden="true">⌨</span><span><strong>Написать</strong><small>Прямо в чате</small></span></div><span class="demo-tag">Клавиатура</span></div>
@@ -259,7 +460,7 @@
     <section class="container cta-wrap" id="about">
       <div class="cta reveal">
         <div class="cta-copy">
-          <span class="overline">My Kaomoji ✦</span>
+          <span class="overline">My Kaomoji</span>
           <h2>Добавь эмоцию в переписку.</h2>
           <p>Исходный код, инструкции и доступные APK — в репозитории проекта.</p>
         </div>
