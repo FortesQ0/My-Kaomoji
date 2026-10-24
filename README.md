@@ -1,6 +1,10 @@
 # My Kaomoji ✦ Японские смайлики
 
 <p align="center">
+  <img src="docs/assets/my-kaomoji-icon.svg" alt="My Kaomoji logo" width="180" />
+</p>
+
+<p align="center">
   <strong>Японские каомодзи — выразительные эмоции прямо с клавиатуры.</strong>
   <br />
   Находите, сохраняйте и отправляйте любимые текстовые смайлики в пару касаний.
@@ -42,7 +46,7 @@
 
 1. Склонируйте репозиторий.
    ```bash
-   git clone https://github.com/FortesQ0/My-Kaoji.git
+   git clone https://github.com/FortesQ0/My-Kaomoji.git
    ```
 2. Откройте проект в Android Studio.
 3. Дождитесь завершения Gradle Sync.
@@ -61,7 +65,7 @@
 ## Как добавить виджет
 
 1. Удерживайте пустое место на рабочем столе.
-2. Откройте раздел **Виджеты** и Находите **My Kaomoji**.
+2. Откройте раздел **Виджеты** и найдите **My Kaomoji**.
 3. Разместите виджет и нажимайте на каомодзи, чтобы копировать их.
 
 ## Управление
