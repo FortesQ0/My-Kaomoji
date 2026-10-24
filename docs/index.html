@@ -350,10 +350,10 @@
       const walker = document.createTreeWalker(document.body, NodeFilter.SHOW_TEXT);
       const nodes = [];
       while (walker.nextNode()) nodes.push(walker.currentNode);
-      const shortWords = /(^|\\s)(в|во|к|ко|с|со|у|о|об|от|до|за|на|по|из|изо|под|над|при|про|для|без|не|ни|и|а|но)(\\s+)(?=\\S)/giu;
+      const shortWords = /(^|\s)(в|во|к|ко|с|со|у|о|об|от|до|за|на|по|из|изо|под|над|при|про|для|без|не|ни|и|а|но)(\s+)(?=\\S)/giu;
       nodes.forEach(node => {
         if (node.parentElement?.closest('script,style,svg,code,pre')) return;
-        node.nodeValue = node.nodeValue.replace(shortWords, '$1$2\\u00A0');
+        node.nodeValue = node.nodeValue.replace(shortWords, '$1$2\u00A0');
       });
     })();
 
