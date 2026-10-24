@@ -13,9 +13,6 @@
 
 <br />
 
-<img alt="Android" src="https://img.shields.io/badge/ANDROID-APP-ff78ad?style=for-the-badge&logo=android&logoColor=white" />
-<img alt="Kotlin" src="https://img.shields.io/badge/BUILT_WITH-KOTLIN-ffb8d2?style=for-the-badge&logo=kotlin&logoColor=4b1530" />
-<img alt="Languages" src="https://img.shields.io/badge/RU-EN-fff0f7?style=for-the-badge&labelColor=ff78ad&color=fff0f7" />
 
 </div>
 
