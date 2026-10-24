@@ -1,0 +1,77 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#101014">
+<meta name="description" content="Kaoji — японские каомодзи для Android. Библиотека эмоций, избранное, собственная клавиатура и виджет.">
+<title>Kaoji — вырази себя каомодзи</title>
+<style>
+:root{color-scheme:dark;--bg:#101014;--panel:#19191f;--panel2:#202027;--ink:#f7f4ff;--muted:#aaa7ba;--purple:#b9a1ff;--pink:#ff9fcf;--line:#ffffff16;--glow:#8d68ff33}
+*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:radial-gradient(ellipse at 78% 3%,#4c2b6b40,transparent 35%),radial-gradient(ellipse at 8% 30%,#4333a326,transparent 30%),var(--bg);color:var(--ink);font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;line-height:1.6}a{color:inherit;text-decoration:none}.wrap{width:min(1120px,calc(100% - 40px));margin:auto}.nav{display:flex;align-items:center;justify-content:space-between;padding:24px 0}.brand{display:flex;align-items:center;gap:12px;font-weight:800;letter-spacing:-.04em;font-size:1.25rem}.logo{display:grid;place-items:center;width:42px;height:42px;border-radius:14px;background:linear-gradient(135deg,#c8b7ff,#ffb4dc);color:#241637;font-size:23px;box-shadow:0 8px 32px #b9a1ff33}.navlinks{display:flex;gap:25px;color:var(--muted);font-size:.92rem}.navlinks a:hover{color:white}.hero{padding:78px 0 100px;display:grid;grid-template-columns:1.12fr .88fr;align-items:center;gap:55px}.eyebrow{display:inline-flex;align-items:center;gap:8px;border:1px solid #b9a1ff42;background:#b9a1ff0c;border-radius:999px;padding:7px 13px;color:#d8cbff;font-size:.82rem;font-weight:650}.dot{width:7px;height:7px;border-radius:50%;background:#a9f4c7;box-shadow:0 0 12px #a9f4c7}.hero h1{font-size:clamp(3.2rem,7vw,5.8rem);line-height:.99;letter-spacing:-.075em;margin:23px 0}.gradient{background:linear-gradient(105deg,#c5b5ff 10%,#ffacd5 70%,#ffd2a9);color:transparent;background-clip:text}.lead{font-size:1.12rem;color:var(--muted);max-width:570px}.actions{display:flex;gap:12px;flex-wrap:wrap;margin-top:30px}.btn{display:inline-flex;justify-content:center;align-items:center;gap:9px;border:1px solid var(--line);border-radius:14px;padding:12px 18px;font-weight:700;background:#ffffff08;transition:transform .2s,border-color .2s}.btn:hover{transform:translateY(-2px);border-color:#b9a1ff88}.btn.primary{background:linear-gradient(120deg,#c2afff,#f6a9d5);color:#21152f;border:0;box-shadow:0 10px 35px #b9a1ff28}.micro{color:#777487;font-size:.82rem;margin-top:15px}.art{min-height:390px;position:relative;display:grid;place-items:center}.orb{position:absolute;width:310px;height:310px;border-radius:50%;background:linear-gradient(135deg,#b9a1ff33,#ff9fcf22);filter:blur(4px)}.float-card{position:relative;width:min(100%,370px);border:1px solid #ffffff20;background:linear-gradient(145deg,#24222dF2,#15151bf5);border-radius:28px;padding:25px;box-shadow:0 30px 90px #0007,0 0 70px #9b7aff18;transform:rotate(2deg)}.card-top{display:flex;align-items:center;justify-content:space-between;color:var(--muted);font-size:.82rem}.mini-logo{width:31px;height:31px;border-radius:10px;background:linear-gradient(135deg,#c8b7ff,#ffb4dc);display:grid;place-items:center;color:#241637;font-size:17px}.face{font-size:3.2rem;letter-spacing:-.08em;text-align:center;padding:24px 0 20px;color:#f7d7f0}.pillrow{display:flex;gap:8px;flex-wrap:wrap;justify-content:center}.pill{padding:7px 11px;border:1px solid #ffffff16;background:#ffffff08;border-radius:10px;font-size:.9rem;color:#ded9ee}.selected{background:#b9a1ff20;border-color:#b9a1ff66;color:#e6dcff}.emoji-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:20px}.emoji{border:1px solid #ffffff12;background:#ffffff06;border-radius:14px;padding:14px 4px;text-align:center;font-size:1.2rem}.floating{position:absolute;border:1px solid #ffffff22;background:#24222df2;border-radius:16px;padding:13px 16px;box-shadow:0 15px 45px #0006;font-size:1rem}.f1{top:42px;right:-5px;transform:rotate(7deg)}.f2{bottom:36px;left:-8px;transform:rotate(-6deg)}section{padding:76px 0}.section-head{max-width:650px;margin-bottom:32px}.kicker{color:var(--pink);text-transform:uppercase;letter-spacing:.16em;font-weight:800;font-size:.75rem}.section-head h2{font-size:clamp(2rem,4vw,3.3rem);letter-spacing:-.055em;line-height:1.08;margin:10px 0}.section-head p{color:var(--muted);margin:0}.features{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}.feature{padding:24px;border:1px solid var(--line);border-radius:22px;background:linear-gradient(145deg,#ffffff08,#ffffff03);min-height:190px}.feature .icon{width:43px;height:43px;display:grid;place-items:center;border-radius:14px;background:#b9a1ff18;border:1px solid #b9a1ff25;font-size:1.3rem;margin-bottom:17px}.feature h3{margin:0 0 7px;font-size:1.06rem}.feature p{margin:0;color:var(--muted);font-size:.93rem}.showcase{display:grid;grid-template-columns:.9fr 1.1fr;gap:35px;align-items:center}.showcase-panel{border:1px solid var(--line);background:linear-gradient(145deg,#211f29,#15151b);border-radius:26px;padding:26px}.demo-line{display:flex;align-items:center;justify-content:space-between;padding:15px 0;border-bottom:1px solid var(--line)}.demo-line:last-child{border:0}.demo-left{display:flex;align-items:center;gap:13px}.demo-icon{width:40px;height:40px;display:grid;place-items:center;background:#ffffff0c;border-radius:13px;font-size:1.25rem}.demo-left small{display:block;color:var(--muted)}.tag{color:#c7b7ff;background:#b9a1ff15;padding:5px 9px;border-radius:8px;font-size:.78rem}.steps{display:grid;gap:15px}.step{display:flex;gap:14px}.num{flex:0 0 35px;height:35px;display:grid;place-items:center;border-radius:12px;background:#b9a1ff18;color:#d5c8ff;font-weight:800}.step h3{margin:0 0 3px;font-size:1rem}.step p{margin:0;color:var(--muted);font-size:.93rem}.cta{border:1px solid #b9a1ff35;border-radius:28px;padding:clamp(28px,6vw,55px);background:radial-gradient(ellipse at 100% 0%,#b9a1ff1e,transparent 45%),linear-gradient(120deg,#211e2b,#17161e);display:flex;align-items:center;justify-content:space-between;gap:25px}.cta h2{font-size:clamp(1.8rem,4vw,2.8rem);letter-spacing:-.05em;line-height:1.1;margin:8px 0}.cta p{color:var(--muted);margin:0}.footer{padding:35px 0 45px;border-top:1px solid var(--line);color:var(--muted);font-size:.86rem;display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap}.footer strong{color:var(--ink)}.note{color:#8f8b9f;font-size:.82rem;margin-top:18px}
+@media(max-width:800px){.hero{grid-template-columns:1fr;padding:55px 0 65px;gap:20px}.art{min-height:360px}.features{grid-template-columns:repeat(2,1fr)}.showcase{grid-template-columns:1fr}.navlinks{gap:13px}.cta{align-items:flex-start;flex-direction:column}}
+@media(max-width:520px){.wrap{width:min(100% - 28px,1120px)}.navlinks a:nth-child(2){display:none}.hero h1{font-size:3.45rem}.features{grid-template-columns:1fr}.art{min-height:340px}.float-card{padding:20px}.f1{right:-2px}.f2{left:-2px}section{padding:55px 0}.nav{padding:16px 0}}
+@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}*,*:before,*:after{transition:none!important}}
+</style>
+</head>
+<body>
+<header class="wrap nav">
+  <a class="brand" href="#" aria-label="Kaoji — главная"><span class="logo">☺</span><span>Kaoji<span style="color:var(--pink)">.</span></span></a>
+  <nav class="navlinks" aria-label="Основная навигация"><a href="#features">Возможности</a><a href="#how">Как пользоваться</a><a href="#about">О проекте</a></nav>
+</header>
+<main>
+<section class="wrap hero">
+  <div>
+    <span class="eyebrow"><span class="dot"></span> Android · Каомодзи в пару касаний</span>
+    <h1>Меньше слов.<br><span class="gradient">Больше эмоций.</span></h1>
+    <p class="lead">Kaoji — коллекция японских текстовых смайликов, чтобы передавать настроение красиво, быстро и по-своему.</p>
+    <div class="actions"><a class="btn primary" href="https://github.com/FortesQ0/Gg/releases">↓ Смотреть релизы</a><a class="btn" href="https://github.com/FortesQ0/Gg">⌘ Исходный код ↗</a></div>
+    <p class="micro">Android 9+ · Kotlin · Jetpack Compose</p>
+  </div>
+  <div class="art" aria-label="Декоративная демонстрация коллекции каомодзи">
+    <div class="orb"></div>
+    <div class="float-card">
+      <div class="card-top"><div style="display:flex;align-items:center;gap:9px"><span class="mini-logo">☺</span><strong style="color:var(--ink)">Твоя коллекция</strong></div><span>✦ Kaoji</span></div>
+      <div class="face">(˶ᵔ ᵕ ᵔ˶)</div>
+      <div class="pillrow"><span class="pill selected">♡ Любовь</span><span class="pill">✧ Радость</span><span class="pill">☁ Грусть</span></div>
+      <div class="emoji-grid"><div class="emoji">(｡♥‿♥｡)</div><div class="emoji">(づ｡◕‿‿◕｡)づ</div><div class="emoji">٩(ˊᗜˋ*)و</div><div class="emoji">(¬‿¬)</div><div class="emoji">(っ˘ω˘ς )</div><div class="emoji">૮ ˶ᵔ ᵕ ᵔ˶ ა</div></div>
+    </div>
+    <div class="floating f1">♡ Избранное</div><div class="floating f2">✧ (ﾉ◕ヮ◕)ﾉ*:･ﾟ✧</div>
+  </div>
+</section>
+<section id="features"><div class="wrap">
+  <div class="section-head"><span class="kicker">Всё под рукой</span><h2>Твоя эмоция.<br>Твой способ выразить её.</h2><p>Всё нужное для поиска и использования каомодзи — в одном Android-приложении.</p></div>
+  <div class="features">
+    <article class="feature"><div class="icon">⌕</div><h3>Поиск и категории</h3><p>Находи подходящие эмоции в библиотеке и выбирай нужную категорию.</p></article>
+    <article class="feature"><div class="icon">♡</div><h3>Избранное</h3><p>Сохраняй любимые каомодзи и возвращайся к ним в любой момент.</p></article>
+    <article class="feature"><div class="icon">⌨</div><h3>Своя клавиатура</h3><p>Используй каомодзи прямо во время переписки в других приложениях.</p></article>
+    <article class="feature"><div class="icon">▦</div><h3>Виджет</h3><p>Закрепи быстрый доступ к любимым символам на домашнем экране.</p></article>
+    <article class="feature"><div class="icon">文</div><h3>Русский и English</h3><p>Переключай язык интерфейса в один тап.</p></article>
+    <article class="feature"><div class="icon">✧</div><h3>Настрой внешний вид</h3><p>Подбирай акцентный цвет и режим оформления под себя.</p></article>
+  </div>
+</div></section>
+<section id="how"><div class="wrap showcase">
+  <div><div class="section-head"><span class="kicker">Начать просто</span><h2>От выбора до отправки — мгновенно.</h2><p>Создано для быстрых действий и маленьких эмоций, которые делают сообщения живее.</p></div>
+    <div class="steps">
+      <div class="step"><span class="num">01</span><div><h3>Найди настроение</h3><p>Открой приложение и выбери категорию или воспользуйся поиском.</p></div></div>
+      <div class="step"><span class="num">02</span><div><h3>Сохрани любимое</h3><p>Удерживай карточку, чтобы добавить каомодзи в избранное.</p></div></div>
+      <div class="step"><span class="num">03</span><div><h3>Используй где угодно</h3><p>Копируй символ из приложения или включи клавиатуру Kaoji в настройках Android.</p></div></div>
+    </div>
+  </div>
+  <div class="showcase-panel">
+    <div class="card-top"><strong style="color:var(--ink);font-size:1rem">Твои быстрые действия</strong><span>✦</span></div>
+    <div class="demo-line"><div class="demo-left"><span class="demo-icon">⌕</span><div><strong>Поиск</strong><small>Нужная эмоция без долгого листания</small></div></div><span class="tag">Найти</span></div>
+    <div class="demo-line"><div class="demo-left"><span class="demo-icon">♡</span><div><strong>Избранное</strong><small>Твои часто используемые каомодзи</small></div></div><span class="tag">Сохранить</span></div>
+    <div class="demo-line"><div class="demo-left"><span class="demo-icon">⌨</span><div><strong>Клавиатура</strong><small>Каомодзи прямо в чате</small></div></div><span class="tag">Включить</span></div>
+    <div class="demo-line"><div class="demo-left"><span class="demo-icon">▦</span><div><strong>Виджет</strong><small>Быстрый доступ с рабочего стола</small></div></div><span class="tag">Добавить</span></div>
+    <p class="note">Декоративная иллюстрация возможностей, не скриншот приложения.</p>
+  </div>
+</div></section>
+<section id="about"><div class="wrap">
+  <div class="cta"><div><span class="kicker">Kaoji · Комодже</span><h2>Добавь немного магии<br>в каждое сообщение.</h2><p>Открой исходный код, изучи проект или проверь доступные сборки.</p></div><div class="actions" style="margin:0"><a class="btn primary" href="https://github.com/FortesQ0/Gg/releases">Релизы ↗</a><a class="btn" href="https://github.com/FortesQ0/Gg">GitHub ↗</a></div></div>
+  <p class="note">Последняя версия приложения, наличие APK и условия установки зависят от опубликованных релизов. Если релиз пока отсутствует, загляни в репозиторий для инструкции по сборке.</p>
+</div></section>
+</main>
+<footer class="wrap footer"><div><strong>Kaoji.</strong> Маленькие символы. Большие эмоции.</div><div><a href="https://github.com/FortesQ0/Gg">GitHub</a> · Сделано с ♡</div></footer>
+</body>
+</html>
