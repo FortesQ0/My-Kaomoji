@@ -69,12 +69,12 @@
     .hero-art { min-height: 440px; position: relative; display: grid; place-items: center; isolation: isolate; }
     .art-glow { display: none; }
     .app-window { position: relative; width: min(100%,410px); padding: 22px; border: 1px solid #ffffff1b; border-radius: 28px; background: #211d21; box-shadow: 0 20px 55px #0003; transform: none; animation: card-enter .5s ease-out both; }
-    .window-head { display: flex; align-items: center; justify-content: space-between; gap: 12px; color: var(--muted); font-size: .8rem; }
+    .window-head { display: flex; align-items: center; justify-content: space-between; gap: 12px; color: var(--muted); font-size: .92rem; }
     .window-brand { display: flex; align-items: center; gap: 9px; color: var(--text); font-weight: 750; }
-    .window-mark { display: grid; place-items: center; width: 30px; height: 30px; border-radius: 10px; background: linear-gradient(135deg,var(--violet),var(--pink)); color: #21172d; font-size: 18px; }
+    .window-mark { display: grid; place-items: center; width: 30px; height: 30px; border-radius: 10px; background: var(--violet); color: #21172d; font-size: 18px; }
     .big-kaomoji { text-align: center; padding: 30px 0 24px; color: #ffe1f1; font-size: clamp(2.35rem,5vw,3.15rem); letter-spacing: -.08em; white-space: nowrap; }
     .category-row { display: flex; justify-content: center; flex-wrap: wrap; gap: 8px; }
-    .category { padding: 7px 11px; border: 1px solid var(--line); border-radius: 10px; color: #d8d1e6; background: #ffffff05; font-size: .78rem; }
+    .category { padding: 7px 11px; border: 1px solid var(--line); border-radius: 10px; color: #d8d1e6; background: #ffffff05; font-size: .9rem; }
     .category.active { color: #eadfff; border-color: #c3a8ff59; background: #c3a8ff17; }
     .kaomoji-grid { display: grid; grid-template-columns: repeat(3,minmax(0,1fr)); gap: 9px; margin-top: 20px; }
     .kaomoji-tile { display: grid; place-items: center; min-height: 65px; padding: 8px 3px; border: 1px solid #ffffff0e; border-radius: 13px; background: #ffffff05; color: #eee6fa; font-size: clamp(.82rem,1.5vw,1rem); transition: transform .22s var(--ease), background .22s, border-color .22s; }
@@ -97,7 +97,7 @@
     .workflow { display: grid; grid-template-columns: minmax(0,.95fr) minmax(0,1.05fr); gap: clamp(32px,7vw,90px); align-items: center; }
     .steps { display: grid; gap: 23px; margin-top: 30px; }
     .step { display: grid; grid-template-columns: 42px 1fr; gap: 14px; align-items: start; }
-    .step-number { display: grid; place-items: center; width: 40px; height: 40px; border: 1px solid #c3a8ff25; border-radius: 13px; background: #c3a8ff12; color: #ddceff; font-size: .8rem; font-weight: 800; }
+    .step-number { display: grid; place-items: center; width: 40px; height: 40px; border: 1px solid #f1a7c030; border-radius: 13px; background: #f1a7c015; color: var(--text); font-size: .8rem; font-weight: 800; }
     .step h3 { margin: 2px 0 4px; font-size: 1rem; }
     .step p { margin-bottom: 0; color: var(--muted); font-size: .9rem; }
     .demo-panel { padding: clamp(20px,3vw,30px); border: 1px solid var(--line); border-radius: 26px; background: linear-gradient(145deg,#211e2c,#17151f); box-shadow: 0 25px 70px #0002; }
@@ -108,7 +108,7 @@
     .demo-icon { display: grid; place-items: center; flex: 0 0 42px; height: 42px; border-radius: 13px; background: #ffffff08; font-size: 1.2rem; }
     .demo-label strong { display: block; font-size: .92rem; }
     .demo-label small { display: block; color: var(--muted); font-size: .78rem; }
-    .demo-tag { flex: 0 0 auto; padding: 5px 9px; border-radius: 8px; color: #d6c7ff; background: #c3a8ff13; font-size: .75rem; }
+    .demo-tag { flex: 0 0 auto; padding: 5px 9px; border-radius: 8px; color: var(--text); background: #f1a7c015; font-size: .9rem; }
     .disclaimer { margin: 14px 0 0; color: var(--subtle); font-size: .9rem; }
     .cta-wrap { padding-block: clamp(72px,9vw,110px); }
     .cta { position: relative; overflow: hidden; display: flex; align-items: center; justify-content: space-between; gap: 35px; padding: clamp(28px,6vw,64px); border: 1px solid #c3a8ff35; border-radius: 30px; background: #211d21; }
@@ -140,7 +140,7 @@
       .nav { min-height: 70px; }
       .brand { gap: 9px; font-size: 1rem; }
       .brand-mark { width: 37px; border-radius: 12px; }
-      .nav-links { gap: 14px; font-size: .82rem; }
+      .nav-links { gap: 14px; font-size: .92rem; }
       .nav-links a:not(.nav-cta) { display: none; }
       .nav-cta { padding: 8px 12px; }
       .hero { padding-top: 63px; padding-bottom: 72px; }
