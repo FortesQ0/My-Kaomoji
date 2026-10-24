@@ -1,4 +1,4 @@
-name: Deploy Kaoji website
+name: Deploy My Kaomoji website
 on:
   push:
     branches: ["main"]
