@@ -1050,6 +1050,38 @@
     }
 
   
+
+    /* Mobile polish: keep desktop color atmosphere and make the star texture clearer.
+       The decorative layer never captures taps or sits above interface content. */
+    @media (max-width: 600px) {
+      body {
+        background:
+          radial-gradient(ellipse at 8% 16%, rgba(142,91,218,.14), transparent 34rem),
+          radial-gradient(ellipse at 88% 34%, rgba(255,132,190,.085), transparent 31rem),
+          radial-gradient(ellipse at 50% 76%, rgba(112,86,204,.09), transparent 38rem),
+          linear-gradient(145deg,#100d18 0%,#171122 48%,#100d19 100%) !important;
+        background-attachment: scroll;
+      }
+      body::before {
+        pointer-events: none;
+        opacity: .34 !important;
+        background-image:
+          radial-gradient(circle, rgba(255,230,249,.82) 0 1.15px, transparent 1.9px),
+          radial-gradient(circle, rgba(202,174,255,.7) 0 1.35px, transparent 2.1px),
+          radial-gradient(circle, rgba(255,170,211,.62) 0 1.45px, transparent 2.2px) !important;
+        background-size: 145px 163px, 197px 223px, 253px 241px !important;
+        background-position: 12px 18px, 58px 81px, 103px 39px !important;
+      }
+      .kaomoji-drift,
+      .kaomoji-drift span,
+      .hero::before, .hero::after,
+      .section::before, .section::after,
+      .section-alt::before, .section-alt::after,
+      .cta::before, .cta::after {
+        pointer-events: none;
+      }
+    }
+
   </style>
 </head>
 <body>
