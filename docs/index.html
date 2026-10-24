@@ -850,32 +850,53 @@
 
 
 
-    /* Large, quiet kaomoji accents placed only near the page edges */
-    .kaomoji-drift { position:absolute; inset:0; z-index:2; overflow:hidden; pointer-events:none; user-select:none; }
-    .kaomoji-drift span { position:absolute; display:block; max-width:90vw; color:rgba(221,194,255,.27); font-size:clamp(19px,2.1vw,28px); line-height:1.5; white-space:nowrap; text-shadow:0 0 18px rgba(174,129,255,.13); animation:kaomoji-float 22s ease-in-out infinite alternate, kaomoji-shimmer 8s ease-in-out infinite; }
-    .kaomoji-drift span:nth-child(1) { left:2.5%; top:3%; animation-delay:-3s,-1s; }
-    .kaomoji-drift span:nth-child(2) { right:2.5%; top:8%; color:rgba(255,190,224,.28); animation-delay:-9s,-4s; }
-    .kaomoji-drift span:nth-child(3) { left:2%; top:21%; animation-delay:-13s,-2s; }
-    .kaomoji-drift span:nth-child(4) { right:2%; top:31%; color:rgba(255,190,224,.27); animation-delay:-6s,-5s; }
-    .kaomoji-drift span:nth-child(5) { left:2.5%; top:39%; animation-delay:-11s,-3s; }
-    .kaomoji-drift span:nth-child(6) { right:2.5%; top:48%; color:rgba(255,190,224,.28); animation-delay:-16s,-6s; }
-    .kaomoji-drift span:nth-child(7) { left:2%; top:58%; animation-delay:-4s,-2s; }
-    .kaomoji-drift span:nth-child(8) { right:2%; top:68%; color:rgba(255,190,224,.27); animation-delay:-12s,-5s; }
-    .kaomoji-drift span:nth-child(9) { left:2.5%; top:77%; animation-delay:-8s,-3s; }
-    .kaomoji-drift span:nth-child(10) { right:2.5%; top:88%; color:rgba(255,190,224,.28); animation-delay:-17s,-1s; }
-    .kaomoji-drift span:nth-child(11) { left:3%; top:13%; animation-delay:-10s,-6s; }
-    .kaomoji-drift span:nth-child(12) { right:3%; top:40%; color:rgba(255,190,224,.26); animation-delay:-5s,-4s; }
-    .kaomoji-drift span:nth-child(13) { left:3%; top:68%; animation-delay:-14s,-2s; }
-    .kaomoji-drift span:nth-child(14) { right:3%; top:77%; color:rgba(255,190,224,.27); animation-delay:-7s,-5s; }
-    .kaomoji-drift span:nth-child(n + 15) { display:none; }
-    @keyframes kaomoji-float { 0% { transform:translate3d(-8px,10px,0) rotate(-3deg); } 50% { transform:translate3d(12px,-13px,0) rotate(2deg); } 100% { transform:translate3d(-3px,9px,0) rotate(-2deg); } }
-    @keyframes kaomoji-shimmer { 0%,100% { opacity:.68; filter:brightness(.94); } 50% { opacity:.82; filter:brightness(1.06); } }
+    /* Very subtle decorative kaomoji: behind all interactive/content layers */
+    .kaomoji-drift {
+      position:absolute;
+      inset:0;
+      z-index:0;
+      overflow:hidden;
+      pointer-events:none;
+      user-select:none;
+    }
+    .kaomoji-drift span {
+      position:absolute;
+      display:block;
+      max-width:90vw;
+      color:transparent;
+      background:linear-gradient(115deg, rgba(220,198,255,.10), rgba(255,198,228,.18), rgba(194,179,255,.08));
+      -webkit-background-clip:text;
+      background-clip:text;
+      font-size:clamp(14px,1.45vw,20px);
+      line-height:1.5;
+      white-space:nowrap;
+      text-shadow:0 0 5px rgba(174,129,255,.035);
+      opacity:.52;
+      animation:kaomoji-float 22s ease-in-out infinite alternate;
+    }
+    .kaomoji-drift span:nth-child(1) { left:1.5%; top:4%; animation-delay:-3s; }
+    .kaomoji-drift span:nth-child(2) { right:1.5%; top:14%; animation-delay:-9s; }
+    .kaomoji-drift span:nth-child(3) { left:1.5%; top:29%; animation-delay:-13s; }
+    .kaomoji-drift span:nth-child(4) { right:1.5%; top:43%; animation-delay:-6s; }
+    .kaomoji-drift span:nth-child(5) { left:1.5%; top:57%; animation-delay:-11s; }
+    .kaomoji-drift span:nth-child(6) { right:1.5%; top:69%; animation-delay:-16s; }
+    .kaomoji-drift span:nth-child(7) { left:1.5%; top:81%; animation-delay:-4s; }
+    .kaomoji-drift span:nth-child(8) { right:1.5%; top:92%; animation-delay:-12s; }
+    .kaomoji-drift span:nth-child(n + 9) { display:none; }
+    @keyframes kaomoji-float {
+      0% { transform:translate3d(-4px,5px,0) rotate(-1deg); }
+      50% { transform:translate3d(5px,-6px,0) rotate(1deg); }
+      100% { transform:translate3d(-2px,4px,0) rotate(-.5deg); }
+    }
     body { position:relative; }
-    body > .kaomoji-drift { position:absolute; inset:0; height:100%; }
+    body > .kaomoji-drift { position:absolute; inset:0; height:100%; z-index:0; }
     body > header, body > main, body > footer { position:relative; z-index:1; }
-    @media (max-width:640px) { .kaomoji-drift span { font-size:14px; } .kaomoji-drift span:nth-child(n + 9) { display:none; } }
+    @media (max-width:640px) {
+      .kaomoji-drift span { font-size:12px; }
+      .kaomoji-drift span:nth-child(n + 7) { display:none; }
+    }
     @media (prefers-reduced-motion: reduce) {
-      .kaomoji-drift span { animation: none !important; }
+      .kaomoji-drift span { animation:none !important; }
     }
 
     /* Animated starfield transition between the workflow and final CTA */
