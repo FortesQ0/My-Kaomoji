@@ -312,6 +312,203 @@
       .cta h2 { font-size: clamp(2rem, 8.8vw, 2.8rem); }
     }
 
+    /* Art direction: richer atmosphere, tactile cards, and a clearer download moment */
+    :root {
+      --bg: #100d19;
+      --surface: #1d172b;
+      --surface-raised: #292039;
+      --text: #fff9ff;
+      --muted: #d0c5e1;
+      --subtle: #b0a2c7;
+      --line: rgba(224, 204, 255, .17);
+      --violet: #d0b4ff;
+      --pink: #ffacd6;
+      --mint: #b9f6e4;
+    }
+    body {
+      background:
+        radial-gradient(ellipse at 76% 8%, rgba(166, 91, 255, .24), transparent 34rem),
+        radial-gradient(ellipse at 8% 24%, rgba(93, 66, 187, .18), transparent 32rem),
+        radial-gradient(ellipse at 90% 60%, rgba(255, 120, 190, .08), transparent 28rem),
+        linear-gradient(145deg, #100d19 0%, #171125 48%, #100d19 100%);
+    }
+    body::before {
+      z-index: 0;
+      background-image: radial-gradient(rgba(235,220,255,.16) .7px, transparent .7px);
+      background-size: 30px 30px;
+      opacity: .14;
+      mask-image: linear-gradient(to bottom, black, transparent 78%);
+    }
+    header, main, footer { position: relative; z-index: 1; }
+    .topbar.scrolled { background: rgba(16,13,25,.82); }
+    .brand-mark, .window-mark {
+      background: linear-gradient(135deg, #d5baff, #ffadd7);
+      box-shadow: 0 8px 30px rgba(196,145,255,.28);
+    }
+    .brand-name em { color: var(--pink); }
+    .eyebrow {
+      border-color: rgba(208,180,255,.38);
+      color: #f1e5ff;
+      background: linear-gradient(110deg, rgba(208,180,255,.13), rgba(255,172,214,.08));
+    }
+    .gradient {
+      color: transparent;
+      background: linear-gradient(100deg, #e4d3ff 0%, #c8a5ff 46%, #ffadd7 100%);
+      -webkit-background-clip: text; background-clip: text;
+    }
+    .hero { position: relative; }
+    .hero::before {
+      content: "♡"; position: absolute; top: 13%; left: 48%;
+      color: rgba(255,172,214,.25); font-size: clamp(2rem,5vw,4.2rem);
+      transform: rotate(-15deg); pointer-events: none;
+    }
+    .hero::after {
+      content: "✦"; position: absolute; bottom: 14%; left: 46%;
+      color: rgba(208,180,255,.5); font-size: 1.6rem; pointer-events: none;
+      text-shadow: 0 0 24px rgba(208,180,255,.6);
+    }
+    .hero-copy, .section-intro, .feature p, .step p, .cta p {
+      color: transparent;
+      background: linear-gradient(100deg, rgba(248,241,255,.97), rgba(204,190,227,.9));
+      -webkit-background-clip: text; background-clip: text;
+      text-wrap: pretty;
+    }
+    .tech-note { color: rgba(224,207,246,.76); }
+    .hero-art { position: relative; }
+    .hero-art::before {
+      content: ""; position: absolute; inset: 5% -5% 0;
+      z-index: -1; border-radius: 50%;
+      background: radial-gradient(ellipse, rgba(166,112,255,.27), rgba(112,76,180,.1) 44%, transparent 72%);
+      filter: blur(18px);
+    }
+    .app-window {
+      border-color: rgba(228,209,255,.24);
+      background: linear-gradient(145deg, rgba(43,32,62,.96), rgba(22,17,34,.98));
+      box-shadow: 0 32px 90px rgba(0,0,0,.42), 0 0 55px rgba(169,123,255,.12);
+      backdrop-filter: blur(18px);
+    }
+    .big-kaomoji { color: #ffe0f1; text-shadow: 0 0 34px rgba(255,172,214,.18); }
+    .category.active { background: linear-gradient(120deg,rgba(195,168,255,.22),rgba(240,169,209,.14)); }
+    .kaomoji-tile {
+      background: linear-gradient(145deg,rgba(255,255,255,.07),rgba(255,255,255,.018));
+      border-color: rgba(228,209,255,.09);
+    }
+    .kaomoji-tile:hover { background: rgba(208,180,255,.12); }
+    .section { position: relative; }
+    .section-alt {
+      border-color: rgba(224,204,255,.1);
+      background: linear-gradient(100deg, rgba(255,255,255,.018), rgba(153,111,220,.075), rgba(255,160,211,.025), rgba(255,255,255,.012));
+    }
+    .section-alt::before {
+      content: ""; position: absolute; top: 12%; right: -120px;
+      width: 300px; height: 300px; border: 1px solid rgba(208,180,255,.08);
+      border-radius: 50%; box-shadow: 0 0 0 35px rgba(208,180,255,.018), 0 0 0 75px rgba(208,180,255,.012);
+      pointer-events: none;
+    }
+    .section-heading { max-width: 760px; }
+    .overline { color: #e0c7ff; letter-spacing: .1em; text-transform: uppercase; }
+    .feature-grid { border-top-color: rgba(224,204,255,.2); column-gap: 26px; row-gap: 20px; }
+    .feature {
+      position: relative; overflow: hidden; min-height: 172px;
+      grid-template-columns: 46px minmax(0,1fr); gap: 20px;
+      padding: 28px 24px; border: 1px solid rgba(224,204,255,.13);
+      border-radius: 22px;
+      background: linear-gradient(145deg, rgba(255,255,255,.055), rgba(255,255,255,.018));
+      transition: transform .25s var(--ease), border-color .25s, background .25s, box-shadow .25s;
+    }
+    .feature::after {
+      content: ""; position: absolute; width: 110px; height: 110px; right: -58px; top: -62px;
+      border-radius: 50%; background: rgba(208,180,255,.1); filter: blur(3px); pointer-events: none;
+    }
+    .feature:hover {
+      transform: translateY(-5px); border-color: rgba(208,180,255,.48);
+      background: linear-gradient(145deg, rgba(208,180,255,.1), rgba(255,172,214,.035));
+      box-shadow: 0 16px 42px rgba(0,0,0,.17);
+    }
+    .feature-index {
+      display: grid; place-items: center; width: 42px; height: 42px; padding: 0;
+      border-radius: 14px; color: #f1e5ff;
+      background: linear-gradient(135deg, rgba(208,180,255,.2), rgba(255,172,214,.12));
+      border: 1px solid rgba(208,180,255,.2);
+    }
+    .feature h3 { margin-bottom: 10px; }
+    .workflow { position: relative; }
+    .steps { gap: 18px; }
+    .step {
+      padding: 17px 18px; border: 1px solid rgba(224,204,255,.1);
+      border-radius: 18px; background: rgba(255,255,255,.025);
+    }
+    .step-number {
+      background: linear-gradient(135deg, rgba(208,180,255,.2), rgba(255,172,214,.12));
+      border-color: rgba(208,180,255,.3);
+    }
+    .demo-panel {
+      position: relative; overflow: hidden;
+      border-color: rgba(224,204,255,.2);
+      background: radial-gradient(ellipse at 100% 0%, rgba(166,112,255,.15), transparent 22rem), linear-gradient(145deg,#261d39,#171222);
+      box-shadow: 0 28px 80px rgba(0,0,0,.28);
+    }
+    .demo-panel::before {
+      content: "✧"; position: absolute; right: 26px; top: 22px;
+      color: rgba(255,172,214,.4); font-size: 2rem; pointer-events: none;
+    }
+    .demo-title { padding-bottom: 14px; border-bottom: 1px solid var(--line); }
+    .demo-title > span:last-child { display: none; }
+    .demo-row { border-bottom-color: rgba(224,204,255,.12); }
+    .demo-icon { color: #f2ddff; background: linear-gradient(135deg,rgba(208,180,255,.18),rgba(255,172,214,.1)); }
+    .demo-tag { color: #f5eaff; background: rgba(208,180,255,.13); border: 1px solid rgba(208,180,255,.12); }
+    .cta {
+      gap: 36px; border-color: rgba(208,180,255,.34);
+      background: radial-gradient(ellipse at 90% 0%, rgba(255,172,214,.17), transparent 25rem), radial-gradient(ellipse at 0% 100%, rgba(166,112,255,.18), transparent 26rem), linear-gradient(120deg,#241a35,#191323 70%);
+      box-shadow: inset 0 1px rgba(255,255,255,.045), 0 28px 90px rgba(0,0,0,.22);
+    }
+    .cta::after {
+      content: ""; position: absolute; width: 19rem; height: 19rem; right: -7rem; top: -11rem;
+      border-radius: 50%; border: 1px solid rgba(208,180,255,.18);
+      box-shadow: 0 0 0 28px rgba(208,180,255,.035), 0 0 0 58px rgba(208,180,255,.022);
+    }
+    .release-cta {
+      position: relative; z-index: 1; min-width: 300px; min-height: 90px !important;
+      display: inline-flex; justify-content: flex-start; gap: 16px;
+      padding: 18px 22px !important; border: 1px solid rgba(255,255,255,.38);
+      border-radius: 20px; color: #21142d !important;
+      background: linear-gradient(110deg,#e0ccff,#ffb7da 88%);
+      box-shadow: 0 12px 36px rgba(211,159,255,.22), inset 0 1px rgba(255,255,255,.65);
+      transition: transform .22s var(--ease), box-shadow .22s;
+    }
+    .release-cta:hover { transform: translateY(-4px); box-shadow: 0 18px 48px rgba(211,159,255,.3); }
+    .release-icon {
+      display: grid; place-items: center; flex: 0 0 46px; height: 46px;
+      border-radius: 15px; background: rgba(255,255,255,.42); font-size: 1.6rem; font-weight: 800;
+    }
+    .release-cta strong { display: block; font-size: 1rem; line-height: 1.3; }
+    .release-cta small { display: block; margin-top: 5px; font-size: .78rem; font-weight: 600; opacity: .72; }
+    .release-arrow { margin-left: auto; font-size: 1.3rem; }
+    .footer { border-top-color: rgba(224,204,255,.13); }
+    @media (max-width: 900px) {
+      .hero::before { left: auto; right: 8%; top: 49%; }
+      .hero::after { left: 8%; bottom: 5%; }
+      .feature-grid { gap: 14px; }
+      .feature { min-height: 150px; padding: 22px 18px; }
+      .cta { align-items: flex-start; }
+      .release-cta { min-width: 280px; }
+    }
+    @media (max-width: 600px) {
+      body { background: radial-gradient(ellipse at 90% 8%, rgba(166,91,255,.2), transparent 25rem), linear-gradient(145deg,#100d19,#171125 55%,#100d19); }
+      body::before { background-size: 24px 24px; opacity: .1; }
+      .hero::before { top: 47%; right: 2%; font-size: 2.4rem; }
+      .hero::after { left: 2%; bottom: 3%; }
+      .feature-grid { gap: 12px; }
+      .feature { min-height: 0; padding: 22px 18px; grid-template-columns: 40px minmax(0,1fr); gap: 14px; }
+      .feature-index { width: 38px; height: 38px; }
+      .step { padding: 15px 13px; }
+      .cta { gap: 22px; }
+      .release-cta { width: 100%; min-width: 0; min-height: 82px !important; padding: 15px !important; }
+      .release-cta strong { font-size: .92rem; }
+      .release-cta small { font-size: .74rem; }
+    }
+
+
   </style>
 </head>
 <body>
@@ -339,7 +536,7 @@
           <a class="button button-primary" href="https://github.com/FortesQ0/My-Kaomoji/releases">Скачать APK</a>
           <a class="button" href="https://github.com/FortesQ0/My-Kaomoji">Исходный код <span aria-hidden="true">↗</span></a>
         </div>
-        <p class="tech-note">Android 9 и новее <span aria-hidden="true">·</span> Kotlin <span aria-hidden="true">·</span> Jetpack Compose</p>
+        <p class="tech-note">Твоё настроение — в одном касании <span aria-hidden="true">✦</span></p>
       </div>
 
       <div class="hero-art" aria-label="Пример коллекции каомодзи">
@@ -402,7 +599,7 @@
           <div class="demo-row"><div class="demo-label"><span class="demo-icon" aria-hidden="true">♡</span><span><strong>Сохранить</strong><small>Любимые выражения</small></span></div><span class="demo-tag">Избранное</span></div>
           <div class="demo-row"><div class="demo-label"><span class="demo-icon" aria-hidden="true">⌨</span><span><strong>Написать</strong><small>Прямо в чате</small></span></div><span class="demo-tag">Клавиатура</span></div>
           <div class="demo-row"><div class="demo-label"><span class="demo-icon" aria-hidden="true">▦</span><span><strong>Открыть быстрее</strong><small>С главного экрана</small></span></div><span class="demo-tag">Виджет</span></div>
-          <p class="disclaimer">Визуальная демонстрация возможностей, не скриншот интерфейса приложения.</p>
+          
         </div>
       </div>
     </section>
@@ -410,11 +607,11 @@
     <section class="container cta-wrap" id="about">
       <div class="cta reveal">
         <div class="cta-copy">
-          <span class="overline">My Kaomoji ✦</span>
+          <span class="overline">Пора добавить немного магии</span>
           <h2>Добавь эмоцию в переписку.</h2>
-          <p>Исходный код, инструкции и доступные APK — в репозитории проекта.</p>
+          <p>Твоя следующая любимая эмоция уже ждёт. Выбирай, сохраняй и делись — легко и красиво.</p>
         </div>
-        <a class="button button-primary" href="https://github.com/FortesQ0/My-Kaomoji/releases">Открыть релизы ↗</a>
+        <a class="button button-primary release-cta" href="https://github.com/FortesQ0/My-Kaomoji/releases"><span class="release-icon" aria-hidden="true">↓</span><span><strong>Забрать свою коллекцию</strong><small>Начни выражать больше</small></span><span class="release-arrow" aria-hidden="true">↗</span></a>
       </div>
     </section>
   </main>
