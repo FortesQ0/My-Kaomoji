@@ -640,6 +640,117 @@
       .chat-caption { font-size:.86rem; }
     }
 
+
+    /* Ambient motion and delicate kaomoji-inspired details */
+    body {
+      background:
+        radial-gradient(ellipse at 8% 16%, rgba(142,91,218,.14), transparent 34rem),
+        radial-gradient(ellipse at 88% 34%, rgba(255,132,190,.085), transparent 31rem),
+        radial-gradient(ellipse at 50% 76%, rgba(112,86,204,.09), transparent 38rem),
+        linear-gradient(145deg,#100d18 0%,#171122 48%,#100d19 100%);
+      background-attachment: fixed;
+    }
+    body::before {
+      z-index: 0;
+      opacity: .32;
+      background-image:
+        radial-gradient(circle, rgba(255,230,249,.76) 0 1px, transparent 1.7px),
+        radial-gradient(circle, rgba(202,174,255,.68) 0 1px, transparent 1.8px),
+        radial-gradient(circle, rgba(255,170,211,.62) 0 1.2px, transparent 2px);
+      background-size: 137px 151px, 193px 211px, 271px 239px;
+      background-position: 12px 22px, 64px 89px, 120px 35px;
+      mask-image: linear-gradient(to bottom, transparent 0%, #000 12%, #000 86%, transparent 100%);
+      animation: stardust-drift 42s linear infinite;
+    }
+    header, main, footer { position: relative; z-index: 1; }
+    @keyframes stardust-drift {
+      from { background-position: 12px 22px, 64px 89px, 120px 35px; }
+      to { background-position: 12px -129px, 64px -122px, 120px -204px; }
+    }
+    .hero { position: relative; }
+    .hero::before, .hero::after {
+      position: absolute; z-index: -1; pointer-events: none;
+      color: rgba(255,190,223,.36); line-height: 1;
+      animation: ornament-float 8s ease-in-out infinite;
+    }
+    .hero::before {
+      content: "✦"; top: 14%; right: 43%; font-size: 1.45rem;
+      text-shadow: 0 0 24px rgba(255,173,218,.26);
+    }
+    .hero::after {
+      content: "♡"; left: 45%; bottom: 15%; font-size: 1.65rem;
+      color: rgba(206,180,255,.32); animation-delay: -3.5s;
+    }
+    @keyframes ornament-float {
+      0%,100% { transform: translate3d(0,0,0) rotate(-8deg); opacity: .55; }
+      50% { transform: translate3d(0,-9px,0) rotate(7deg); opacity: 1; }
+    }
+    .section { position: relative; }
+    .section:not(.section-alt)::after {
+      content: "✧"; position: absolute; right: max(4%, calc((100vw - var(--content))/2 - 20px)); top: 17%;
+      color: rgba(210,184,255,.22); font-size: 1.5rem; pointer-events: none;
+      animation: ornament-float 9s ease-in-out infinite;
+    }
+    .section-alt { position: relative; overflow: hidden; }
+    .section-alt::after {
+      content: "♡"; position: absolute; left: 4%; bottom: 14%;
+      color: rgba(255,173,216,.22); font-size: 1.3rem; pointer-events: none;
+      animation: ornament-float 10s ease-in-out infinite reverse;
+    }
+    /* Replace harsh pale card corners with soft, text-safe gradient light */
+    .feature {
+      position: relative; isolation: isolate; overflow: hidden;
+      background: linear-gradient(135deg, rgba(255,255,255,.018), rgba(255,255,255,0) 65%);
+      transition: border-color .25s, background .25s;
+    }
+    .feature::before {
+      content: ""; position: absolute; z-index: -1; top: -68px; right: -58px;
+      width: 190px; height: 145px; border-radius: 50%;
+      background: radial-gradient(ellipse, rgba(187,145,255,.14) 0%, rgba(241,167,192,.07) 36%, transparent 72%);
+      filter: blur(15px); pointer-events: none; opacity: .8;
+      transition: opacity .3s, transform .5s;
+    }
+    .feature:hover::before { opacity: 1; transform: translate(-9px,7px) scale(1.12); }
+    .feature:nth-child(2n)::before { background: radial-gradient(ellipse, rgba(241,167,192,.13), rgba(187,145,255,.055) 42%, transparent 72%); }
+    .feature-index { position: relative; }
+    .feature h3, .feature p { position: relative; }
+    .mood-feature::after {
+      content: "✦"; position: absolute; right: 12%; top: 15%;
+      color: rgba(255,210,236,.5); font-size: 1.1rem;
+      animation: twinkle 3.8s ease-in-out infinite;
+    }
+    @keyframes twinkle {
+      0%,100% { opacity: .35; transform: scale(.85) rotate(0deg); }
+      50% { opacity: .95; transform: scale(1.15) rotate(18deg); }
+    }
+    .mood-spark-a, .mood-spark-b, .float-heart, .float-star { animation: ornament-float 7s ease-in-out infinite; }
+    .mood-spark-b, .float-star { animation-delay: -2.8s; }
+    .chat-showcase { position: relative; }
+    .chat-showcase::after {
+      content: "✧"; position: absolute; top: 22%; right: 8%;
+      color: rgba(255,187,222,.3); font-size: 1.3rem; pointer-events: none;
+      animation: twinkle 4.4s ease-in-out infinite;
+    }
+    .cta {
+      position: relative; overflow: hidden;
+      background-image: radial-gradient(ellipse at 90% 10%, rgba(241,167,192,.09), transparent 34%), radial-gradient(ellipse at 5% 95%, rgba(170,131,255,.1), transparent 40%);
+    }
+    .release-cta { gap: 18px; }
+    .release-copy > span { display: none !important; }
+    @media (prefers-reduced-motion: reduce) {
+      body::before, .hero::before, .hero::after, .section::after, .section-alt::after,
+      .mood-spark-a, .mood-spark-b, .float-heart, .float-star, .mood-feature::after, .chat-showcase::after {
+        animation: none !important;
+      }
+      html { scroll-behavior: auto; }
+    }
+    @media (max-width: 600px) {
+      .hero::before { right: 5%; top: 46%; font-size: 1.1rem; }
+      .hero::after { left: auto; right: 6%; bottom: 3%; }
+      .section:not(.section-alt)::after { right: 7%; top: 8%; }
+      body::before { opacity: .22; }
+    }
+
   </style>
 </head>
 <body>
@@ -748,7 +859,7 @@
           <h2>Добавь эмоцию в переписку.</h2>
           <p>Твоя следующая любимая эмоция уже ждёт. Выбирай, сохраняй и делись — легко и красиво.</p>
         </div>
-        <a class="button button-primary release-cta" href="https://github.com/FortesQ0/My-Kaomoji/releases"><span class="release-copy"><strong>Забрать свою коллекцию</strong><span>Начни выражать больше</span></span><span class="release-arrow" aria-hidden="true">↗</span></a>
+        <a class="button button-primary release-cta" href="https://github.com/FortesQ0/My-Kaomoji/releases"><span class="release-copy"><strong>Выбрать свою эмоцию</strong></span><span class="release-arrow" aria-hidden="true">↗</span></a>
       </div>
     </section>
   </main>
