@@ -509,6 +509,68 @@
     }
 
 
+
+    
+    /* Final alignment & typography polish */
+    .hero { align-items: stretch; }
+    .hero-content { display: flex; flex-direction: column; align-items: flex-start; }
+    .hero-art { min-height: 100%; align-self: stretch; }
+    .app-window {
+      min-height: 100%;
+      display: flex; flex-direction: column; justify-content: space-between;
+      padding: clamp(25px, 3vw, 34px);
+    }
+    .big-kaomoji { padding-block: 34px 28px; }
+    .kaomoji-grid { margin-top: auto; padding-top: 22px; }
+    .workflow { align-items: stretch; }
+    .workflow > .reveal { display: flex; flex-direction: column; }
+    .steps { flex: 1; justify-content: space-between; }
+    .demo-panel {
+      align-self: stretch; height: 100%;
+      display: flex; flex-direction: column; justify-content: space-between;
+      padding: clamp(26px, 3.2vw, 38px);
+    }
+    .demo-title { font-size: 1.18rem; padding-bottom: 20px; }
+    .demo-row { flex: 1; min-height: 78px; padding: 20px 0; }
+    .demo-label strong, .demo-label small, .demo-tag { font-size: 1rem; line-height: 1.4; }
+    .demo-label small { margin-top: 3px; color: rgba(230,220,246,.88); }
+    /* Angular ornament instead of blurred circular flare */
+    .section-alt::before {
+      content: ""; top: 13%; right: -35px; width: 190px; height: 190px;
+      border: 1px solid rgba(208,180,255,.16); border-radius: 0;
+      box-shadow: 18px 18px 0 -17px rgba(255,172,214,.4), 36px 36px 0 -35px rgba(208,180,255,.5);
+      transform: rotate(45deg); background: transparent; filter: none;
+    }
+    .release-cta {
+      min-width: 310px; min-height: 92px !important;
+      justify-content: space-between; gap: 24px;
+      padding: 20px 25px !important;
+    }
+    .release-copy { display: block; min-width: 0; }
+    .release-cta strong { font-size: 1.12rem; line-height: 1.35; letter-spacing: -.02em; }
+    .release-cta .release-copy > span { display: block; margin-top: 7px; font-size: 1rem; line-height: 1.4; font-weight: 600; opacity: .82; }
+    .release-arrow { flex: 0 0 auto; display: grid; place-items: center; width: 42px; height: 42px; margin-left: auto; border-radius: 13px; background: rgba(255,255,255,.36); font-size: 1.55rem; }
+    @media (max-width: 900px) {
+      .hero { align-items: center; }
+      .hero-content { display: block; }
+      .hero-art { min-height: 0; }
+      .app-window { min-height: 0; }
+      .workflow { align-items: start; }
+      .workflow > .reveal { display: block; }
+      .steps { flex: initial; gap: 18px; }
+      .demo-panel { height: auto; }
+      .demo-row { flex: initial; min-height: 74px; }
+    }
+    @media (max-width: 600px) {
+      .demo-label strong, .demo-label small, .demo-tag { font-size: .94rem; }
+      .demo-label small { line-height: 1.4; }
+      .release-cta { min-width: 0; width: 100%; min-height: 88px !important; padding: 17px 18px !important; gap: 14px; }
+      .release-cta strong { font-size: 1rem; }
+      .release-cta .release-copy > span { font-size: .94rem; }
+      .release-arrow { width: 38px; height: 38px; }
+      .section-alt::before { right: -100px; top: 8%; width: 150px; height: 150px; }
+    }
+
   </style>
 </head>
 <body>
@@ -611,7 +673,7 @@
           <h2>Добавь эмоцию в переписку.</h2>
           <p>Твоя следующая любимая эмоция уже ждёт. Выбирай, сохраняй и делись — легко и красиво.</p>
         </div>
-        <a class="button button-primary release-cta" href="https://github.com/FortesQ0/My-Kaomoji/releases"><span class="release-icon" aria-hidden="true">↓</span><span><strong>Забрать свою коллекцию</strong><small>Начни выражать больше</small></span><span class="release-arrow" aria-hidden="true">↗</span></a>
+        <a class="button button-primary release-cta" href="https://github.com/FortesQ0/My-Kaomoji/releases"><span class="release-copy"><strong>Забрать свою коллекцию</strong><span>Начни выражать больше</span></span><span class="release-arrow" aria-hidden="true">↗</span></a>
       </div>
     </section>
   </main>
