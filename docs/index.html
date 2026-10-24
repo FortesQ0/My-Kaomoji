@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="theme-color" content="#111018">
-  <meta name="description" content="My Kaomoji — японские текстовые смайлики для Android. Находи настроение, сохраняй любимое и делись каомодзи в пару касаний.">
+  <meta name="description" content="My Kaomoji — приложение для Android с японскими текстовыми смайликами, поиском, избранным и собственной клавиатурой.">
   <meta property="og:title" content="My Kaomoji — японские смайлики">
   <meta property="og:description" content="Маленькие символы. Большие эмоции. Собери свою коллекцию каомодзи.">
   <meta property="og:type" content="website">
@@ -12,16 +12,16 @@
   <style>
     :root {
       color-scheme: dark;
-      --bg: #111018;
-      --surface: #191722;
-      --surface-raised: #211e2c;
-      --text: #f8f5ff;
-      --muted: #b4aec4;
-      --subtle: #827b94;
-      --line: rgba(236, 225, 255, .13);
-      --violet: #c3a8ff;
-      --pink: #ffa9d4;
-      --mint: #b9f5d0;
+      --bg: #141216;
+      --surface: #201c20;
+      --surface-raised: #282228;
+      --text: #f7f1f3;
+      --muted: #c1b5ba;
+      --subtle: #a1949a;
+      --line: rgba(247, 230, 235, .16);
+      --violet: #f1a7c0;
+      --pink: #f1a7c0;
+      --mint: #f1a7c0;
       --content: 1160px;
       --gutter: clamp(20px, 5vw, 64px);
       --radius: 24px;
@@ -31,14 +31,13 @@
     html { scroll-behavior: smooth; scroll-padding-top: 90px; }
     body {
       margin: 0; color: var(--text); background: var(--bg);
-      font: 16px/1.65 Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      font: 17px/1.65 ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
       -webkit-font-smoothing: antialiased;
       overflow-x: hidden;
     }
     body::before {
       content: ""; position: fixed; inset: 0; pointer-events: none; z-index: -1;
-      background: radial-gradient(ellipse at 78% 8%, rgba(129,83,190,.16), transparent 32%),
-                  radial-gradient(ellipse at 5% 48%, rgba(95,74,161,.10), transparent 30%);
+      background: none;
     }
     a { color: inherit; text-decoration: none; }
     a:focus-visible { outline: 2px solid var(--pink); outline-offset: 4px; }
@@ -48,28 +47,28 @@
     .topbar.scrolled { background: rgba(17,16,24,.82); backdrop-filter: blur(18px); border-color: var(--line); }
     .nav { min-height: 78px; display: flex; align-items: center; justify-content: space-between; gap: 24px; }
     .brand { display: inline-flex; align-items: center; gap: 12px; font-weight: 820; font-size: 1.08rem; letter-spacing: -.045em; white-space: nowrap; }
-    .brand-mark { display: grid; place-items: center; width: 42px; aspect-ratio: 1; border-radius: 14px; color: #21172d; background: linear-gradient(135deg,var(--violet),var(--pink)); font-size: 25px; box-shadow: 0 7px 28px #c3a8ff24; }
+    .brand-mark { display: grid; place-items: center; width: 42px; aspect-ratio: 1; border-radius: 14px; color: #21172d; background: var(--violet); font-size: 25px; box-shadow: 0 7px 28px #c3a8ff24; }
     .brand-name em { font-style: normal; color: var(--pink); }
     .nav-links { display: flex; align-items: center; gap: clamp(18px,3vw,34px); color: var(--muted); font-size: .9rem; }
     .nav-links a { transition: color .2s; }
     .nav-links a:hover { color: var(--text); }
     .nav-cta { color: var(--text)!important; border: 1px solid var(--line); border-radius: 999px; padding: 9px 15px; }
     .hero { display: grid; grid-template-columns: minmax(0,1.03fr) minmax(360px,.97fr); align-items: center; gap: clamp(38px,7vw,90px); padding-block: clamp(70px,10vw,130px) clamp(90px,11vw,145px); }
-    .eyebrow { display: inline-flex; align-items: center; gap: 9px; padding: 7px 12px; border: 1px solid #c3a8ff38; border-radius: 999px; color: #e0d2ff; background: #c3a8ff0b; font-size: .78rem; font-weight: 700; letter-spacing: .025em; }
+    .eyebrow { display: inline-flex; align-items: center; gap: 9px; padding: 7px 12px; border: 1px solid #c3a8ff38; border-radius: 999px; color: #e0d2ff; background: #c3a8ff0b; font-size: .9rem; font-weight: 700; letter-spacing: .025em; }
     .status-dot { width: 7px; height: 7px; background: var(--mint); border-radius: 50%; box-shadow: 0 0 13px #b9f5d066; }
     h1,h2,h3,p { margin-top: 0; }
     h1 { max-width: 680px; margin: 24px 0 22px; font-size: clamp(3.4rem,7.2vw,6.2rem); font-weight: 790; line-height: .98; letter-spacing: -.078em; }
-    .gradient { color: var(--violet); background: linear-gradient(100deg,var(--violet) 5%,var(--pink) 90%); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; }
+    .gradient { color: var(--violet); }
     .hero-copy { max-width: 520px; color: var(--muted); font-size: clamp(1.02rem,1.5vw,1.15rem); line-height: 1.8; }
     .hero-actions { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 30px; }
     .button { display: inline-flex; min-height: 48px; align-items: center; justify-content: center; gap: 10px; padding: 12px 18px; border: 1px solid var(--line); border-radius: 14px; background: #ffffff06; font-weight: 720; font-size: .92rem; transition: transform .22s var(--ease), border-color .22s, background .22s; }
     .button:hover { transform: translateY(-3px); border-color: #c3a8ff70; }
-    .button-primary { color: #21172d; border-color: transparent; background: linear-gradient(110deg,var(--violet),var(--pink)); box-shadow: 0 9px 30px #c3a8ff20; }
-    .button-primary:hover { background: linear-gradient(110deg,#d4c3ff,#ffc0e0); }
-    .tech-note { margin: 16px 0 0; color: var(--subtle); font-size: .8rem; }
+    .button-primary { color: #21172d; border-color: transparent; background: var(--violet); box-shadow: none; }
+    .button-primary:hover { background: #f7c0d2; }
+    .tech-note { margin: 16px 0 0; color: var(--subtle); font-size: .92rem; }
     .hero-art { min-height: 440px; position: relative; display: grid; place-items: center; isolation: isolate; }
-    .art-glow { position: absolute; z-index: -1; width: min(90%,390px); aspect-ratio: 1; border-radius: 50%; background: linear-gradient(135deg,#a17aff24,#ff9fcf1e); filter: blur(10px); animation: breathe 7s ease-in-out infinite; }
-    .app-window { position: relative; width: min(100%,410px); padding: 22px; border: 1px solid #ffffff1b; border-radius: 28px; background: linear-gradient(145deg,rgba(38,34,51,.97),rgba(24,22,33,.97)); box-shadow: 0 35px 100px #0005, inset 0 1px #ffffff08; transform: rotate(-2deg); animation: card-enter .9s var(--ease) both, float 7s 1s ease-in-out infinite; }
+    .art-glow { display: none; }
+    .app-window { position: relative; width: min(100%,410px); padding: 22px; border: 1px solid #ffffff1b; border-radius: 28px; background: #211d21; box-shadow: 0 20px 55px #0003; transform: none; animation: card-enter .5s ease-out both; }
     .window-head { display: flex; align-items: center; justify-content: space-between; gap: 12px; color: var(--muted); font-size: .8rem; }
     .window-brand { display: flex; align-items: center; gap: 9px; color: var(--text); font-weight: 750; }
     .window-mark { display: grid; place-items: center; width: 30px; height: 30px; border-radius: 10px; background: linear-gradient(135deg,var(--violet),var(--pink)); color: #21172d; font-size: 18px; }
@@ -80,21 +79,21 @@
     .kaomoji-grid { display: grid; grid-template-columns: repeat(3,minmax(0,1fr)); gap: 9px; margin-top: 20px; }
     .kaomoji-tile { display: grid; place-items: center; min-height: 65px; padding: 8px 3px; border: 1px solid #ffffff0e; border-radius: 13px; background: #ffffff05; color: #eee6fa; font-size: clamp(.82rem,1.5vw,1rem); transition: transform .22s var(--ease), background .22s, border-color .22s; }
     .kaomoji-tile:hover { transform: translateY(-4px) rotate(-1deg); border-color: #c3a8ff50; background: #c3a8ff0c; }
-    .float-chip { position: absolute; z-index: 2; padding: 11px 15px; border: 1px solid #ffffff20; border-radius: 14px; background: #242131; box-shadow: 0 14px 35px #0004; font-size: .88rem; animation: bob 5s ease-in-out infinite; }
+    .float-chip { display: none; }
     .chip-one { top: 12%; right: -2%; transform: rotate(4deg); }
     .chip-two { bottom: 11%; left: -4%; animation-delay: -2.4s; }
     .section { padding-block: clamp(72px,9vw,112px); }
     .section-alt { border-block: 1px solid #ffffff08; background: #ffffff02; }
     .section-heading { max-width: 660px; margin-bottom: 36px; }
-    .overline { display: inline-block; margin-bottom: 12px; color: var(--pink); font-size: .74rem; font-weight: 800; letter-spacing: .15em; text-transform: uppercase; }
+    .overline { display: inline-block; margin-bottom: 12px; color: var(--pink); font-size: .9rem; font-weight: 750; letter-spacing: .04em; }
     h2 { margin-bottom: 14px; font-size: clamp(2.25rem,4.8vw,3.7rem); line-height: 1.05; letter-spacing: -.065em; font-weight: 770; }
     .section-intro { max-width: 590px; margin-bottom: 0; color: var(--muted); font-size: 1rem; line-height: 1.8; }
-    .feature-grid { display: grid; grid-template-columns: repeat(3,minmax(0,1fr)); gap: 16px; }
-    .feature { min-height: 215px; padding: 25px; border: 1px solid var(--line); border-radius: var(--radius); background: linear-gradient(145deg,#ffffff07,#ffffff02); transition: transform .25s var(--ease), border-color .25s, background .25s; }
-    .feature:hover { transform: translateY(-5px); border-color: #c3a8ff48; background: linear-gradient(145deg,#c3a8ff0d,#ffffff02); }
-    .feature-icon { display: grid; place-items: center; width: 45px; height: 45px; margin-bottom: 25px; border: 1px solid #c3a8ff25; border-radius: 14px; background: #c3a8ff12; font-size: 1.25rem; }
-    .feature h3 { margin-bottom: 8px; font-size: 1.08rem; letter-spacing: -.025em; }
-    .feature p { margin-bottom: 0; color: var(--muted); font-size: .91rem; line-height: 1.7; }
+    .feature-grid { display: grid; grid-template-columns: repeat(2,minmax(0,1fr)); column-gap: 48px; row-gap: 0; border-top: 1px solid var(--line); }
+    .feature { display: grid; grid-template-columns: 42px minmax(0,1fr); align-items: start; gap: 18px; min-height: 0; padding: 24px 0; border: 0; border-bottom: 1px solid var(--line); border-radius: 0; background: transparent; transition: border-color .2s; }
+    .feature:hover { transform: none; border-color: var(--violet); background: transparent; }
+    .feature-index { padding-top: 3px; color: var(--violet); font-size: 1rem; font-weight: 750; font-variant-numeric: tabular-nums; }
+    .feature h3 { margin-bottom: 7px; font-size: 1.2rem; letter-spacing: -.025em; }
+    .feature p { margin-bottom: 0; color: var(--muted); font-size: 1rem; line-height: 1.65; }
     .workflow { display: grid; grid-template-columns: minmax(0,.95fr) minmax(0,1.05fr); gap: clamp(32px,7vw,90px); align-items: center; }
     .steps { display: grid; gap: 23px; margin-top: 30px; }
     .step { display: grid; grid-template-columns: 42px 1fr; gap: 14px; align-items: start; }
@@ -110,26 +109,23 @@
     .demo-label strong { display: block; font-size: .92rem; }
     .demo-label small { display: block; color: var(--muted); font-size: .78rem; }
     .demo-tag { flex: 0 0 auto; padding: 5px 9px; border-radius: 8px; color: #d6c7ff; background: #c3a8ff13; font-size: .75rem; }
-    .disclaimer { margin: 14px 0 0; color: var(--subtle); font-size: .77rem; }
+    .disclaimer { margin: 14px 0 0; color: var(--subtle); font-size: .9rem; }
     .cta-wrap { padding-block: clamp(72px,9vw,110px); }
-    .cta { position: relative; overflow: hidden; display: flex; align-items: center; justify-content: space-between; gap: 35px; padding: clamp(28px,6vw,64px); border: 1px solid #c3a8ff35; border-radius: 30px; background: radial-gradient(ellipse at 100% 0%,#c3a8ff18,transparent 48%),linear-gradient(120deg,#211e2d,#191720); }
-    .cta::after { content: "(*˘︶˘*).｡.:*♡"; position: absolute; right: 8%; bottom: -22px; color: #ffffff07; font-size: clamp(2rem,5vw,4.6rem); white-space: nowrap; pointer-events: none; }
+    .cta { position: relative; overflow: hidden; display: flex; align-items: center; justify-content: space-between; gap: 35px; padding: clamp(28px,6vw,64px); border: 1px solid #c3a8ff35; border-radius: 30px; background: #211d21; }
+    .cta::after { content: none; }
     .cta-copy { position: relative; z-index: 1; max-width: 610px; }
     .cta h2 { font-size: clamp(2rem,4.5vw,3.4rem); }
     .cta p { margin-bottom: 0; color: var(--muted); }
     .cta .button { position: relative; z-index: 1; flex: 0 0 auto; }
-    .footer { display: flex; align-items: center; justify-content: space-between; gap: 18px; padding-block: 27px 35px; border-top: 1px solid var(--line); color: var(--muted); font-size: .82rem; }
+    .footer { display: flex; align-items: center; justify-content: space-between; gap: 18px; padding-block: 27px 35px; border-top: 1px solid var(--line); color: var(--muted); font-size: .92rem; }
     .footer strong { color: var(--text); }
     .footer-links { display: flex; flex-wrap: wrap; gap: 18px; }
     .footer a:hover { color: var(--text); }
-    .reveal { opacity: 0; transform: translateY(22px); transition: opacity .7s var(--ease), transform .7s var(--ease); }
+    .reveal { opacity: 0; transform: translateY(10px); transition: opacity .35s ease, transform .35s ease; }
     .reveal.visible { opacity: 1; transform: translateY(0); }
     .feature:nth-child(2), .step:nth-child(2) { transition-delay: .08s; }
     .feature:nth-child(3), .step:nth-child(3) { transition-delay: .16s; }
     @keyframes card-enter { from { opacity: 0; transform: translateY(22px) rotate(1deg) scale(.98); } to { opacity: 1; transform: translateY(0) rotate(-2deg) scale(1); } }
-    @keyframes float { 0%,100% { translate: 0 0; } 50% { translate: 0 -9px; } }
-    @keyframes bob { 0%,100% { translate: 0 0; } 50% { translate: 0 -8px; } }
-    @keyframes breathe { 0%,100% { scale: .96; opacity: .75; } 50% { scale: 1.04; opacity: 1; } }
     @media (max-width: 900px) {
       .hero { grid-template-columns: 1fr; gap: 34px; padding-top: 76px; }
       .hero-copy { max-width: 620px; }
@@ -154,14 +150,10 @@
       .big-kaomoji { padding-block: 24px 19px; font-size: clamp(2rem,9vw,2.8rem); }
       .kaomoji-grid { gap: 6px; }
       .kaomoji-tile { min-height: 59px; font-size: .78rem; }
-      .float-chip { padding: 9px 11px; font-size: .77rem; }
-      .chip-one { top: 4%; right: 0; }
-      .chip-two { bottom: 5%; left: 0; }
       .section { padding-block: 72px; }
       .section-heading { margin-bottom: 27px; }
-      .feature-grid { grid-template-columns: 1fr; gap: 12px; }
-      .feature { min-height: 0; padding: 22px; }
-      .feature-icon { margin-bottom: 18px; }
+      .feature-grid { grid-template-columns: 1fr; }
+      .feature { min-height: 0; padding: 20px 0; }
       .cta { align-items: flex-start; flex-direction: column; gap: 23px; border-radius: 24px; }
       .footer { align-items: flex-start; flex-direction: column; }
     }
@@ -181,7 +173,7 @@
       <nav class="nav-links" aria-label="Основная навигация">
         <a href="#features">Возможности</a>
         <a href="#how">Как работает</a>
-        <a class="nav-cta" href="https://github.com/FortesQ0/My-Kaoji/releases">Релизы ↗</a>
+        <a class="nav-cta" href="https://github.com/FortesQ0/My-Kaomoji/releases">Скачать</a>
       </nav>
     </div>
   </header>
@@ -189,18 +181,17 @@
   <main id="top">
     <section class="container hero">
       <div class="hero-content">
-        <span class="eyebrow"><span class="status-dot" aria-hidden="true"></span> Японские смайлики для Android</span>
-        <h1>Не просто текст.<br><span class="gradient">Твоё настроение.</span></h1>
-        <p class="hero-copy">My Kaomoji — коллекция японских текстовых эмоций, которые делают переписку живее. Находи подходящий каомодзи, сохраняй любимое и делись им в пару касаний.</p>
+        <p class="eyebrow">Приложение для Android</p>
+        <h1>Скажи это<br><span class="gradient">каомодзи.</span></h1>
+        <p class="hero-copy">Японские текстовые смайлики для переписки. Найди подходящий, добавь в избранное или отправь прямо с клавиатуры.</p>
         <div class="hero-actions">
-          <a class="button button-primary" href="https://github.com/FortesQ0/My-Kaoji/releases">↓ Смотреть релизы</a>
-          <a class="button" href="https://github.com/FortesQ0/My-Kaoji">Изучить проект <span aria-hidden="true">↗</span></a>
+          <a class="button button-primary" href="https://github.com/FortesQ0/My-Kaomoji/releases">Скачать APK</a>
+          <a class="button" href="https://github.com/FortesQ0/My-Kaomoji">Исходный код <span aria-hidden="true">↗</span></a>
         </div>
-        <p class="tech-note">Android 9+ <span aria-hidden="true">·</span> Kotlin <span aria-hidden="true">·</span> Jetpack Compose</p>
+        <p class="tech-note">Android 9 и новее <span aria-hidden="true">·</span> Kotlin <span aria-hidden="true">·</span> Jetpack Compose</p>
       </div>
 
       <div class="hero-art" aria-label="Пример коллекции каомодзи">
-        <div class="art-glow" aria-hidden="true"></div>
         <div class="app-window">
           <div class="window-head">
             <div class="window-brand"><span class="window-mark" aria-hidden="true">☺</span> My Kaomoji</div>
@@ -221,25 +212,23 @@
             <div class="kaomoji-tile">૮ ˶ᵔ ᵕ ᵔ˶ ა</div>
           </div>
         </div>
-        <div class="float-chip chip-one">♡ Избранное</div>
-        <div class="float-chip chip-two">✧ (ﾉ◕ヮ◕)ﾉ*:･ﾟ✧</div>
       </div>
     </section>
 
     <section class="section section-alt" id="features">
       <div class="container">
         <div class="section-heading reveal">
-          <span class="overline">Всё на своём месте</span>
-          <h2>Вся палитра эмоций.<br>В одном приложении.</h2>
-          <p class="section-intro">От быстрого поиска до собственной клавиатуры — нужные каомодзи всегда под рукой.</p>
+          <span class="overline">Возможности</span>
+          <h2>Всё нужное.<br>Без лишних шагов.</h2>
+          <p class="section-intro">Ищи по категориям, сохраняй любимое и используй каомодзи в любом чате.</p>
         </div>
         <div class="feature-grid">
-          <article class="feature reveal"><div class="feature-icon" aria-hidden="true">⌕</div><h3>Поиск и категории</h3><p>Находи нужное настроение в библиотеке, не перебирая символы вручную.</p></article>
-          <article class="feature reveal"><div class="feature-icon" aria-hidden="true">♡</div><h3>Личное избранное</h3><p>Сохраняй любимые каомодзи и возвращайся к ним, когда захочется.</p></article>
-          <article class="feature reveal"><div class="feature-icon" aria-hidden="true">⌨</div><h3>Своя клавиатура</h3><p>Используй каомодзи в переписке, не переключаясь каждый раз в приложение.</p></article>
-          <article class="feature reveal"><div class="feature-icon" aria-hidden="true">▦</div><h3>Виджет на экране</h3><p>Держи любимые символы на главном экране Android для быстрого доступа.</p></article>
-          <article class="feature reveal"><div class="feature-icon" aria-hidden="true">文</div><h3>Русский и English</h3><p>Выбирай удобный язык интерфейса — приложение говорит на твоём языке.</p></article>
-          <article class="feature reveal"><div class="feature-icon" aria-hidden="true">✧</div><h3>Оформление под себя</h3><p>Настраивай акцентный цвет и внешний вид под собственное настроение.</p></article>
+          <article class="feature reveal"><span class="feature-index">01</span><div><h3>Библиотека и поиск</h3><p>Выбирай каомодзи по категориям или находи нужное через поиск.</p></div></article>
+          <article class="feature reveal"><span class="feature-index">02</span><div><h3>Избранное</h3><p>Сохраняй любимые выражения долгим нажатием и быстро возвращайся к ним.</p></div></article>
+          <article class="feature reveal"><span class="feature-index">03</span><div><h3>Клавиатура</h3><p>Используй каомодзи в других приложениях, не копируя их вручную.</p></div></article>
+          <article class="feature reveal"><span class="feature-index">04</span><div><h3>Виджет</h3><p>Копируй любимые выражения с главного экрана Android.</p></div></article>
+          <article class="feature reveal"><span class="feature-index">05</span><div><h3>Два языка</h3><p>Переключай интерфейс между русским и английским.</p></div></article>
+          <article class="feature reveal"><span class="feature-index">06</span><div><h3>Настройка внешнего вида</h3><p>Выбирай цвет акцента и режим оформления.</p></div></article>
         </div>
       </div>
     </section>
@@ -247,9 +236,9 @@
     <section class="section" id="how">
       <div class="container workflow">
         <div class="reveal">
-          <span class="overline">Просто и быстро</span>
-          <h2>Три шага.<br>И эмоция уже в чате.</h2>
-          <p class="section-intro">My Kaomoji создан для маленьких действий, которые помогают выразить больше, чем обычный текст.</p>
+          <span class="overline">Как пользоваться</span>
+          <h2>От выбора<br>до сообщения.</h2>
+          <p class="section-intro">Выбери выражение в библиотеке или открой клавиатуру My Kaomoji в поле ввода.</p>
           <div class="steps">
             <div class="step"><span class="step-number">01</span><div><h3>Выбери настроение</h3><p>Открой категорию или найди каомодзи через поиск.</p></div></div>
             <div class="step"><span class="step-number">02</span><div><h3>Сохрани своё любимое</h3><p>Добавляй часто используемые выражения в избранное.</p></div></div>
@@ -271,17 +260,17 @@
       <div class="cta reveal">
         <div class="cta-copy">
           <span class="overline">My Kaomoji ✦</span>
-          <h2>Пусть каждое сообщение что-то чувствует.</h2>
-          <p>Посмотри исходный код проекта или проверь опубликованные сборки для Android.</p>
+          <h2>Добавь эмоцию в переписку.</h2>
+          <p>Исходный код, инструкции и доступные APK — в репозитории проекта.</p>
         </div>
-        <a class="button button-primary" href="https://github.com/FortesQ0/My-Kaoji/releases">Открыть релизы ↗</a>
+        <a class="button button-primary" href="https://github.com/FortesQ0/My-Kaomoji/releases">Открыть релизы ↗</a>
       </div>
     </section>
   </main>
 
   <footer class="container footer">
     <div><strong>My Kaomoji ✦</strong> — японские смайлики, большие эмоции.</div>
-    <div class="footer-links"><a href="https://github.com/FortesQ0/My-Kaoji">GitHub</a><a href="#top">Наверх ↑</a><span>Сделано с ♡</span></div>
+    <div class="footer-links"><a href="https://github.com/FortesQ0/My-Kaomoji">GitHub</a><a href="#top">Наверх ↑</a><span>Сделано с ♡</span></div>
   </footer>
 
   <script>
