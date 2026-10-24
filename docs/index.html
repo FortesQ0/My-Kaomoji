@@ -751,6 +751,69 @@
       body::before { opacity: .22; }
     }
 
+
+    /* Softer, larger celestial texture — visible but not luminous */
+    body::before {
+      opacity: .2;
+      background-image:
+        radial-gradient(circle, rgba(255,230,249,.48) 0 1.2px, transparent 2px),
+        radial-gradient(circle, rgba(202,174,255,.42) 0 1.4px, transparent 2.2px),
+        radial-gradient(circle, rgba(255,170,211,.36) 0 1.5px, transparent 2.4px);
+      background-size: 225px 247px, 307px 331px, 389px 357px;
+      background-position: 18px 27px, 92px 131px, 173px 64px;
+      animation-duration: 68s;
+    }
+    @keyframes stardust-drift {
+      from { background-position: 18px 27px, 92px 131px, 173px 64px; }
+      to { background-position: 18px -220px, 92px -200px, 173px -293px; }
+    }
+    /* Four-point stars and hearts repeat across the whole page */
+    .hero::before { content: "✦"; font-size: 2rem; color: rgba(255,190,223,.25); text-shadow: none; }
+    .hero::after { font-size: 2rem; color: rgba(206,180,255,.23); }
+    .section:not(.section-alt)::after {
+      content: "✦"; font-size: 2rem; color: rgba(210,184,255,.28);
+      text-shadow: 0 0 18px rgba(210,184,255,.08);
+    }
+    .section-alt::after {
+      content: "♡"; left: 5%; bottom: 17%; font-size: 2rem;
+      color: rgba(255,173,216,.25);
+    }
+    /* Replace the angular square with a composed star-and-heart ornament */
+    .section-alt::before {
+      content: "✦"; top: 12%; right: 5%; width: auto; height: auto;
+      border: 0; border-radius: 0; box-shadow: none; background: none; filter: none;
+      transform: rotate(10deg); font-size: 3.4rem; line-height: 1;
+      color: rgba(213,185,255,.25); text-shadow: 0 0 24px rgba(194,157,255,.08);
+      animation: ornament-float 9s ease-in-out infinite;
+    }
+    .section-alt .container { position: relative; }
+    .section-alt .section-heading::after {
+      content: "♡"; position: absolute; right: 8%; top: 37%;
+      color: rgba(255,173,216,.23); font-size: 1.8rem; pointer-events: none;
+      animation: ornament-float 10s ease-in-out infinite reverse;
+    }
+    .feature::before {
+      width: 240px; height: 185px; top: -84px; right: -76px;
+      opacity: .48; filter: blur(18px);
+      background: radial-gradient(ellipse, rgba(187,145,255,.085) 0%, rgba(241,167,192,.045) 36%, transparent 72%);
+    }
+    .feature:nth-child(2n)::before {
+      background: radial-gradient(ellipse, rgba(241,167,192,.08), rgba(187,145,255,.035) 42%, transparent 72%);
+    }
+    .feature:hover::before { opacity: .72; }
+    .mood-feature::after { font-size: 1.65rem; color: rgba(255,210,236,.34); }
+    .chat-showcase::after { font-size: 1.9rem; color: rgba(255,187,222,.23); }
+    .release-cta strong { font-weight: 650 !important; }
+    .release-arrow { font-weight: 500 !important; }
+    .release-cta { font-weight: 600; }
+    @media (max-width: 600px) {
+      body::before { opacity: .16; background-size: 170px 190px, 240px 260px, 300px 280px; }
+      .section-alt::before { right: 5%; top: 8%; font-size: 2.6rem; }
+      .section-alt .section-heading::after { right: 5%; top: 40%; font-size: 1.4rem; }
+      .hero::before { font-size: 1.5rem; }
+      .hero::after { font-size: 1.5rem; }
+    }
+
   </style>
 </head>
 <body>
