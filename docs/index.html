@@ -850,49 +850,46 @@
 
 
 
-    /* Floating kaomoji across the whole page: decorative, low-contrast but readable */
-    .kaomoji-drift {
-      position: absolute;
-      inset: 0;
-      z-index: 0;
-      overflow: hidden;
-      pointer-events: none;
-      user-select: none;
-    }
-    .kaomoji-drift span {
-      position: absolute;
-      display: block;
-      max-width: 90vw;
-      color: rgba(211, 183, 255, .30);
-      font-size: clamp(14px, 1.7vw, 22px);
-      line-height: 1.5;
-      white-space: nowrap;
-      text-shadow: 0 0 16px rgba(174, 129, 255, .18);
-      animation: kaomoji-float 19s ease-in-out infinite alternate, kaomoji-shimmer 7s ease-in-out infinite;
-    }
-    .kaomoji-drift span:nth-child(6n + 1) { left: 3%; top: 9%; animation-delay: -3s, -1s; }
-    .kaomoji-drift span:nth-child(6n + 2) { left: 70%; top: 14%; color: rgba(255, 190, 224, .30); animation-delay: -9s, -4s; }
-    .kaomoji-drift span:nth-child(6n + 3) { left: 13%; top: 31%; animation-delay: -13s, -2s; }
-    .kaomoji-drift span:nth-child(6n + 4) { left: 77%; top: 40%; color: rgba(255, 190, 224, .28); animation-delay: -6s, -5s; }
-    .kaomoji-drift span:nth-child(6n + 5) { left: 5%; top: 60%; animation-delay: -11s, -3s; }
-    .kaomoji-drift span:nth-child(6n) { left: 67%; top: 76%; color: rgba(211, 183, 255, .27); animation-delay: -16s, -6s; }
-    .kaomoji-drift span:nth-child(n + 7) { font-size: clamp(12px, 1.35vw, 18px); opacity: .8; }
-    @keyframes kaomoji-float {
-      0% { transform: translate3d(-8px, 10px, 0) rotate(-4deg); }
-      50% { transform: translate3d(16px, -18px, 0) rotate(3deg); }
-      100% { transform: translate3d(-3px, 12px, 0) rotate(-2deg); }
-    }
-    @keyframes kaomoji-shimmer {
-      0%, 100% { opacity: .52; filter: brightness(.9); }
-      50% { opacity: 1; filter: brightness(1.25); }
-    }
-    body { position: relative; }
-    body > .kaomoji-drift { position: absolute; inset: 0; height: 100%; }
-    body > header, body > main, body > footer { position: relative; z-index: 1; }
-    @media (max-width: 640px) {
-      .kaomoji-drift span:nth-child(n + 13) { display: none; }
-      .kaomoji-drift span { font-size: 12px; }
-    }
+    /* Floating kaomoji placed across open areas of the page */
+    .kaomoji-drift { position:absolute; inset:0; z-index:2; overflow:hidden; pointer-events:none; user-select:none; }
+    .kaomoji-drift span { position:absolute; display:block; max-width:94vw; color:rgba(221,194,255,.54); font-size:clamp(15px,1.75vw,23px); line-height:1.5; white-space:nowrap; text-shadow:0 0 18px rgba(174,129,255,.28); animation:kaomoji-float 22s ease-in-out infinite alternate, kaomoji-shimmer 8s ease-in-out infinite; }
+    .kaomoji-drift span:nth-child(1) { left:4%; top:4%; animation-delay:-3s,-1s; }
+    .kaomoji-drift span:nth-child(2) { left:72%; top:7%; color:rgba(255,190,224,.55); animation-delay:-9s,-4s; }
+    .kaomoji-drift span:nth-child(3) { left:8%; top:17%; animation-delay:-13s,-2s; }
+    .kaomoji-drift span:nth-child(4) { left:75%; top:22%; color:rgba(255,190,224,.52); animation-delay:-6s,-5s; }
+    .kaomoji-drift span:nth-child(5) { left:3%; top:31%; animation-delay:-11s,-3s; }
+    .kaomoji-drift span:nth-child(6) { left:70%; top:36%; color:rgba(255,190,224,.53); animation-delay:-16s,-6s; }
+    .kaomoji-drift span:nth-child(7) { left:12%; top:43%; animation-delay:-4s,-2s; }
+    .kaomoji-drift span:nth-child(8) { left:76%; top:48%; color:rgba(255,190,224,.54); animation-delay:-12s,-5s; }
+    .kaomoji-drift span:nth-child(9) { left:4%; top:56%; animation-delay:-8s,-3s; }
+    .kaomoji-drift span:nth-child(10) { left:68%; top:61%; color:rgba(255,190,224,.54); animation-delay:-17s,-1s; }
+    .kaomoji-drift span:nth-child(11) { left:8%; top:69%; animation-delay:-10s,-6s; }
+    .kaomoji-drift span:nth-child(12) { left:74%; top:74%; color:rgba(255,190,224,.52); animation-delay:-5s,-4s; }
+    .kaomoji-drift span:nth-child(13) { left:13%; top:82%; animation-delay:-14s,-2s; }
+    .kaomoji-drift span:nth-child(14) { left:70%; top:87%; color:rgba(255,190,224,.54); animation-delay:-7s,-5s; }
+    .kaomoji-drift span:nth-child(15) { left:33%; top:12%; animation-delay:-18s,-4s; }
+    .kaomoji-drift span:nth-child(16) { left:44%; top:27%; color:rgba(255,190,224,.52); animation-delay:-2s,-6s; }
+    .kaomoji-drift span:nth-child(17) { left:39%; top:48%; animation-delay:-15s,-3s; }
+    .kaomoji-drift span:nth-child(18) { left:47%; top:72%; color:rgba(255,190,224,.52); animation-delay:-11s,-5s; }
+    .kaomoji-drift span:nth-child(n + 19) { font-size:clamp(13px,1.45vw,19px); opacity:.94; }
+    .kaomoji-drift span:nth-child(19) { left:6%; top:91%; animation-delay:-4s,-1s; }
+    .kaomoji-drift span:nth-child(20) { left:76%; top:94%; color:rgba(255,190,224,.53); animation-delay:-9s,-4s; }
+    .kaomoji-drift span:nth-child(21) { left:3%; top:24%; animation-delay:-13s,-2s; }
+    .kaomoji-drift span:nth-child(22) { left:72%; top:29%; color:rgba(255,190,224,.53); animation-delay:-6s,-5s; }
+    .kaomoji-drift span:nth-child(23) { left:11%; top:38%; animation-delay:-11s,-3s; }
+    .kaomoji-drift span:nth-child(24) { left:77%; top:55%; color:rgba(255,190,224,.52); animation-delay:-16s,-6s; }
+    .kaomoji-drift span:nth-child(25) { left:5%; top:64%; animation-delay:-3s,-1s; }
+    .kaomoji-drift span:nth-child(26) { left:68%; top:68%; color:rgba(255,190,224,.53); animation-delay:-9s,-4s; }
+    .kaomoji-drift span:nth-child(27) { left:14%; top:77%; animation-delay:-13s,-2s; }
+    .kaomoji-drift span:nth-child(28) { left:75%; top:81%; color:rgba(255,190,224,.52); animation-delay:-6s,-5s; }
+    .kaomoji-drift span:nth-child(29) { left:31%; top:59%; animation-delay:-11s,-3s; }
+    .kaomoji-drift span:nth-child(30) { left:45%; top:91%; color:rgba(255,190,224,.52); animation-delay:-16s,-6s; }
+    @keyframes kaomoji-float { 0% { transform:translate3d(-8px,10px,0) rotate(-3deg); } 50% { transform:translate3d(12px,-13px,0) rotate(2deg); } 100% { transform:translate3d(-3px,9px,0) rotate(-2deg); } }
+    @keyframes kaomoji-shimmer { 0%,100% { opacity:.72; filter:brightness(.94); } 50% { opacity:1; filter:brightness(1.12); } }
+    body { position:relative; }
+    body > .kaomoji-drift { position:absolute; inset:0; height:100%; }
+    body > header, body > main, body > footer { position:relative; z-index:1; }
+    @media (max-width:640px) { .kaomoji-drift span { font-size:12px; } .kaomoji-drift span:nth-child(n + 19) { display:none; } .kaomoji-drift span:nth-child(2n) { font-size:11px; } }
     @media (prefers-reduced-motion: reduce) {
       .kaomoji-drift span { animation: none !important; }
     }
@@ -901,8 +898,8 @@
     .starfield-bridge {
       position: relative;
       isolation: isolate;
-      height: clamp(34px, 5vw, 56px);
-      margin: 0 auto;
+      height: clamp(150px, 20vw, 230px);
+      margin: -34px auto -34px;
       overflow: hidden;
       display: grid;
       place-items: center;
@@ -1044,14 +1041,18 @@
 
 
   <div class="kaomoji-drift" aria-hidden="true">
+    <span>≽^•⩊•^≼</span><span>(,,&gt; ᴗ &lt;,,)</span><span>(╥﹏╥)</span>
+    <span>(˶ᵔ ᵕ ᵔ˶)</span><span>⸜(｡˃ ᵕ ˂ )⸝♡</span><span>٩(ˊᗜˋ )و</span>
+    <span>( ˶ˆᗜˆ˵ )</span><span>˚₊‧꒰ა ₍ᐢ. ̫.ᐢ₎ ໒꒱ ‧₊</span>
     <span>(｡•̀ᴗ-)✧</span><span>૮ ˶ᵔ ᵕ ᵔ˶ ა</span><span>(づ｡◕‿‿◕｡)づ</span>
-    <span>૮₍ ˶ᵔ ᵕ ᵔ˶ ₎ა</span><span>(ﾉ◕ヮ◕)ﾉ*:･ﾟ✧</span><span>(˶˃ ᵕ ˂˶)</span>
-    <span>꒰ᐢ. .ᐢ꒱</span><span>(｡♥‿♥｡)</span><span>ദ്ദി(˵ •̀ ᴗ - ˵ ) ✧</span>
-    <span>(っ˘ω˘ς )</span><span>૮₍ ˶•⤙•˶ ₎ა</span><span>(๑˃ᴗ˂)ﻭ</span>
-    <span>(≧◡≦)</span><span>૮₍ ˶ᵔ ᵕ ᵔ˶ ₎ა</span><span>(づ￣ ³￣)づ</span>
-    <span>(✿◠‿◠)</span><span>(๑ᵔ⤙ᵔ๑)</span><span>ヽ(・∀・)ﾉ</span>
+    <span>(ﾉ◕ヮ◕)ﾉ*:･ﾟ✧</span><span>(˶˃ ᵕ ˂˶)</span><span>꒰ᐢ. .ᐢ꒱</span>
+    <span>(｡♥‿♥｡)</span><span>ദ്ദി(˵ •̀ ᴗ - ˵ ) ✧</span><span>(っ˘ω˘ς )</span>
+    <span>૮₍ ˶•⤙•˶ ₎ა</span><span>(๑˃ᴗ˂)ﻭ</span><span>(≧◡≦)</span>
+    <span>૮₍ ˶ᵔ ᵕ ᵔ˶ ₎ა</span><span>(づ￣ ³￣)づ</span><span>(✿◠‿◠)</span>
+    <span>(๑ᵔ⤙ᵔ๑)</span><span>ヽ(・∀・)ﾉ</span><span>(っ´ω`)ﾉ(╥ω╥)</span>
+    <span>૮₍ ˃ ⤙ ˂ ₎ა</span><span>(๑˃̵ᴗ˂̵)و</span><span>꒰ ˶• ༝ •˶꒱</span>
+    <span>(づ ◕‿◕ )づ</span><span>(｡•́︿•̀｡)</span>
   </div>
-
   <main id="top">
     <section class="container hero">
       <div class="hero-content">
