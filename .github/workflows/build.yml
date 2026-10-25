@@ -7,15 +7,6 @@ on:
 permissions:
   contents: write
 
-jobs:name: Build APK
-
-on:
-  push:
-  workflow_dispatch:
-
-permissions:
-  contents: write
-
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -66,52 +57,6 @@ jobs:
           name: build-log
           path: build.log
           if-no-files-found: ignore
-
-      - name: Тесты библиотеки
-        working-directory: komodje
-        continue-on-error: true
-        run: gradle testDebugUnitTest --no-daemon
-
-      - name: Переименовать APK
-        run: cp komodje/app/build/outputs/apk/debug/app-debug.apk komodje.apk
-
-      - uses: actions/upload-artifact@v4
-        with:
-          name: komodje-apk
-          path: komodje.apk
-
-      - name: Опубликовать в Releases
-        env:
-          GH_TOKEN: ${{ github.token }}
-        run: |
-          gh release delete latest --cleanup-tag --yes || true
-          gh release create latest komodje.apk \
-            --title "Последняя сборка" \
-            --notes "Debug-APK, собран из коммита ${GITHUB_SHA::7}" \
-            --prerelease
-
-  build:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v4
-
-      - name: Распаковать проект
-        run: |
-          if [ -f komodje.zip ]; then unzip -oq komodje.zip; fi
-          test -d komodje
-
-      - uses: actions/setup-java@v4
-        with:
-          distribution: temurin
-          java-version: 17
-
-      - uses: gradle/actions/setup-gradle@v4
-        with:
-          gradle-version: 8.9
-
-      - name: Собрать debug-APK
-        working-directory: komodje
-        run: gradle assembleDebug --no-daemon --stacktrace
 
       - name: Тесты библиотеки
         working-directory: komodje
