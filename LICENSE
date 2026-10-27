@@ -1,0 +1,50 @@
+Copyright (c) 2026 FortesQ0. All rights reserved.
+© 2026 FortesQ0. Все права защищены.
+
+My Kaomoji, including its source code, design, graphics, icons, logo, texts,
+translations, animations and project documentation (the "Work"), is the
+exclusive property of FortesQ0 (the "Author").
+
+The source code is published for viewing only. No license or permission is
+granted, expressly or by implication, to do any of the following without the
+prior written permission of the Author:
+
+  1. copy, reproduce, fork for any purpose other than viewing on GitHub,
+     or redistribute the Work or any part of it;
+  2. modify, adapt, translate, or create derivative works based on the Work;
+  3. build, publish, distribute, or sell the Work or any derivative of it,
+     including in any app store or on any website;
+  4. use the Work, its name "My Kaomoji", its logo or its design in any
+     commercial or non-commercial product or service;
+  5. remove or alter this notice or any copyright notice in the Work.
+
+Any use of the Work beyond what is permitted above is a violation of the
+Author's rights and may result in a takedown request (including under the
+DMCA and equivalent laws) and legal action.
+
+---
+
+Работа "My Kaomoji", включая исходный код, дизайн, графику, иконки, логотип,
+тексты, переводы, анимации и документацию проекта, является исключительной
+собственностью автора FortesQ0.
+
+Исходный код опубликован только для просмотра. Без предварительного письменного
+разрешения автора запрещено: копировать, воспроизводить и распространять
+Работу или её часть; изменять, адаптировать, переводить и создавать
+производные работы; собирать, публиковать, распространять и продавать Работу
+или производные от неё (в том числе в магазинах приложений и на сайтах);
+использовать Работу, название "My Kaomoji", логотип и дизайн в любых продуктах
+и сервисах; удалять или изменять это уведомление.
+
+---
+
+Third-party components / Сторонние компоненты
+
+This license covers only the Author's own work. The following parts remain
+under their own licenses, which are not changed by this file:
+
+  - Unbounded font: SIL Open Font License 1.1 (see licenses/Unbounded-OFL.txt)
+  - Kaomoji collection by Kaomojiya (kaomojiya.org): MIT License
+    (see app/src/main/assets/licenses/kaomojiya-collection-MIT.txt)
+  - Android, Kotlin, Jetpack Compose and other libraries used by the app:
+    their respective licenses (mostly Apache License 2.0)
