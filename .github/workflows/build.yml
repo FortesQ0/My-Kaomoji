@@ -15,8 +15,8 @@ jobs:
 
       - name: Распаковать проект
         run: |
-          if [ -f komodje.zip ]; then unzip -oq komodje.zip; fi
-          test -d komodje
+          if [ -f my-kaomoji.zip ]; then unzip -oq my-kaomoji.zip; fi
+          test -d my-kaomoji
 
       - uses: actions/setup-java@v4
         with:
@@ -30,7 +30,7 @@ jobs:
       # Сборка пишет журнал в build.log. Если она упала, ошибки Kotlin и Gradle выводятся
       # аннотациями на странице запуска и в сводке: их видно без входа в GitHub.
       - name: Собрать debug-APK
-        working-directory: komodje
+        working-directory: my-kaomoji
         run: |
           set +e
           gradle assembleDebug --no-daemon --console=plain --stacktrace 2>&1 | tee "$GITHUB_WORKSPACE/build.log"
@@ -59,24 +59,24 @@ jobs:
           if-no-files-found: ignore
 
       - name: Тесты библиотеки
-        working-directory: komodje
+        working-directory: my-kaomoji
         continue-on-error: true
         run: gradle testDebugUnitTest --no-daemon
 
       - name: Переименовать APK
-        run: cp komodje/app/build/outputs/apk/debug/app-debug.apk komodje.apk
+        run: cp my-kaomoji/app/build/outputs/apk/debug/app-debug.apk my-kaomoji.apk
 
       - uses: actions/upload-artifact@v4
         with:
-          name: komodje-apk
-          path: komodje.apk
+          name: my-kaomoji-apk
+          path: my-kaomoji.apk
 
       - name: Опубликовать в Releases
         env:
           GH_TOKEN: ${{ github.token }}
         run: |
           gh release delete latest --cleanup-tag --yes || true
-          gh release create latest komodje.apk \
+          gh release create latest my-kaomoji.apk \
             --title "Последняя сборка" \
             --notes "Debug-APK, собран из коммита ${GITHUB_SHA::7}" \
             --prerelease
