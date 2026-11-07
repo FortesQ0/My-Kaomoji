@@ -93,7 +93,12 @@ jobs:
       - name: Тесты библиотеки
         working-directory: my-kaomoji
         continue-on-error: true
-        run: gradle testDebugUnitTest --no-daemon
+        run: |
+          if ! gradle testDebugUnitTest --no-daemon > test.log 2>&1; then
+            tail -60 test.log
+            echo "::error title=Причина падения тестов::$(grep -E 'FAILED|^e: |What went wrong|Exception|Error' -A2 test.log | head -15 | sed 's/%/%25/g' | tr '\n' ' ')"
+            exit 1
+          fi
 
       - name: Переименовать APK
         run: cp my-kaomoji/app/build/outputs/apk/debug/app-debug.apk my-kaomoji.apk
