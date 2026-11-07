@@ -1,3 +1,4 @@
+# Единственный workflow публикации сайта: выкладывает папку docs.
 name: Deploy My Kaomoji website
 on:
   push:
