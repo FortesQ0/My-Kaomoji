@@ -31,6 +31,7 @@ jobs:
       # Постоянный ключ подписи, чтобы новая версия ставилась поверх старой.
       # Ключ лежит в signing/ в зашифрованном виде, пароль шифра хранится в секрете KEYSTORE_PASSPHRASE.
       # Если секрета нет, сборка идёт как раньше, со случайным debug-ключом.
+      # Готовый APK подписывается этим ключом отдельным шагом ниже (apksigner), Gradle в этом не участвует.
       - name: Ключ подписи
         env:
           KEYSTORE_PASSPHRASE: ${{ secrets.KEYSTORE_PASSPHRASE }}
@@ -39,12 +40,13 @@ jobs:
             echo "::warning title=Подпись::Секрет KEYSTORE_PASSPHRASE не задан, подпись случайным ключом"
             exit 0
           fi
-          mkdir -p ~/.android signing
+          mkdir -p signing
+          KS="$RUNNER_TEMP/kaomoji.keystore"
           if [ -f signing/debug.keystore.gpg ]; then
-            printf '%s' "$KEYSTORE_PASSPHRASE" | gpg --batch --yes --pinentry-mode loopback --passphrase-fd 0 -d -o ~/.android/debug.keystore signing/debug.keystore.gpg
+            printf '%s' "$KEYSTORE_PASSPHRASE" | gpg --batch --yes --pinentry-mode loopback --passphrase-fd 0 -d -o "$KS" signing/debug.keystore.gpg
           else
-            keytool -genkeypair -keystore ~/.android/debug.keystore -storepass android -keypass android -alias androiddebugkey -keyalg RSA -keysize 2048 -validity 36500 -dname "CN=My Kaomoji, O=My Kaomoji, C=US"
-            printf '%s' "$KEYSTORE_PASSPHRASE" | gpg --batch --yes --pinentry-mode loopback --passphrase-fd 0 --symmetric --cipher-algo AES256 --s2k-mode 3 --s2k-digest-algo SHA512 --s2k-count 65011712 -o signing/debug.keystore.gpg ~/.android/debug.keystore
+            keytool -genkeypair -keystore "$KS" -storepass android -keypass android -alias androiddebugkey -keyalg RSA -keysize 2048 -validity 36500 -dname "CN=My Kaomoji, O=My Kaomoji, C=US"
+            printf '%s' "$KEYSTORE_PASSPHRASE" | gpg --batch --yes --pinentry-mode loopback --passphrase-fd 0 --symmetric --cipher-algo AES256 --s2k-mode 3 --s2k-digest-algo SHA512 --s2k-count 65011712 -o signing/debug.keystore.gpg "$KS"
             git config user.name "github-actions[bot]"
             git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
             git add signing/debug.keystore.gpg
@@ -52,9 +54,10 @@ jobs:
             git pull --rebase origin main
             git push origin main
           fi
-          fp=$(keytool -list -v -keystore ~/.android/debug.keystore -storepass android | grep 'SHA256:' | head -1 | sed 's/^ *//')
+          fp=$(keytool -list -v -keystore "$KS" -storepass android | grep 'SHA256:' | head -1 | sed 's/^ *//')
           echo "Отпечаток ключа подписи: $fp"
           echo "Отпечаток ключа подписи (SHA-256): ${fp#SHA256: }" >> "$GITHUB_STEP_SUMMARY"
+          echo "KAOMOJI_KEYSTORE=$KS" >> "$GITHUB_ENV"
 
       # Сборка пишет журнал в build.log. Если она упала, ошибки Kotlin и Gradle выводятся
       # аннотациями на странице запуска и в сводке: их видно без входа в GitHub.
@@ -94,6 +97,20 @@ jobs:
 
       - name: Переименовать APK
         run: cp my-kaomoji/app/build/outputs/apk/debug/app-debug.apk my-kaomoji.apk
+
+      - name: Подписать постоянным ключом
+        run: |
+          if [ -z "$KAOMOJI_KEYSTORE" ]; then exit 0; fi
+          sdk="${ANDROID_HOME:-$ANDROID_SDK_ROOT}"
+          apksigner=$(ls "$sdk"/build-tools/*/apksigner 2>/dev/null | sort -V | tail -1)
+          if [ -z "$apksigner" ]; then
+            echo "::warning title=Подпись::apksigner не найден, APK подписан случайным ключом"
+            exit 0
+          fi
+          "$apksigner" sign --ks "$KAOMOJI_KEYSTORE" --ks-pass pass:android --ks-key-alias androiddebugkey --key-pass pass:android my-kaomoji.apk
+          sha=$("$apksigner" verify --print-certs my-kaomoji.apk | grep 'certificate SHA-256 digest' | head -1 | sed 's/.*: //')
+          echo "::notice title=Подпись::SHA-256 сертификата APK: $sha"
+          echo "Сертификат APK (SHA-256): $sha" >> "$GITHUB_STEP_SUMMARY"
 
       - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4
         with:
