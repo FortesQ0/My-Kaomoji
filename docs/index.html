@@ -3,1275 +3,275 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="theme-color" content="#111018">
+  <meta name="theme-color" content="#ff5e9c">
   <meta name="description" content="My Kaomoji — приложение для Android с японскими текстовыми смайликами, поиском, избранным и собственной клавиатурой.">
   <meta property="og:title" content="My Kaomoji — японские смайлики">
   <meta property="og:description" content="Маленькие символы. Большие эмоции. Собери свою коллекцию каомодзи.">
   <meta property="og:type" content="website">
-  <title>My Kaomoji ✦ Японские смайлики</title>
+  <title>My Kaomoji — Японские смайлики</title>
   <link rel="icon" type="image/svg+xml" href="assets/my-kaomoji-icon.svg">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Onest:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
-  <style>
-    :root {
-      color-scheme: dark;
-      --bg: #141216;
-      --surface: #201c20;
-      --surface-raised: #282228;
-      --text: #f7f1f3;
-      --muted: #c1b5ba;
-      --subtle: #a1949a;
-      --line: rgba(247, 230, 235, .16);
-      --violet: #f1a7c0;
-      --pink: #f1a7c0;
-      --mint: #f1a7c0;
-      --content: 1160px;
-      --gutter: clamp(20px, 5vw, 64px);
-      --radius: 24px;
-      --ease: cubic-bezier(.2,.75,.25,1);
-    }
-    *, *::before, *::after { box-sizing: border-box; }
-    html { scroll-behavior: smooth; scroll-padding-top: 90px; }
-    body {
-      margin: 0; color: var(--text); background: var(--bg);
-      font: 17px/1.65 ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-      -webkit-font-smoothing: antialiased;
-      overflow-x: hidden;
-    }
-    body::before {
-      content: ""; position: fixed; inset: 0; pointer-events: none; z-index: -1;
-      background: none;
-    }
-    a { color: inherit; text-decoration: none; }
-    a:focus-visible { outline: 2px solid var(--pink); outline-offset: 4px; }
-    button, a { -webkit-tap-highlight-color: transparent; }
-    .container { width: min(var(--content), calc(100% - var(--gutter) * 2)); margin-inline: auto; }
-    .topbar { position: sticky; top: 0; z-index: 10; border-bottom: 1px solid transparent; transition: background .25s, border-color .25s; }
-    .topbar.scrolled { background: rgba(17,16,24,.82); backdrop-filter: blur(18px); border-color: var(--line); }
-    .nav { min-height: 78px; display: flex; align-items: center; justify-content: space-between; gap: 24px; }
-    .brand { display: inline-flex; align-items: center; gap: 12px; font-weight: 820; font-size: 1.08rem; letter-spacing: -.045em; white-space: nowrap; }
-    .brand-mark { display: grid; place-items: center; width: 42px; aspect-ratio: 1; border-radius: 14px; color: #21172d; background: var(--violet); font-size: 25px; box-shadow: 0 7px 28px #c3a8ff24; }
-    .brand-name em { font-style: normal; color: var(--pink); }
-    .nav-links { display: flex; align-items: center; gap: clamp(18px,3vw,34px); color: var(--muted); font-size: .9rem; }
-    .nav-links a { transition: color .2s; }
-    .nav-links a:hover { color: var(--text); }
-    .nav-cta { color: var(--text)!important; border: 1px solid var(--line); border-radius: 999px; padding: 9px 15px; }
-    .hero { display: grid; grid-template-columns: minmax(0,1.03fr) minmax(360px,.97fr); align-items: center; gap: clamp(38px,7vw,90px); padding-block: clamp(70px,10vw,130px) clamp(90px,11vw,145px); }
-    .eyebrow { display: inline-flex; align-items: center; gap: 9px; padding: 7px 12px; border: 1px solid #c3a8ff38; border-radius: 999px; color: #e0d2ff; background: #c3a8ff0b; font-size: .9rem; font-weight: 700; letter-spacing: .025em; }
-    .status-dot { width: 7px; height: 7px; background: var(--mint); border-radius: 50%; box-shadow: 0 0 13px #b9f5d066; }
-    h1,h2,h3,p { margin-top: 0; }
-    h1 { max-width: 680px; margin: 24px 0 22px; font-size: clamp(3.4rem,7.2vw,6.2rem); font-weight: 790; line-height: .98; letter-spacing: -.078em; }
-    .gradient { color: var(--violet); }
-    .hero-copy { max-width: 520px; color: var(--muted); font-size: clamp(1.02rem,1.5vw,1.15rem); line-height: 1.8; }
-    .hero-actions { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 30px; }
-    .button { display: inline-flex; min-height: 48px; align-items: center; justify-content: center; gap: 10px; padding: 12px 18px; border: 1px solid var(--line); border-radius: 14px; background: #ffffff06; font-weight: 720; font-size: .92rem; transition: transform .22s var(--ease), border-color .22s, background .22s; }
-    .button:hover { transform: translateY(-3px); border-color: #c3a8ff70; }
-    .button-primary { color: #21172d; border-color: transparent; background: var(--violet); box-shadow: none; }
-    .button-primary:hover { background: #f7c0d2; }
-    .tech-note { margin: 16px 0 0; color: var(--subtle); font-size: .92rem; }
-    .hero-art { min-height: 440px; position: relative; display: grid; place-items: center; isolation: isolate; }
-    .art-glow { display: none; }
-    .app-window { position: relative; width: min(100%,410px); padding: 22px; border: 1px solid #ffffff1b; border-radius: 28px; background: #211d21; box-shadow: 0 20px 55px #0003; transform: none; animation: card-enter .5s ease-out both; }
-    .window-head { display: flex; align-items: center; justify-content: space-between; gap: 12px; color: var(--muted); font-size: .92rem; }
-    .window-brand { display: flex; align-items: center; gap: 9px; color: var(--text); font-weight: 750; }
-    .window-mark { display: grid; place-items: center; width: 30px; height: 30px; border-radius: 10px; background: var(--violet); color: #21172d; font-size: 18px; }
-    .big-kaomoji { text-align: center; padding: 30px 0 24px; color: #ffe1f1; font-size: clamp(2.35rem,5vw,3.15rem); letter-spacing: -.08em; white-space: nowrap; }
-    .category-row { display: flex; justify-content: center; flex-wrap: wrap; gap: 8px; }
-    .category { padding: 7px 11px; border: 1px solid var(--line); border-radius: 10px; color: #d8d1e6; background: #ffffff05; font-size: .9rem; }
-    .category.active { color: #eadfff; border-color: #c3a8ff59; background: #c3a8ff17; }
-    .kaomoji-grid { display: grid; grid-template-columns: repeat(3,minmax(0,1fr)); gap: 9px; margin-top: 20px; }
-    .kaomoji-tile { display: grid; place-items: center; min-height: 65px; padding: 8px 3px; border: 1px solid #ffffff0e; border-radius: 13px; background: #ffffff05; color: #eee6fa; font-size: clamp(.82rem,1.5vw,1rem); transition: transform .22s var(--ease), background .22s, border-color .22s; }
-    .kaomoji-tile:hover { transform: translateY(-4px) rotate(-1deg); border-color: #c3a8ff50; background: #c3a8ff0c; }
-    .float-chip { display: none; }
-    .chip-one { top: 12%; right: -2%; transform: rotate(4deg); }
-    .chip-two { bottom: 11%; left: -4%; animation-delay: -2.4s; }
-    .section { padding-block: clamp(72px,9vw,112px); }
-    .section-alt { border-block: 1px solid #ffffff08; background: #ffffff02; }
-    .section-heading { max-width: 660px; margin-bottom: 36px; }
-    .overline { display: inline-block; margin-bottom: 12px; color: var(--pink); font-size: .9rem; font-weight: 750; letter-spacing: .04em; }
-    h2 { margin-bottom: 14px; font-size: clamp(2.25rem,4.8vw,3.7rem); line-height: 1.05; letter-spacing: -.065em; font-weight: 770; }
-    .section-intro { max-width: 590px; margin-bottom: 0; color: var(--muted); font-size: 1rem; line-height: 1.8; }
-    .feature-grid { display: grid; grid-template-columns: repeat(2,minmax(0,1fr)); column-gap: 48px; row-gap: 0; border-top: 1px solid var(--line); }
-    .feature { display: grid; grid-template-columns: 42px minmax(0,1fr); align-items: start; gap: 18px; min-height: 0; padding: 24px 0; border: 0; border-bottom: 1px solid var(--line); border-radius: 0; background: transparent; transition: border-color .2s; }
-    .feature:hover { transform: none; border-color: var(--violet); background: transparent; }
-    .feature-index { padding-top: 3px; color: var(--violet); font-size: 1rem; font-weight: 750; font-variant-numeric: tabular-nums; }
-    .feature h3 { margin-bottom: 7px; font-size: 1.2rem; letter-spacing: -.025em; }
-    .feature p { margin-bottom: 0; color: var(--muted); font-size: 1rem; line-height: 1.65; }
-    .workflow { display: grid; grid-template-columns: minmax(0,.95fr) minmax(0,1.05fr); gap: clamp(32px,7vw,90px); align-items: center; }
-    .steps { display: grid; gap: 23px; margin-top: 30px; }
-    .step { display: grid; grid-template-columns: 42px 1fr; gap: 14px; align-items: start; }
-    .step-number { display: grid; place-items: center; width: 40px; height: 40px; border: 1px solid #f1a7c030; border-radius: 13px; background: #f1a7c015; color: var(--text); font-size: .92rem; font-weight: 800; }
-    .step h3 { margin: 2px 0 4px; font-size: 1rem; }
-    .step p { margin-bottom: 0; color: var(--muted); font-size: .9rem; }
-    .demo-panel { padding: clamp(20px,3vw,30px); border: 1px solid var(--line); border-radius: 26px; background: linear-gradient(145deg,#211e2c,#17151f); box-shadow: 0 25px 70px #0002; }
-    .demo-title { display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px; font-weight: 750; }
-    .demo-row { display: flex; align-items: center; justify-content: space-between; gap: 14px; padding: 17px 0; border-bottom: 1px solid var(--line); }
-    .demo-row:last-of-type { border-bottom: 0; }
-    .demo-label { display: flex; align-items: center; gap: 13px; min-width: 0; }
-    .demo-icon { display: grid; place-items: center; flex: 0 0 42px; height: 42px; border-radius: 13px; background: #ffffff08; font-size: 1.2rem; }
-    .demo-label strong { display: block; font-size: .92rem; }
-    .demo-label small { display: block; color: var(--muted); font-size: .9rem; }
-    .demo-tag { flex: 0 0 auto; padding: 5px 9px; border-radius: 8px; color: var(--text); background: #f1a7c015; font-size: .9rem; }
-    .disclaimer { margin: 14px 0 0; color: var(--subtle); font-size: .9rem; }
-    .cta-wrap { padding-block: clamp(72px,9vw,110px); }
-    .cta { position: relative; overflow: hidden; display: flex; align-items: center; justify-content: space-between; gap: 35px; padding: clamp(28px,6vw,64px); border: 1px solid #c3a8ff35; border-radius: 30px; background: #211d21; }
-    .cta::after { content: none; }
-    .cta-copy { position: relative; z-index: 1; max-width: 610px; }
-    .cta h2 { font-size: clamp(2rem,4.5vw,3.4rem); }
-    .cta p { margin-bottom: 0; color: var(--muted); }
-    .cta .button { position: relative; z-index: 1; flex: 0 0 auto; }
-    .footer { display: flex; align-items: center; justify-content: space-between; gap: 18px; padding-block: 27px 35px; border-top: 1px solid var(--line); color: var(--muted); font-size: .92rem; }
-    .footer strong { color: var(--text); }
-    .footer-links { display: flex; flex-wrap: wrap; gap: 18px; }
-    .footer a:hover { color: var(--text); }
-    .reveal { opacity: 0; transform: translateY(10px); transition: opacity .35s ease, transform .35s ease; }
-    .reveal.visible { opacity: 1; transform: translateY(0); }
-    .feature:nth-child(2), .step:nth-child(2) { transition-delay: .08s; }
-    .feature:nth-child(3), .step:nth-child(3) { transition-delay: .16s; }
-    @keyframes card-enter { from { opacity: 0; transform: translateY(22px) rotate(1deg) scale(.98); } to { opacity: 1; transform: translateY(0) rotate(-2deg) scale(1); } }
-    @media (max-width: 900px) {
-      .hero { grid-template-columns: 1fr; gap: 34px; padding-top: 76px; }
-      .hero-copy { max-width: 620px; }
-      .hero-art { min-height: 420px; }
-      .app-window { width: min(100%,430px); }
-      .feature-grid { grid-template-columns: repeat(2,minmax(0,1fr)); }
-      .workflow { grid-template-columns: 1fr; gap: 38px; }
-      .demo-panel { max-width: 680px; width: 100%; }
-    }
-    @media (max-width: 600px) {
-      :root { --gutter: 20px; }
-      .nav { min-height: 70px; }
-      .brand { gap: 9px; font-size: 1rem; }
-      .brand-mark { width: 37px; border-radius: 12px; }
-      .nav-links { gap: 14px; font-size: .92rem; }
-      .nav-links a:not(.nav-cta) { display: none; }
-      .nav-cta { padding: 8px 12px; }
-      .hero { padding-top: 63px; padding-bottom: 72px; }
-      h1 { font-size: clamp(3.15rem,14vw,4.7rem); }
-      .hero-art { min-height: 350px; margin-inline: -4px; }
-      .app-window { padding: 18px; border-radius: 23px; }
-      .big-kaomoji { padding-block: 24px 19px; font-size: clamp(2rem,9vw,2.8rem); }
-      .kaomoji-grid { gap: 6px; }
-      .kaomoji-tile { min-height: 59px; font-size: .9rem; }
-      .section { padding-block: 72px; }
-      .section-heading { margin-bottom: 27px; }
-      .feature-grid { grid-template-columns: 1fr; }
-      .feature { min-height: 0; padding: 20px 0; }
-      .cta { align-items: flex-start; flex-direction: column; gap: 23px; border-radius: 24px; }
-      .footer { align-items: flex-start; flex-direction: column; }
-    }
-    @media (prefers-reduced-motion: reduce) {
-      *, *::before, *::after { scroll-behavior: auto !important; animation-duration: .01ms !important; animation-iteration-count: 1 !important; transition-duration: .01ms !important; }
-      .reveal { opacity: 1; transform: none; }
-    }
-
-    /* Возвращаем атмосферный градиентный стиль первой версии */
-    :root {
-      --bg: #111018; --surface: #201a2b; --surface-raised: #29223a;
-      --text: #fbf8ff; --muted: #d0c8df; --subtle: #a99dbb;
-      --line: rgba(232,220,255,.17); --violet: #c5a5ff; --pink: #f0a9d1; --mint: #a8f0dc;
-    }
-    body {
-      font-family: "Onest", ui-sans-serif, system-ui, sans-serif;
-      letter-spacing: .012em;
-      background: radial-gradient(ellipse at 78% 13%, rgba(125,73,190,.22), transparent 32rem),
-        radial-gradient(ellipse at 12% 38%, rgba(76,56,145,.17), transparent 34rem),
-        linear-gradient(145deg,#111018 0%,#171321 48%,#111018 100%);
-    }
-    body::before {
-      background: radial-gradient(ellipse at 72% 18%,rgba(195,145,255,.09),transparent 28rem),
-        radial-gradient(ellipse at 14% 72%,rgba(105,82,191,.08),transparent 30rem);
-    }
-    .brand { letter-spacing: .015em; }
-    .brand-mark, .window-mark { overflow:hidden; background:linear-gradient(135deg,#c9aaff,#ef9fc9 82%); box-shadow:0 8px 32px rgba(177,130,255,.25); }
-    .brand-mark img,.window-mark img { display:block;width:100%;height:100%;object-fit:cover; }
-    .window-mark { width:32px;height:32px;flex:0 0 32px;border-radius:10px; }
-    h1,h2,h3 { text-wrap:pretty; }
-    h1 { letter-spacing:-.065em; }
-    h2 { letter-spacing:-.045em; }
-    .gradient { color:transparent;background:linear-gradient(100deg,#d8c0ff 0%,#c6a4ff 42%,#f0a9d1 100%);-webkit-background-clip:text;background-clip:text; }
-    .hero-copy,.section-intro,.feature p,.step p,.cta p {
-      color:transparent;background:linear-gradient(100deg,rgba(239,232,250,.97),rgba(195,182,220,.84));
-      -webkit-background-clip:text;background-clip:text;text-wrap:pretty;
-    }
-    .tech-note,.disclaimer,.demo-label small { color:rgba(210,199,229,.78);letter-spacing:.018em; }
-    .hero-art::before {
-      content:"";position:absolute;z-index:-1;width:min(95%,520px);aspect-ratio:1;border-radius:50%;
-      background:radial-gradient(circle,rgba(159,106,235,.25),rgba(101,68,163,.09) 44%,transparent 70%);filter:blur(12px);
-    }
-    .app-window {
-      border-color:rgba(230,214,255,.22);
-      background:linear-gradient(145deg,rgba(40,32,55,.97),rgba(24,20,34,.97));
-      box-shadow:0 28px 90px rgba(0,0,0,.38),0 0 55px rgba(155,113,231,.09);backdrop-filter:blur(18px);
-    }
-    .category.active { background:linear-gradient(120deg,rgba(195,168,255,.2),rgba(240,169,209,.12)); }
-    .kaomoji-tile { background:linear-gradient(145deg,rgba(255,255,255,.055),rgba(255,255,255,.018)); }
-    .feature:hover { border-color:rgba(197,165,255,.7); }
-    .demo-panel {
-      background:linear-gradient(145deg,rgba(41,33,58,.98),rgba(23,20,34,.98));
-      box-shadow:0 25px 70px rgba(0,0,0,.24),0 0 45px rgba(145,105,210,.07);
-    }
-    .cta {
-      border-color:rgba(197,165,255,.32);
-      background:radial-gradient(ellipse at 85% 15%,rgba(197,165,255,.17),transparent 24rem),linear-gradient(120deg,#211b2e,#191522 70%);
-      box-shadow:inset 0 1px rgba(255,255,255,.04),0 24px 80px rgba(0,0,0,.16);
-    }
-    .cta::after {
-      content:"";position:absolute;width:22rem;height:22rem;right:-7rem;top:-12rem;border-radius:50%;
-      border:1px solid rgba(197,165,255,.12);box-shadow:0 0 0 28px rgba(197,165,255,.025),0 0 0 58px rgba(197,165,255,.018);
-    }
-    .button-primary { background:linear-gradient(105deg,#d2baff,#f0b0d4);box-shadow:0 8px 28px rgba(190,146,255,.2); }
-    .button-primary:hover { background:linear-gradient(105deg,#e0ceff,#f7c2df); }
-    .eyebrow { border-color:rgba(197,165,255,.32);background:rgba(197,165,255,.08); }
-    .overline { letter-spacing:.09em;text-transform:uppercase; }
-    .nav-links { letter-spacing:.015em; }
-    .section-alt { border-color:rgba(232,220,255,.1);background:linear-gradient(90deg,rgba(255,255,255,.012),rgba(197,165,255,.025),rgba(255,255,255,.012)); }
-    @media(max-width:600px) {
-      body { letter-spacing:.008em; }
-      .brand { letter-spacing:0; }
-      .hero-copy,.section-intro,.feature p,.step p,.cta p { line-height:1.75; }
-    }
-
-
-    /* Balanced readability pass: about 25% larger, without stretching the layout */
-    body { font-size: 21.25px; line-height: 1.68; }
-    .nav-links { font-size: .96rem; gap: clamp(16px, 2.6vw, 30px); }
-    .eyebrow, .overline { font-size: .96rem; }
-    h1 { font-size: clamp(3.9rem, 8vw, 7.35rem); line-height: 1.01; letter-spacing: -.06em; }
-    h2 { font-size: clamp(2.65rem, 5.5vw, 4.55rem); line-height: 1.07; letter-spacing: -.045em; }
-    h3 { font-size: 1.28em; line-height: 1.22; }
-    .hero-copy { max-width: 560px; font-size: clamp(1.18rem, 1.65vw, 1.42rem); line-height: 1.72; }
-    .section-intro, .feature p, .step p, .cta p { font-size: 1.12rem; line-height: 1.72; }
-    .tech-note, .disclaimer, .demo-label small { font-size: .96rem; line-height: 1.65; }
-    .button, .cta .button { min-height: 54px; padding: 14px 21px; font-size: 1rem; }
-    .hero { gap: clamp(36px, 5vw, 68px); }
-    .hero-art { min-width: 0; }
-    .app-window {
-      width: min(100%, 460px); padding: 25px;
-      border-radius: 30px; gap: 0;
-    }
-    .window-head { font-size: 1rem; }
-    .window-mark { width: 36px; height: 36px; flex-basis: 36px; }
-    .big-kaomoji { padding: 27px 0 22px; font-size: clamp(2.4rem, 4.5vw, 3.25rem); }
-    .category { padding: 9px 12px; font-size: .96rem; }
-    .kaomoji-grid { gap: 9px; margin-top: 17px; }
-    .kaomoji-tile { min-height: 72px; padding: 9px 4px; font-size: clamp(.9rem, 1.2vw, 1.08rem); }
-    .feature-grid { column-gap: 36px; }
-    .feature { padding: 27px 0; }
-    .feature h3 { font-size: 1.3rem; }
-    .feature-index { font-size: 1.05rem; }
-    .steps { gap: 26px; }
-    .step h3 { font-size: 1.12rem; }
-    .step-number { width: 42px; height: 42px; }
-    .demo-panel { padding: clamp(24px, 3vw, 34px); }
-    .demo-title { font-size: 1.1rem; }
-    .demo-row { padding: 19px 0; }
-    .demo-icon { flex-basis: 46px; height: 46px; font-size: 1.3rem; }
-    .demo-label strong, .demo-tag { font-size: 1rem; }
-    .cta { padding: clamp(30px, 5vw, 60px); gap: 28px; }
-    .cta h2 { font-size: clamp(2.35rem, 4.7vw, 3.9rem); }
-    .footer { font-size: 1rem; }
-    @media (max-width: 900px) {
-      body { font-size: 19.5px; }
-      .hero { gap: 30px; }
-      .hero-art { min-height: 0; }
-      .app-window { width: min(100%, 460px); }
-      h1 { font-size: clamp(3.7rem, 9vw, 6rem); }
-      .workflow { gap: 34px; }
-    }
-    @media (max-width: 600px) {
-      body { font-size: 18px; line-height: 1.68; }
-      .nav-links { gap: 12px; font-size: .9rem; }
-      h1 { font-size: clamp(3.1rem, 13.5vw, 4.25rem); line-height: 1.03; }
-      h2 { font-size: clamp(2.35rem, 10vw, 3.35rem); line-height: 1.08; }
-      h3 { font-size: 1.18em; }
-      .hero-copy { font-size: 1.12rem; line-height: 1.72; }
-      .section-intro, .feature p, .step p, .cta p { font-size: 1.04rem; line-height: 1.72; }
-      .tech-note, .disclaimer, .demo-label small { font-size: .9rem; }
-      .button, .cta .button { min-height: 50px; padding: 13px 17px; font-size: .94rem; }
-      .hero-art { min-height: 0; margin-inline: 0; }
-      .app-window { width: 100%; padding: 18px; border-radius: 24px; }
-      .window-head { font-size: .88rem; }
-      .window-mark { width: 32px; height: 32px; flex-basis: 32px; }
-      .big-kaomoji { padding: 22px 0 18px; font-size: clamp(1.9rem, 8vw, 2.55rem); }
-      .category-row { gap: 6px; }
-      .category { padding: 8px 9px; font-size: .84rem; }
-      .kaomoji-grid { gap: 6px; margin-top: 14px; }
-      .kaomoji-tile { min-height: 61px; padding: 6px 2px; font-size: clamp(.72rem, 3vw, .88rem); }
-      .feature { padding: 22px 0; }
-      .feature h3 { font-size: 1.15rem; }
-      .step { gap: 12px; }
-      .step-number { width: 38px; height: 38px; }
-      .demo-panel { padding: 20px; }
-      .demo-row { gap: 8px; padding: 15px 0; }
-      .demo-icon { flex-basis: 38px; height: 38px; }
-      .demo-label { gap: 9px; }
-      .demo-label strong, .demo-tag { font-size: .86rem; }
-      .demo-tag { padding: 5px 7px; }
-      .cta { padding: 26px 22px; gap: 22px; }
-      .cta h2 { font-size: clamp(2rem, 8.8vw, 2.8rem); }
-    }
-
-    /* Art direction: richer atmosphere, tactile cards, and a clearer download moment */
-    :root {
-      --bg: #100d19;
-      --surface: #1d172b;
-      --surface-raised: #292039;
-      --text: #fff9ff;
-      --muted: #d0c5e1;
-      --subtle: #b0a2c7;
-      --line: rgba(224, 204, 255, .17);
-      --violet: #d0b4ff;
-      --pink: #ffacd6;
-      --mint: #b9f6e4;
-    }
-    body {
-      background:
-        radial-gradient(ellipse at 76% 8%, rgba(166, 91, 255, .24), transparent 34rem),
-        radial-gradient(ellipse at 8% 24%, rgba(93, 66, 187, .18), transparent 32rem),
-        radial-gradient(ellipse at 90% 60%, rgba(255, 120, 190, .08), transparent 28rem),
-        linear-gradient(145deg, #100d19 0%, #171125 48%, #100d19 100%);
-    }
-    body::before {
-      z-index: 0;
-      background-image: radial-gradient(rgba(235,220,255,.16) .7px, transparent .7px);
-      background-size: 30px 30px;
-      opacity: .14;
-      mask-image: linear-gradient(to bottom, black, transparent 78%);
-    }
-    header, main, footer { position: relative; z-index: 1; }
-    .topbar.scrolled { background: rgba(16,13,25,.82); }
-    .brand-mark, .window-mark {
-      background: linear-gradient(135deg, #d5baff, #ffadd7);
-      box-shadow: 0 8px 30px rgba(196,145,255,.28);
-    }
-    .brand-name em { color: var(--pink); }
-    .eyebrow {
-      border-color: rgba(208,180,255,.38);
-      color: #f1e5ff;
-      background: linear-gradient(110deg, rgba(208,180,255,.13), rgba(255,172,214,.08));
-    }
-    .gradient {
-      color: transparent;
-      background: linear-gradient(100deg, #e4d3ff 0%, #c8a5ff 46%, #ffadd7 100%);
-      -webkit-background-clip: text; background-clip: text;
-    }
-    .hero { position: relative; }
-    .hero::before {
-      content: "♡"; position: absolute; top: 13%; left: 48%;
-      color: rgba(255,172,214,.25); font-size: clamp(2rem,5vw,4.2rem);
-      transform: rotate(-15deg); pointer-events: none;
-    }
-    .hero::after {
-      content: "✦"; position: absolute; bottom: 14%; left: 46%;
-      color: rgba(208,180,255,.5); font-size: 1.6rem; pointer-events: none;
-      text-shadow: 0 0 24px rgba(208,180,255,.6);
-    }
-    .hero-copy, .section-intro, .feature p, .step p, .cta p {
-      color: transparent;
-      background: linear-gradient(100deg, rgba(248,241,255,.97), rgba(204,190,227,.9));
-      -webkit-background-clip: text; background-clip: text;
-      text-wrap: pretty;
-    }
-    .tech-note { color: rgba(224,207,246,.76); }
-    .hero-art { position: relative; }
-    .hero-art::before {
-      content: ""; position: absolute; inset: 5% -5% 0;
-      z-index: -1; border-radius: 50%;
-      background: radial-gradient(ellipse, rgba(166,112,255,.27), rgba(112,76,180,.1) 44%, transparent 72%);
-      filter: blur(18px);
-    }
-    .app-window {
-      border-color: rgba(228,209,255,.24);
-      background: linear-gradient(145deg, rgba(43,32,62,.96), rgba(22,17,34,.98));
-      box-shadow: 0 32px 90px rgba(0,0,0,.42), 0 0 55px rgba(169,123,255,.12);
-      backdrop-filter: blur(18px);
-    }
-    .big-kaomoji { color: #ffe0f1; text-shadow: 0 0 34px rgba(255,172,214,.18); }
-    .category.active { background: linear-gradient(120deg,rgba(195,168,255,.22),rgba(240,169,209,.14)); }
-    .kaomoji-tile {
-      background: linear-gradient(145deg,rgba(255,255,255,.07),rgba(255,255,255,.018));
-      border-color: rgba(228,209,255,.09);
-    }
-    .kaomoji-tile:hover { background: rgba(208,180,255,.12); }
-    .section { position: relative; }
-    .section-alt {
-      border-color: rgba(224,204,255,.1);
-      background: linear-gradient(100deg, rgba(255,255,255,.018), rgba(153,111,220,.075), rgba(255,160,211,.025), rgba(255,255,255,.012));
-    }
-    .section-alt::before {
-      content: ""; position: absolute; top: 12%; right: -120px;
-      width: 300px; height: 300px; border: 1px solid rgba(208,180,255,.08);
-      border-radius: 50%; box-shadow: 0 0 0 35px rgba(208,180,255,.018), 0 0 0 75px rgba(208,180,255,.012);
-      pointer-events: none;
-    }
-    .section-heading { max-width: 760px; }
-    .overline { color: #e0c7ff; letter-spacing: .1em; text-transform: uppercase; }
-    .feature-grid { border-top-color: rgba(224,204,255,.2); column-gap: 26px; row-gap: 20px; }
-    .feature {
-      position: relative; overflow: hidden; min-height: 172px;
-      grid-template-columns: 46px minmax(0,1fr); gap: 20px;
-      padding: 28px 24px; border: 1px solid rgba(224,204,255,.13);
-      border-radius: 22px;
-      background: linear-gradient(145deg, rgba(255,255,255,.055), rgba(255,255,255,.018));
-      transition: transform .25s var(--ease), border-color .25s, background .25s, box-shadow .25s;
-    }
-    .feature::after {
-      content: ""; position: absolute; width: 110px; height: 110px; right: -58px; top: -62px;
-      border-radius: 50%; background: rgba(208,180,255,.1); filter: blur(3px); pointer-events: none;
-    }
-    .feature:hover {
-      transform: translateY(-5px); border-color: rgba(208,180,255,.48);
-      background: linear-gradient(145deg, rgba(208,180,255,.1), rgba(255,172,214,.035));
-      box-shadow: 0 16px 42px rgba(0,0,0,.17);
-    }
-    .feature-index {
-      display: grid; place-items: center; width: 42px; height: 42px; padding: 0;
-      border-radius: 14px; color: #f1e5ff;
-      background: linear-gradient(135deg, rgba(208,180,255,.2), rgba(255,172,214,.12));
-      border: 1px solid rgba(208,180,255,.2);
-    }
-    .feature h3 { margin-bottom: 10px; }
-    .workflow { position: relative; }
-    .steps { gap: 18px; }
-    .step {
-      padding: 17px 18px; border: 1px solid rgba(224,204,255,.1);
-      border-radius: 18px; background: rgba(255,255,255,.025);
-    }
-    .step-number {
-      background: linear-gradient(135deg, rgba(208,180,255,.2), rgba(255,172,214,.12));
-      border-color: rgba(208,180,255,.3);
-    }
-    .demo-panel {
-      position: relative; overflow: hidden;
-      border-color: rgba(224,204,255,.2);
-      background: radial-gradient(ellipse at 100% 0%, rgba(166,112,255,.15), transparent 22rem), linear-gradient(145deg,#261d39,#171222);
-      box-shadow: 0 28px 80px rgba(0,0,0,.28);
-    }
-    .demo-panel::before {
-      content: "✧"; position: absolute; right: 26px; top: 22px;
-      color: rgba(255,172,214,.4); font-size: 2rem; pointer-events: none;
-    }
-    .demo-title { padding-bottom: 14px; border-bottom: 1px solid var(--line); }
-    .demo-title > span:last-child { display: none; }
-    .demo-row { border-bottom-color: rgba(224,204,255,.12); }
-    .demo-icon { color: #f2ddff; background: linear-gradient(135deg,rgba(208,180,255,.18),rgba(255,172,214,.1)); }
-    .demo-tag { color: #f5eaff; background: rgba(208,180,255,.13); border: 1px solid rgba(208,180,255,.12); }
-    .cta {
-      gap: 36px; border-color: rgba(208,180,255,.34);
-      background: radial-gradient(ellipse at 90% 0%, rgba(255,172,214,.17), transparent 25rem), radial-gradient(ellipse at 0% 100%, rgba(166,112,255,.18), transparent 26rem), linear-gradient(120deg,#241a35,#191323 70%);
-      box-shadow: inset 0 1px rgba(255,255,255,.045), 0 28px 90px rgba(0,0,0,.22);
-    }
-    .cta::after {
-      content: ""; position: absolute; width: 19rem; height: 19rem; right: -7rem; top: -11rem;
-      border-radius: 50%; border: 1px solid rgba(208,180,255,.18);
-      box-shadow: 0 0 0 28px rgba(208,180,255,.035), 0 0 0 58px rgba(208,180,255,.022);
-    }
-    .release-cta {
-      position: relative; z-index: 1; min-width: 300px; min-height: 90px !important;
-      display: inline-flex; justify-content: flex-start; gap: 16px;
-      padding: 18px 22px !important; border: 1px solid rgba(255,255,255,.38);
-      border-radius: 20px; color: #21142d !important;
-      background: linear-gradient(110deg,#e0ccff,#ffb7da 88%);
-      box-shadow: 0 12px 36px rgba(211,159,255,.22), inset 0 1px rgba(255,255,255,.65);
-      transition: transform .22s var(--ease), box-shadow .22s;
-    }
-    .release-cta:hover { transform: translateY(-4px); box-shadow: 0 18px 48px rgba(211,159,255,.3); }
-    .release-icon {
-      display: grid; place-items: center; flex: 0 0 46px; height: 46px;
-      border-radius: 15px; background: rgba(255,255,255,.42); font-size: 1.6rem; font-weight: 800;
-    }
-    .release-cta strong { display: block; font-size: 1rem; line-height: 1.3; }
-    .release-cta small { display: block; margin-top: 5px; font-size: .78rem; font-weight: 600; opacity: .72; }
-    .release-arrow { margin-left: auto; font-size: 1.3rem; }
-    .footer { border-top-color: rgba(224,204,255,.13); }
-    @media (max-width: 900px) {
-      .hero::before { left: auto; right: 8%; top: 49%; }
-      .hero::after { left: 8%; bottom: 5%; }
-      .feature-grid { gap: 14px; }
-      .feature { min-height: 150px; padding: 22px 18px; }
-      .cta { align-items: flex-start; }
-      .release-cta { min-width: 280px; }
-    }
-    @media (max-width: 600px) {
-      body { background: radial-gradient(ellipse at 90% 8%, rgba(166,91,255,.2), transparent 25rem), linear-gradient(145deg,#100d19,#171125 55%,#100d19); }
-      body::before { background-size: 24px 24px; opacity: .1; }
-      .hero::before { top: 47%; right: 2%; font-size: 2.4rem; }
-      .hero::after { left: 2%; bottom: 3%; }
-      .feature-grid { gap: 12px; }
-      .feature { min-height: 0; padding: 22px 18px; grid-template-columns: 40px minmax(0,1fr); gap: 14px; }
-      .feature-index { width: 38px; height: 38px; }
-      .step { padding: 15px 13px; }
-      .cta { gap: 22px; }
-      .release-cta { width: 100%; min-width: 0; min-height: 82px !important; padding: 15px !important; }
-      .release-cta strong { font-size: .92rem; }
-      .release-cta small { font-size: .74rem; }
-    }
-
-
-
-    
-    /* Final alignment & typography polish */
-    .hero { align-items: stretch; }
-    .hero-content { display: flex; flex-direction: column; align-items: flex-start; }
-    .hero-art { min-height: 100%; align-self: stretch; }
-    .app-window {
-      min-height: 100%;
-      display: flex; flex-direction: column; justify-content: space-between;
-      padding: clamp(25px, 3vw, 34px);
-    }
-    .big-kaomoji { padding-block: 34px 28px; }
-    .kaomoji-grid { margin-top: auto; padding-top: 22px; }
-    .workflow { align-items: stretch; }
-    .workflow > .reveal { display: flex; flex-direction: column; }
-    .steps { flex: 1; justify-content: space-between; }
-    .demo-panel {
-      align-self: stretch; height: 100%;
-      display: flex; flex-direction: column; justify-content: space-between;
-      padding: clamp(26px, 3.2vw, 38px);
-    }
-    .demo-title { font-size: 1.18rem; padding-bottom: 20px; }
-    .demo-row { flex: 1; min-height: 78px; padding: 20px 0; }
-    .demo-label strong, .demo-label small, .demo-tag { font-size: 1rem; line-height: 1.4; }
-    .demo-label small { margin-top: 3px; color: rgba(230,220,246,.88); }
-    /* Angular ornament instead of blurred circular flare */
-    .section-alt::before {
-      content: ""; top: 13%; right: -35px; width: 190px; height: 190px;
-      border: 1px solid rgba(208,180,255,.16); border-radius: 0;
-      box-shadow: 18px 18px 0 -17px rgba(255,172,214,.4), 36px 36px 0 -35px rgba(208,180,255,.5);
-      transform: rotate(45deg); background: transparent; filter: none;
-    }
-    .release-cta {
-      min-width: 310px; min-height: 92px !important;
-      justify-content: space-between; gap: 24px;
-      padding: 20px 25px !important;
-    }
-    .release-copy { display: block; min-width: 0; }
-    .release-cta strong { font-size: 1.12rem; line-height: 1.35; letter-spacing: -.02em; }
-    .release-cta .release-copy > span { display: block; margin-top: 7px; font-size: 1rem; line-height: 1.4; font-weight: 600; opacity: .82; }
-    .release-arrow { flex: 0 0 auto; display: grid; place-items: center; width: 42px; height: 42px; margin-left: auto; border-radius: 13px; background: rgba(255,255,255,.36); font-size: 1.55rem; }
-    @media (max-width: 900px) {
-      .hero { align-items: center; }
-      .hero-content { display: block; }
-      .hero-art { min-height: 0; }
-      .app-window { min-height: 0; }
-      .workflow { align-items: start; }
-      .workflow > .reveal { display: block; }
-      .steps { flex: initial; gap: 18px; }
-      .demo-panel { height: auto; }
-      .demo-row { flex: initial; min-height: 74px; }
-    }
-    @media (max-width: 600px) {
-      .demo-label strong, .demo-label small, .demo-tag { font-size: .94rem; }
-      .demo-label small { line-height: 1.4; }
-      .release-cta { min-width: 0; width: 100%; min-height: 88px !important; padding: 17px 18px !important; gap: 14px; }
-      .release-cta strong { font-size: 1rem; }
-      .release-cta .release-copy > span { font-size: .94rem; }
-      .release-arrow { width: 38px; height: 38px; }
-      .section-alt::before { right: -100px; top: 8%; width: 150px; height: 150px; }
-    }
-
-
-    /* New visual stories: expressive collection on the hero, real chat moment in workflow */
-    .mood-board { overflow:hidden; min-height:100%; display:flex; flex-direction:column; justify-content:space-between; padding:clamp(23px,2.8vw,32px); }
-    .mood-live { display:flex; align-items:center; gap:8px; color:#cfc2e7; font-size:.88rem; }
-    .mood-live i,.chat-online i { display:inline-block; width:8px; height:8px; border-radius:50%; background:#aaf0d6; box-shadow:0 0 13px #aaf0d688; }
-    .mood-feature { position:relative; display:flex; flex-direction:column; align-items:center; justify-content:center; min-height:220px; margin:23px 0 20px; padding:22px 12px; overflow:hidden; border:1px solid rgba(221,197,255,.15); border-radius:24px; background:radial-gradient(ellipse at 50% 42%,rgba(197,151,255,.17),transparent 66%),linear-gradient(145deg,rgba(255,255,255,.045),rgba(255,255,255,.012)); }
-    .mood-kicker,.chat-eyebrow { font-size:.82rem; font-weight:800; letter-spacing:.15em; color:#d7baff; }
-    .mood-feature .big-kaomoji { position:relative; z-index:1; padding:22px 0 10px; font-size:clamp(2.4rem,4vw,3.25rem); }
-    .mood-caption { color:#d1c4e3; font-size:.94rem; text-align:center; }
-    .mood-spark { position:absolute; color:#f3b9dd; }
-    .mood-spark-a { left:13%; top:28%; font-size:1.6rem; transform:rotate(-15deg); }
-    .mood-spark-b { right:14%; bottom:22%; font-size:1.8rem; color:#d6c0ff; }
-    .mood-categories { display:flex; flex-wrap:wrap; gap:8px; margin-bottom:17px; }
-    .mood-pill { padding:8px 12px; border:1px solid rgba(225,207,255,.15); border-radius:999px; color:#d5c9e7; background:rgba(255,255,255,.025); font-size:.88rem; }
-    .mood-pill.selected { color:#fff4ff; border-color:rgba(255,172,214,.42); background:linear-gradient(110deg,rgba(197,165,255,.2),rgba(255,172,214,.12)); }
-    .mood-picks { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:9px; }
-    .mood-pick { position:relative; min-width:0; display:flex; flex-direction:column; align-items:center; gap:5px; padding:15px 5px 13px; border:1px solid rgba(224,204,255,.12); border-radius:16px; background:rgba(255,255,255,.035); text-align:center; }
-    .mood-pick > span { color:#f2b7dd; font-size:1rem; }
-    .mood-pick strong { font-size:clamp(.78rem,1.15vw,.96rem); font-weight:700; white-space:nowrap; letter-spacing:-.04em; }
-    .mood-pick small { font-size:.82rem; color:#c6b8dc; }
-    .featured-pick { border-color:rgba(206,177,255,.38); background:linear-gradient(145deg,rgba(197,165,255,.15),rgba(255,172,214,.07)); transform:translateY(-5px); }
-    .mood-footer { display:flex; align-items:center; justify-content:space-between; gap:12px; margin-top:20px; padding-top:16px; border-top:1px solid rgba(224,204,255,.13); color:#b9a9d0; font-size:.88rem; }
-    .mood-footer span:last-child { display:grid; place-items:center; width:30px; height:30px; border-radius:10px; background:rgba(197,165,255,.14); color:#e8d9ff; font-size:1.15rem; }
-    .chat-showcase { min-height:100%; display:flex; flex-direction:column; justify-content:space-between; gap:18px; padding:clamp(25px,3.2vw,38px); overflow:hidden; }
-    .chat-showcase-head { display:flex; justify-content:space-between; align-items:center; gap:12px; }
-    .chat-showcase-head h3 { margin:7px 0 0; font-size:clamp(1.55rem,2.6vw,2rem); letter-spacing:-.045em; }
-    .chat-online { display:flex; align-items:center; gap:7px; white-space:nowrap; color:#c9bddb; font-size:.88rem; }
-    .chat-stage { position:relative; flex:1; min-height:270px; display:flex; flex-direction:column; justify-content:center; gap:15px; padding:24px 4px 20px; }
-    .chat-day { align-self:center; margin-bottom:2px; color:#9e90b6; font-size:.83rem; letter-spacing:.03em; }
-    .chat-bubble { position:relative; max-width:84%; padding:14px 17px; border:1px solid rgba(226,209,255,.13); border-radius:19px; font-size:1rem; line-height:1.5; box-shadow:0 8px 24px rgba(0,0,0,.12); }
-    .received { align-self:flex-start; border-bottom-left-radius:6px; background:linear-gradient(135deg,rgba(255,255,255,.07),rgba(255,255,255,.025)); color:#f0e8fb; }
-    .bubble-name { display:block; margin-bottom:3px; color:#d8b7ff; font-size:.82rem; font-weight:800; }
-    .sent { align-self:flex-end; display:flex; flex-direction:column; align-items:flex-end; border-color:rgba(218,186,255,.25); border-bottom-right-radius:6px; background:linear-gradient(130deg,rgba(149,107,220,.32),rgba(211,139,192,.19)); }
-    .sent strong { margin-top:5px; color:#fff0ff; font-size:1.35rem; letter-spacing:-.035em; }
-    .bubble-reaction { position:absolute; left:-13px; top:-12px; display:grid; place-items:center; width:27px; height:27px; border:1px solid rgba(255,172,214,.35); border-radius:9px; background:#30223f; color:#ffb8dd; }
-    .bubble-time { margin-top:5px; color:#d5c4ea; font-size:.78rem; }
-    .reply-bubble { max-width:90%; }
-    .reply-bubble span { color:#ffb7db; white-space:nowrap; }
-    .floating-kaomoji { position:absolute; display:grid; place-items:center; border:1px solid rgba(222,199,255,.2); border-radius:14px; background:rgba(43,32,61,.9); box-shadow:0 10px 30px rgba(0,0,0,.15); }
-    .float-heart { top:18%; right:1%; width:39px; height:39px; color:#ffacd6; font-size:1.3rem; transform:rotate(9deg); }
-    .float-star { bottom:16%; left:1%; width:34px; height:34px; color:#d0b4ff; font-size:1.1rem; transform:rotate(-9deg); }
-    .chat-composer { display:flex; align-items:center; gap:12px; min-height:58px; padding:8px 9px 8px 15px; border:1px solid rgba(224,204,255,.16); border-radius:17px; background:rgba(12,9,20,.45); }
-    .composer-face { display:grid; place-items:center; flex:0 0 34px; height:34px; border-radius:11px; background:rgba(197,165,255,.15); color:#e3d0ff; font-size:1.25rem; }
-    .composer-placeholder { flex:1; color:#b5a7ca; font-size:.9rem; }
-    .composer-send { display:grid; place-items:center; flex:0 0 39px; height:39px; border-radius:12px; background:linear-gradient(135deg,#d0b4ff,#ffacd6); color:#261a34; font-size:1.25rem; }
-    .chat-caption { display:flex; flex-wrap:wrap; gap:7px; align-items:center; color:#b9a9d0; font-size:.92rem; }
-    .chat-caption strong { color:#f8eaff; font-weight:800; }
-    @media(max-width:900px) {
-      .mood-board { min-height:0; }
-      .chat-showcase { min-height:0; }
-      .chat-stage { min-height:290px; }
-    }
-    @media(max-width:600px) {
-      .mood-board { padding:18px; }
-      .mood-live { font-size:.78rem; }
-      .mood-feature { min-height:190px; margin:18px 0 16px; }
-      .mood-feature .big-kaomoji { font-size:clamp(1.85rem,7.5vw,2.45rem); }
-      .mood-pill { font-size:.78rem; padding:7px 9px; }
-      .mood-pick { padding:12px 3px 11px; }
-      .mood-pick strong { font-size:clamp(.68rem,2.7vw,.82rem); }
-      .mood-pick small { font-size:.76rem; }
-      .chat-showcase { padding:21px; gap:15px; }
-      .chat-showcase-head h3 { font-size:1.45rem; }
-      .chat-stage { min-height:260px; gap:12px; padding-block:18px; }
-      .chat-bubble { padding:12px 13px; font-size:.91rem; }
-      .sent strong { font-size:1.15rem; }
-      .chat-caption { font-size:.86rem; }
-    }
-
-
-    /* Ambient motion and delicate kaomoji-inspired details */
-    body {
-      background:
-        radial-gradient(ellipse at 8% 16%, rgba(142,91,218,.14), transparent 34rem),
-        radial-gradient(ellipse at 88% 34%, rgba(255,132,190,.085), transparent 31rem),
-        radial-gradient(ellipse at 50% 76%, rgba(112,86,204,.09), transparent 38rem),
-        linear-gradient(145deg,#100d18 0%,#171122 48%,#100d19 100%);
-      background-attachment: fixed;
-    }
-    body::before {
-      z-index: 0;
-      opacity: .32;
-      background-image:
-        radial-gradient(circle, rgba(255,230,249,.76) 0 1px, transparent 1.7px),
-        radial-gradient(circle, rgba(202,174,255,.68) 0 1px, transparent 1.8px),
-        radial-gradient(circle, rgba(255,170,211,.62) 0 1.2px, transparent 2px);
-      background-size: 137px 151px, 193px 211px, 271px 239px;
-      background-position: 12px 22px, 64px 89px, 120px 35px;
-      mask-image: linear-gradient(to bottom, transparent 0%, #000 12%, #000 86%, transparent 100%);
-      animation: stardust-drift 42s linear infinite;
-    }
-    header, main, footer { position: relative; z-index: 1; }
-    @keyframes stardust-drift {
-      from { background-position: 12px 22px, 64px 89px, 120px 35px; }
-      to { background-position: 12px -129px, 64px -122px, 120px -204px; }
-    }
-    .hero { position: relative; }
-    .hero::before, .hero::after {
-      position: absolute; z-index: -1; pointer-events: none;
-      color: rgba(255,190,223,.36); line-height: 1;
-      animation: ornament-float 8s ease-in-out infinite;
-    }
-    .hero::before {
-      content: "✦"; top: 14%; right: 43%; font-size: 1.45rem;
-      text-shadow: 0 0 24px rgba(255,173,218,.26);
-    }
-    .hero::after {
-      content: "♡"; left: 45%; bottom: 15%; font-size: 1.65rem;
-      color: rgba(206,180,255,.32); animation-delay: -3.5s;
-    }
-    @keyframes ornament-float {
-      0%,100% { transform: translate3d(0,0,0) rotate(-8deg); opacity: .55; }
-      50% { transform: translate3d(0,-9px,0) rotate(7deg); opacity: 1; }
-    }
-    .section { position: relative; }
-    .section:not(.section-alt)::after {
-      content: "✧"; position: absolute; right: max(4%, calc((100vw - var(--content))/2 - 20px)); top: 17%;
-      color: rgba(210,184,255,.22); font-size: 1.5rem; pointer-events: none;
-      animation: ornament-float 9s ease-in-out infinite;
-    }
-    .section-alt { position: relative; overflow: hidden; }
-    .section-alt::after {
-      content: "♡"; position: absolute; left: 4%; bottom: 14%;
-      color: rgba(255,173,216,.22); font-size: 1.3rem; pointer-events: none;
-      animation: ornament-float 10s ease-in-out infinite reverse;
-    }
-    /* Replace harsh pale card corners with soft, text-safe gradient light */
-    .feature {
-      position: relative; isolation: isolate; overflow: hidden;
-      background: linear-gradient(135deg, rgba(255,255,255,.018), rgba(255,255,255,0) 65%);
-      transition: border-color .25s, background .25s;
-    }
-    .feature::before {
-      content: ""; position: absolute; z-index: -1; top: -68px; right: -58px;
-      width: 190px; height: 145px; border-radius: 50%;
-      background: radial-gradient(ellipse, rgba(187,145,255,.14) 0%, rgba(241,167,192,.07) 36%, transparent 72%);
-      filter: blur(15px); pointer-events: none; opacity: .8;
-      transition: opacity .3s, transform .5s;
-    }
-    .feature:hover::before { opacity: 1; transform: translate(-9px,7px) scale(1.12); }
-    .feature:nth-child(2n)::before { background: radial-gradient(ellipse, rgba(241,167,192,.13), rgba(187,145,255,.055) 42%, transparent 72%); }
-    .feature-index { position: relative; }
-    .feature h3, .feature p { position: relative; }
-    .mood-feature::after {
-      content: "✦"; position: absolute; right: 12%; top: 15%;
-      color: rgba(255,210,236,.5); font-size: 1.1rem;
-      animation: twinkle 3.8s ease-in-out infinite;
-    }
-    @keyframes twinkle {
-      0%,100% { opacity: .35; transform: scale(.85) rotate(0deg); }
-      50% { opacity: .95; transform: scale(1.15) rotate(18deg); }
-    }
-    .mood-spark-a, .mood-spark-b, .float-heart, .float-star { animation: ornament-float 7s ease-in-out infinite; }
-    .mood-spark-b, .float-star { animation-delay: -2.8s; }
-    .chat-showcase { position: relative; }
-    .chat-showcase::after {
-      content: "✧"; position: absolute; top: 22%; right: 8%;
-      color: rgba(255,187,222,.3); font-size: 1.3rem; pointer-events: none;
-      animation: twinkle 4.4s ease-in-out infinite;
-    }
-    .cta {
-      position: relative; overflow: hidden;
-      background-image: radial-gradient(ellipse at 90% 10%, rgba(241,167,192,.09), transparent 34%), radial-gradient(ellipse at 5% 95%, rgba(170,131,255,.1), transparent 40%);
-    }
-    .release-cta { gap: 18px; }
-    .release-copy > span { display: none !important; }
-    @media (prefers-reduced-motion: reduce) {
-      body::before, .hero::before, .hero::after, .section::after, .section-alt::after,
-      .mood-spark-a, .mood-spark-b, .float-heart, .float-star, .mood-feature::after, .chat-showcase::after {
-        animation: none !important;
-      }
-      html { scroll-behavior: auto; }
-    }
-    @media (max-width: 600px) {
-      .hero::before { right: 5%; top: 46%; font-size: 1.1rem; }
-      .hero::after { left: auto; right: 6%; bottom: 3%; }
-      .section:not(.section-alt)::after { right: 7%; top: 8%; }
-      body::before { opacity: .22; }
-    }
-
-
-    /* Softer, larger celestial texture — visible but not luminous */
-    body::before {
-      opacity: .2;
-      background-image:
-        radial-gradient(circle, rgba(255,230,249,.48) 0 1.2px, transparent 2px),
-        radial-gradient(circle, rgba(202,174,255,.42) 0 1.4px, transparent 2.2px),
-        radial-gradient(circle, rgba(255,170,211,.36) 0 1.5px, transparent 2.4px);
-      background-size: 225px 247px, 307px 331px, 389px 357px;
-      background-position: 18px 27px, 92px 131px, 173px 64px;
-      animation-duration: 68s;
-    }
-    @keyframes stardust-drift {
-      from { background-position: 18px 27px, 92px 131px, 173px 64px; }
-      to { background-position: 18px -220px, 92px -200px, 173px -293px; }
-    }
-    /* Four-point stars and hearts repeat across the whole page */
-    .hero::before { content: "✦"; font-size: 2rem; color: rgba(255,190,223,.25); text-shadow: none; }
-    .hero::after { font-size: 2rem; color: rgba(206,180,255,.23); }
-    .section:not(.section-alt)::after {
-      content: "✦"; font-size: 2rem; color: rgba(210,184,255,.28);
-      text-shadow: 0 0 18px rgba(210,184,255,.08);
-    }
-    .section-alt::after {
-      content: "♡"; left: 5%; bottom: 17%; font-size: 2rem;
-      color: rgba(255,173,216,.25);
-    }
-    /* Replace the angular square with a composed star-and-heart ornament */
-    .section-alt::before {
-      content: "✦"; top: 12%; right: 5%; width: auto; height: auto;
-      border: 0; border-radius: 0; box-shadow: none; background: none; filter: none;
-      transform: rotate(10deg); font-size: 3.4rem; line-height: 1;
-      color: rgba(213,185,255,.25); text-shadow: 0 0 24px rgba(194,157,255,.08);
-      animation: ornament-float 9s ease-in-out infinite;
-    }
-    .section-alt .container { position: relative; }
-    .section-alt .section-heading::after {
-      content: "♡"; position: absolute; right: 8%; top: 37%;
-      color: rgba(255,173,216,.23); font-size: 1.8rem; pointer-events: none;
-      animation: ornament-float 10s ease-in-out infinite reverse;
-    }
-    .feature::before {
-      width: 240px; height: 185px; top: -84px; right: -76px;
-      opacity: .48; filter: blur(18px);
-      background: radial-gradient(ellipse, rgba(187,145,255,.085) 0%, rgba(241,167,192,.045) 36%, transparent 72%);
-    }
-    .feature:nth-child(2n)::before {
-      background: radial-gradient(ellipse, rgba(241,167,192,.08), rgba(187,145,255,.035) 42%, transparent 72%);
-    }
-    .feature:hover::before { opacity: .72; }
-    .mood-feature::after { font-size: 1.65rem; color: rgba(255,210,236,.34); }
-    .chat-showcase::after { font-size: 1.9rem; color: rgba(255,187,222,.23); }
-    .release-cta strong { font-weight: 650 !important; }
-    .release-arrow { font-weight: 500 !important; }
-    .release-cta { font-weight: 600; }
-    @media (max-width: 600px) {
-      body::before { opacity: .16; background-size: 170px 190px, 240px 260px, 300px 280px; }
-      .section-alt::before { right: 5%; top: 8%; font-size: 2.6rem; }
-      .section-alt .section-heading::after { right: 5%; top: 40%; font-size: 1.4rem; }
-      .hero::before { font-size: 1.5rem; }
-      .hero::after { font-size: 1.5rem; }
-    }
-
-
-    /* Final visual bug fixes: remove pale card hotspots, soften motion, balance empty space */
-    .feature::before,
-    .feature::after {
-      content: none !important;
-      display: none !important;
-      opacity: 0 !important;
-      filter: none !important;
-      background: none !important;
-      box-shadow: none !important;
-    }
-    .feature {
-      background: linear-gradient(135deg, rgba(197,165,255,.035), rgba(240,169,209,.018) 58%, rgba(255,255,255,.008)) !important;
-      transition: border-color .55s ease, background .7s ease !important;
-    }
-    .feature:hover { background: linear-gradient(135deg, rgba(197,165,255,.065), rgba(240,169,209,.035) 58%, rgba(255,255,255,.012)) !important; }
-    .feature-grid { position: relative; }
-
-    /* Calm, continuous motion: no sharp jumps or conspicuous twinkling */
-    @keyframes ornament-float {
-      0%, 100% { transform: translate3d(0,0,0) rotate(-4deg); opacity: .72; }
-      50% { transform: translate3d(0,-4px,0) rotate(3deg); opacity: .86; }
-    }
-    @keyframes twinkle {
-      0%, 100% { opacity: .38; transform: scale(.98) rotate(0deg); }
-      50% { opacity: .52; transform: scale(1.02) rotate(4deg); }
-    }
-    body::before { animation-duration: 110s !important; }
-    .mood-spark-a, .mood-spark-b, .float-heart { animation: ornament-float 16s ease-in-out infinite !important; }
-    .mood-spark-b, .float-heart { animation-delay: -6s !important; }
-    .mood-feature::after, .chat-showcase::after { animation: none !important; }
-    .chat-showcase::after, .float-star { display: none !important; }
-
-
-
-    /* Background kaomoji: larger, faint, and always behind the interface */
-    .kaomoji-drift {
-      position:absolute;
-      inset:0;
-      z-index:0;
-      overflow:hidden;
-      pointer-events:none;
-      user-select:none;
-    }
-    .kaomoji-drift span {
-      position:absolute;
-      display:block;
-      max-width:90vw;
-      color:transparent;
-      background:linear-gradient(115deg, rgba(220,198,255,.075), rgba(255,198,228,.13), rgba(194,179,255,.065));
-      -webkit-background-clip:text;
-      background-clip:text;
-      font-size:clamp(27px,3.2vw,43px);
-      line-height:1.5;
-      white-space:nowrap;
-      text-shadow:0 0 7px rgba(174,129,255,.025);
-      opacity:.48;
-      animation:kaomoji-float 22s ease-in-out infinite alternate;
-    }
-    .kaomoji-drift span:nth-child(1) { left:1.5%; top:4%; animation-delay:-3s; }
-    .kaomoji-drift span:nth-child(2) { right:1.5%; top:14%; animation-delay:-9s; }
-    .kaomoji-drift span:nth-child(3) { left:1.5%; top:29%; animation-delay:-13s; }
-    .kaomoji-drift span:nth-child(4) { right:1.5%; top:43%; animation-delay:-6s; }
-    .kaomoji-drift span:nth-child(5) { left:1.5%; top:57%; animation-delay:-11s; }
-    .kaomoji-drift span:nth-child(6) { right:1.5%; top:69%; animation-delay:-16s; }
-    .kaomoji-drift span:nth-child(7) { left:1.5%; top:81%; animation-delay:-4s; }
-    .kaomoji-drift span:nth-child(8) { right:1.5%; top:92%; animation-delay:-12s; }
-    .kaomoji-drift span:nth-child(n + 9) { display:none; }
-    @keyframes kaomoji-float {
-      0% { transform:translate3d(-4px,5px,0) rotate(-1deg); }
-      50% { transform:translate3d(5px,-6px,0) rotate(1deg); }
-      100% { transform:translate3d(-2px,4px,0) rotate(-.5deg); }
-    }
-    body { position:relative; }
-    body > .kaomoji-drift { position:absolute; inset:0; height:100%; z-index:0; }
-    body > header, body > main, body > footer { position:relative; z-index:1; }
-    #features .section-heading { position:relative; max-width:none; min-height:210px; padding-right:35%; }
-    #features .features-kaomoji {
-      position:absolute;
-      top:12px;
-      right:3%;
-      width:34%;
-      text-align:center;
-      font-size:clamp(58px,7vw,96px);
-      line-height:1.2;
-      letter-spacing:-.07em;
-      white-space:nowrap;
-      pointer-events:none;
-      color:transparent;
-      background:linear-gradient(115deg, rgba(220,198,255,.16), rgba(255,198,228,.25), rgba(194,179,255,.14));
-      -webkit-background-clip:text;
-      background-clip:text;
-      opacity:.72;
-      text-shadow:0 0 10px rgba(174,129,255,.04);
-      animation:kaomoji-float 22s ease-in-out infinite alternate;
-    }
-    @media (max-width:640px) {
-      .kaomoji-drift span { font-size:20px; }
-      .kaomoji-drift span:nth-child(n + 7) { display:none; }
-      #features .section-heading { min-height:0; padding-right:0; }
-      #features .features-kaomoji { position:relative; display:block; top:auto; right:auto; width:100%; margin-top:18px; font-size:clamp(40px,12vw,64px); text-align:left; }
-    }
-    @media (prefers-reduced-motion: reduce) {
-      .kaomoji-drift span, #features .features-kaomoji { animation:none !important; }
-    }
-
-    /* Animated starfield transition between the workflow and final CTA */
-    .starfield-bridge {
-      position: relative;
-      isolation: isolate;
-      height: clamp(150px, 20vw, 230px);
-      margin: -34px auto -34px;
-      overflow: hidden;
-      display: grid;
-      place-items: center;
-      pointer-events: none;
-      background: radial-gradient(ellipse at 50% 50%, rgba(183,139,255,.10), transparent 62%);
-      -webkit-mask-image: linear-gradient(to bottom, transparent, #000 18%, #000 82%, transparent);
-      mask-image: linear-gradient(to bottom, transparent, #000 18%, #000 82%, transparent);
-    }
-    .starfield-bridge::before {
-      content: "✦  ✧     ✦     ✦   ✧      ✦     ✧   ✦";
-      position: absolute;
-      inset: 0;
-      display: flex;
-      align-items: center;
-      justify-content: space-around;
-      white-space: pre-wrap;
-      word-spacing: clamp(12px, 4vw, 54px);
-      color: rgba(220,190,255,.68);
-      font-size: clamp(20px, 3vw, 34px);
-      letter-spacing: clamp(4px, 2vw, 24px);
-      animation: bridge-drift 16s ease-in-out infinite alternate;
-    }
-    .starfield-bridge::after {
-      content: "✦";
-      position: absolute;
-      left: 50%;
-      top: 50%;
-      color: #f3c6f0;
-      font-size: clamp(58px, 8vw, 92px);
-      text-shadow: 0 0 18px rgba(207,164,255,.8), 0 0 52px rgba(208,143,255,.45);
-      animation: bridge-star 5.8s ease-in-out infinite;
-    }
-    .bridge-star {
-      position: absolute;
-      color: #d9c3ff;
-      font-size: clamp(22px, 3.5vw, 42px);
-      text-shadow: 0 0 22px rgba(207,164,255,.65);
-      animation: bridge-float 7s ease-in-out infinite;
-    }
-    .bridge-star:nth-child(1) { left: 12%; top: 25%; animation-delay: -2s; }
-    .bridge-star:nth-child(2) { left: 27%; top: 62%; font-size: clamp(16px, 2.5vw, 28px); animation-delay: -4s; color:#f5b9d7; }
-    .bridge-star:nth-child(3) { right: 14%; top: 20%; animation-delay: -1s; }
-    .bridge-star:nth-child(4) { right: 29%; bottom: 15%; font-size: clamp(17px, 2.7vw, 31px); animation-delay: -5s; color:#f5b9d7; }
-    .bridge-star:nth-child(5) { left: 43%; top: 10%; font-size: clamp(14px, 2vw, 24px); animation-delay: -3s; }
-    .bridge-star:nth-child(6) { right: 43%; bottom: 8%; font-size: clamp(14px, 2vw, 24px); animation-delay: -1.5s; }
-    @keyframes bridge-float {
-      0%,100% { transform: translate3d(0,0,0) rotate(0deg) scale(.78); opacity:.42; }
-      50% { transform: translate3d(18px,-22px,0) rotate(38deg) scale(1.35); opacity:1; }
-    }
-    @keyframes bridge-star {
-      0%,100% { transform: translate(-50%,-50%) rotate(0deg) scale(.82); opacity:.62; }
-      50% { transform: translate(-50%,-50%) rotate(45deg) scale(1.22); opacity:1; }
-    }
-    @keyframes bridge-drift {
-      from { transform: translateX(-2.5%) translateY(-8px); opacity:.55; }
-      to { transform: translateX(2.5%) translateY(8px); opacity:1; }
-    }
-    @media (prefers-reduced-motion: reduce) {
-      .starfield-bridge::before, .starfield-bridge::after, .bridge-star { animation: none !important; }
-    }
-
-    /* A prominent celestial accent fills the open right side of the features section */
-    .section-alt::before {
-      content: "✦" !important;
-      top: 39% !important; right: max(5%, calc((100vw - var(--content))/2 - 2px)) !important;
-      width: auto !important; height: auto !important;
-      border: 0 !important; border-radius: 0 !important; box-shadow: none !important;
-      background: none !important; filter: none !important;
-      font-size: clamp(4.2rem, 7vw, 6.8rem) !important;
-      line-height: 1 !important; color: rgba(211,185,255,.24) !important;
-      text-shadow: 0 0 34px rgba(194,157,255,.10) !important;
-      animation: ornament-float 18s ease-in-out infinite !important;
-      pointer-events: none;
-    }
-    .section-alt .section-heading::after { display: none !important; }
-    .section:not(.section-alt)::after {
-      font-size: clamp(2.8rem, 4vw, 3.8rem) !important;
-      color: rgba(210,184,255,.25) !important;
-      text-shadow: 0 0 26px rgba(210,184,255,.07) !important;
-      animation: ornament-float 17s ease-in-out infinite !important;
-    }
-    .section-alt::after {
-      font-size: 2.7rem !important;
-      color: rgba(255,173,216,.24) !important;
-      animation: ornament-float 19s ease-in-out infinite reverse !important;
-    }
-
-    /* Give the final call-to-action a large four-point star, with smaller side accents */
-    .cta::before {
-      content: "✦" !important; position: absolute; z-index: 0;
-      right: 34%; bottom: 8%; font-size: clamp(3.8rem, 6vw, 5.8rem);
-      line-height: 1; color: rgba(213,185,255,.20);
-      text-shadow: 0 0 28px rgba(194,157,255,.08);
-      pointer-events: none; animation: ornament-float 18s ease-in-out infinite;
-    }
-    .cta::after {
-      content: "✧" !important; position: absolute;
-      width: auto !important; height: auto !important; right: 5% !important; top: 10% !important;
-      border: 0 !important; border-radius: 0 !important; box-shadow: none !important;
-      font-size: clamp(2.8rem, 4vw, 3.6rem); line-height: 1;
-      color: rgba(255,181,219,.24); animation: ornament-float 20s ease-in-out infinite reverse;
-      pointer-events: none;
-    }
-    .release-cta { position: relative; z-index: 2; }
-    @media (max-width: 900px) {
-      .section-alt::before { top: auto !important; right: 6% !important; bottom: 12% !important; font-size: 3.8rem !important; }
-      .cta::before { right: 7%; bottom: 12%; font-size: 3.4rem; }
-    }
-    @media (max-width: 600px) {
-      .section-alt::before { right: 5% !important; top: 9% !important; bottom: auto !important; font-size: 2.8rem !important; }
-      .section:not(.section-alt)::after { font-size: 2.5rem !important; right: 6% !important; }
-      .section-alt::after { font-size: 2.2rem !important; }
-      .cta::before { right: 8%; bottom: 10%; font-size: 2.8rem; }
-      .cta::after { right: 5% !important; top: auto !important; bottom: 7% !important; font-size: 2.2rem; }
-    }
-    @media (prefers-reduced-motion: reduce) {
-      body::before, .hero::before, .hero::after, .section::after, .section-alt::after,
-      .section-alt::before, .cta::before, .cta::after, .mood-spark-a, .mood-spark-b, .float-heart {
-        animation: none !important;
-      }
-    }
-
-  
-
-    /* Gentle C-shaped star drift on mobile only; independent layers avoid collisions. */
-    @keyframes mobile-star-c {
-      0%   { background-position: 12px 18px, 58px 81px, 103px 39px; }
-      25%  { background-position: 20px 24px, 63px 75px, 96px 45px; }
-      50%  { background-position: 25px 35px, 58px 66px, 84px 51px; }
-      75%  { background-position: 18px 42px, 49px 69px, 88px 43px; }
-      100% { background-position: 12px 18px, 58px 81px, 103px 39px; }
-    }
-    @media (max-width: 600px) {
-      body::before {
-        animation: mobile-star-c 28s ease-in-out infinite;
-        will-change: background-position;
-      }
-    }
-    @media (prefers-reduced-motion: reduce) {
-      body::before { animation: none !important; }
-    }
-
-    /* Mobile polish: keep desktop color atmosphere and make the star texture clearer.
-       The decorative layer never captures taps or sits above interface content. */
-    @media (max-width: 600px) {
-      body {
-        background:
-          radial-gradient(ellipse at 8% 16%, rgba(142,91,218,.14), transparent 34rem),
-          radial-gradient(ellipse at 88% 34%, rgba(255,132,190,.085), transparent 31rem),
-          radial-gradient(ellipse at 50% 76%, rgba(112,86,204,.09), transparent 38rem),
-          linear-gradient(145deg,#100d18 0%,#171122 48%,#100d19 100%) !important;
-        background-attachment: scroll;
-      }
-      body::before {
-        pointer-events: none;
-        opacity: .34 !important;
-        background-image:
-          radial-gradient(circle, rgba(255,230,249,.82) 0 1.15px, transparent 1.9px),
-          radial-gradient(circle, rgba(202,174,255,.7) 0 1.35px, transparent 2.1px),
-          radial-gradient(circle, rgba(255,170,211,.62) 0 1.45px, transparent 2.2px) !important;
-        background-size: 145px 163px, 197px 223px, 253px 241px !important;
-        background-position: 12px 18px, 58px 81px, 103px 39px !important;
-      }
-      .kaomoji-drift,
-      .kaomoji-drift span,
-      .hero::before, .hero::after,
-      .section::before, .section::after,
-      .section-alt::before, .section-alt::after,
-      .cta::before, .cta::after {
-        pointer-events: none;
-      }
-    }
-
-  </style>
+  <link href="https://fonts.googleapis.com/css2?family=Onest:wght@300;400&amp;display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+  <script src="script.js" defer></script>
 </head>
 <body>
-  </div>
+
+  <!-- Векторные иконки: вместо текстовых глифов ✦ ♡ ✧ ↗ -->
+  <svg class="sprite" aria-hidden="true" focusable="false">
+    <defs>
+      <linearGradient id="gp" x1="0" y1="0" x2="1" y2="1">
+        <stop offset="0" stop-color="#f58bb8"/>
+        <stop offset="1" stop-color="#ff5e9c"/>
+      </linearGradient>
+    </defs>
+    <symbol id="i-spark" viewBox="768 154 202 298"><path d="M886 159Q894 271 964 323Q886 341 857 448Q845 350 773 327Q850 300 886 159Z"/></symbol>
+    <symbol id="i-sparkle" viewBox="0 0 24 24"><path d="M12 0C12.9 7 17 11.1 24 12C17 12.9 12.9 17 12 24C11.1 17 7 12.9 0 12C7 11.1 11.1 7 12 0Z"/></symbol>
+    <symbol id="i-sparkle-g" viewBox="0 0 24 24"><path fill="url(#gp)" d="M12 0C12.9 7 17 11.1 24 12C17 12.9 12.9 17 12 24C11.1 17 7 12.9 0 12C7 11.1 11.1 7 12 0Z"/></symbol>
+    <symbol id="i-heart" viewBox="0 0 24 24"><path d="M12 20.5c-.3 0-.6-.1-.8-.3C6.4 16.4 3 13.4 3 9.6 3 7 5 5 7.5 5c1.7 0 3.3.9 4.5 2.4C13.2 5.9 14.8 5 16.5 5 19 5 21 7 21 9.6c0 3.8-3.4 6.8-8.2 10.6-.2.2-.5.3-.8.3z"/></symbol>
+    <symbol id="i-cloud" viewBox="0 0 24 24"><path d="M7.5 18.5a4.5 4.5 0 0 1-.6-8.96A6 6 0 0 1 18.3 10.2a4.2 4.2 0 0 1-.8 8.3z"/></symbol>
+    <symbol id="i-moon" viewBox="0 0 24 24"><path d="M20 14.5A8.5 8.5 0 1 1 9.5 4a7 7 0 0 0 10.5 10.5z"/></symbol>
+    <symbol id="i-arrow" viewBox="0 0 24 24"><path d="M7 17 17 7M8 7h9v9"/></symbol>
+    <symbol id="i-up" viewBox="0 0 24 24"><path d="M12 19V5M5 12l7-7 7 7"/></symbol>
+    <symbol id="i-check2" viewBox="0 0 24 24"><path d="M2.5 13.5 6.5 17.5 14 9M10 15.5l2 2L21 8"/></symbol>
+    <symbol id="i-face" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M8.5 14c1 1.5 2.2 2.3 3.5 2.3s2.5-.8 3.5-2.3M9 9.5v.01M15 9.5v.01"/></symbol>
+  </svg>
+
   <header class="topbar" id="topbar">
-    <div class="container nav">
-      <a class="brand" href="#top" aria-label="My Kaomoji — на главную">
-        <span class="brand-mark" aria-hidden="true"><img src="assets/my-kaomoji-icon.svg" alt=""></span>
-        <span class="brand-name">My Kaomoji<em> ✦</em></span>
+    <div class="nav">
+      <a class="brand rise" data-d="300" href="#top" aria-label="My Kaomoji — на главную">
+        <img class="brand__mark" src="assets/my-kaomoji-icon.svg" alt="" width="44" height="44">
+        <span class="brand__text">
+          <span class="brand__name">My Kaomoji<svg class="ic ic--brand" aria-hidden="true"><use href="#i-spark"/></svg></span>
+          <span class="brand__sub">Приложение для Android</span>
+        </span>
       </a>
-      <nav class="nav-links" aria-label="Основная навигация">
-        <a href="#features">Возможности</a>
-        <a href="#how">Как работает</a>
-        <a class="nav-cta" href="https://github.com/FortesQ0/My-Kaomoji/releases">Скачать</a>
+      <nav class="nav__links rise" data-d="420" aria-label="Основная навигация">
+        <a class="link" href="#features">Возможности</a>
+        <a class="link" href="#how">Как работает</a>
+        <a class="btn btn--ghost btn--sm" href="https://github.com/FortesQ0/My-Kaomoji/releases"><span class="btn__fill"></span><span class="btn__label">Скачать</span></a>
       </nav>
     </div>
   </header>
 
-
-  <div class="kaomoji-drift" aria-hidden="true">
+  <!-- Фоновые каомодзи: чисто декоративный слой за контентом -->
+  <div class="drift" aria-hidden="true">
     <span>≽^•⩊•^≼</span><span>(,,&gt; ᴗ &lt;,,)</span><span>(╥﹏╥)</span>
     <span>(˶ᵔ ᵕ ᵔ˶)</span><span>⸜(｡˃ ᵕ ˂ )⸝♡</span><span>٩(ˊᗜˋ )و</span>
     <span>( ˶ˆᗜˆ˵ )</span><span>˚₊‧꒰ა ₍ᐢ. ̫.ᐢ₎ ໒꒱ ‧₊</span>
-    <span>(｡•̀ᴗ-)✧</span><span>૮ ˶ᵔ ᵕ ᵔ˶ ა</span><span>(づ｡◕‿‿◕｡)づ</span>
-    <span>(ﾉ◕ヮ◕)ﾉ*:･ﾟ✧</span><span>(˶˃ ᵕ ˂˶)</span><span>꒰ᐢ. .ᐢ꒱</span>
-    <span>(｡♥‿♥｡)</span><span>ദ്ദി(˵ •̀ ᴗ - ˵ ) ✧</span><span>(っ˘ω˘ς )</span>
-    <span>૮₍ ˶•⤙•˶ ₎ა</span><span>(๑˃ᴗ˂)ﻭ</span><span>(≧◡≦)</span>
-    <span>૮₍ ˶ᵔ ᵕ ᵔ˶ ₎ა</span><span>(づ￣ ³￣)づ</span><span>(✿◠‿◠)</span>
-    <span>(๑ᵔ⤙ᵔ๑)</span><span>ヽ(・∀・)ﾉ</span><span>(っ´ω`)ﾉ(╥ω╥)</span>
-    <span>૮₍ ˃ ⤙ ˂ ₎ა</span><span>(๑˃̵ᴗ˂̵)و</span><span>꒰ ˶• ༝ •˶꒱</span>
-    <span>(づ ◕‿◕ )づ</span><span>(｡•́︿•̀｡)</span>
   </div>
+
   <main id="top">
-    <section class="container hero">
-      <div class="hero-content">
-        <p class="eyebrow">Приложение для Android</p>
-        <h1>Оживи свою<br><span class="gradient">переписку.</span></h1>
-        <p class="hero-copy">Японские текстовые смайлики для переписки. Найди подходящий, добавь в избранное или отправь прямо с клавиатуры.</p>
-        <div class="hero-actions">
-          <a class="button button-primary" href="https://github.com/FortesQ0/My-Kaomoji/releases">Скачать APK</a>
-          <a class="button" href="https://github.com/FortesQ0/My-Kaomoji">Исходный код <span aria-hidden="true">↗</span></a>
+
+    <!-- HERO: схема C, 60/40 -->
+    <section class="hero" aria-labelledby="hero-title">
+      <div class="hero__text">
+        <h1 id="hero-title" class="rise" data-d="900">Оживи свою<br><span class="grad">переписку.</span></h1>
+        <p class="hero__sub rise" data-d="1040">Японские текстовые смайлики для переписки. Найди подходящий, добавь в&nbsp;избранное или отправь прямо с&nbsp;клавиатуры.</p>
+        <div class="hero__cta rise" data-d="1200">
+          <a class="btn btn--solid" href="https://github.com/FortesQ0/My-Kaomoji/releases"><span class="btn__fill"></span><span class="btn__label">Скачать APK</span></a>
+          <a class="btn btn--ghost" href="https://github.com/FortesQ0/My-Kaomoji"><span class="btn__fill"></span><span class="btn__label">Исходный код</span><svg class="ic ic--line btn__arrow" aria-hidden="true"><use href="#i-arrow"/></svg></a>
         </div>
-        <p class="tech-note">Твоё настроение — в одном касании <span aria-hidden="true">✦</span></p>
+        <p class="hero__note rise" data-d="1200"><svg class="ic" aria-hidden="true"><use href="#i-spark"/></svg>Твоё настроение — в&nbsp;одном касании</p>
       </div>
 
-      <div class="hero-art" aria-label="Пример коллекции каомодзи">
-        <div class="app-window mood-board">
-          <div class="window-head">
-            <div class="window-brand"><span class="window-mark" aria-hidden="true"><img src="assets/my-kaomoji-icon.svg" alt=""></span> My Kaomoji</div>
-            <span class="mood-live"><i></i> Твоё настроение</span>
+      <div class="hero__panel grain" aria-label="Пример коллекции каомодзи">
+        <div class="board rise" data-d="700" id="board">
+          <div class="board__head">
+            <div class="board__brand"><img class="board__mark" src="assets/my-kaomoji-icon.svg" alt="" width="36" height="36"><span>My Kaomoji</span></div>
+            <span class="board__live"><svg class="ic" aria-hidden="true"><use href="#i-spark"/></svg>Твоё настроение</span>
           </div>
-          <div class="mood-feature">
-            <span class="mood-kicker">СЕГОДНЯ ТЫ —</span>
-            <div class="big-kaomoji" aria-label="Улыбающееся лицо">(˶ᵔ ᵕ ᵔ˶)</div>
-            <span class="mood-caption">мягкий вайб, большие эмоции</span>
-            <span class="mood-spark mood-spark-a" aria-hidden="true">✳</span>
-            <span class="mood-spark mood-spark-b" aria-hidden="true">✦</span>
-          </div>
-          <div class="mood-categories" aria-label="Настроения">
-            <span class="mood-pill selected">♡ Влюблённость</span><span class="mood-pill">✧ Радость</span><span class="mood-pill">☾ Спокойствие</span>
-          </div>
-          <div class="mood-picks">
-            <div class="mood-pick"><span>♡</span><strong>(｡♥‿♥｡)</strong><small>нежность</small></div>
-            <div class="mood-pick featured-pick"><span>✦</span><strong>٩(ˊᗜˋ*)و</strong><small>ура!</small></div>
-            <div class="mood-pick"><span>☁</span><strong>(っ˘ω˘ς)</strong><small>уют</small></div>
-          </div>
-          <div class="mood-footer"><span>Твоя эмоция — твои правила</span><span aria-hidden="true">↗</span></div>
-        </div>
-      </div>
-    </section>
 
-    <section class="section section-alt" id="features">
-      <div class="container">
-        <div class="section-heading reveal">
-          <span class="overline">Возможности</span>
-          <h2>Всё нужное.<br>Без лишних шагов.</h2>
-          <p class="section-intro">Ищи по категориям, сохраняй любимое и используй каомодзи в любом чате.</p>
-          <span class="features-kaomoji" aria-hidden="true">( ˶ˆᗜˆ˵ )</span>
-        </div>
-        <div class="feature-grid">
-          <article class="feature reveal"><span class="feature-index">01</span><div><h3>Библиотека и поиск</h3><p>Выбирай каомодзи по категориям или находи нужное через поиск.</p></div></article>
-          <article class="feature reveal"><span class="feature-index">02</span><div><h3>Избранное</h3><p>Сохраняй любимые выражения долгим нажатием и быстро возвращайся к ним.</p></div></article>
-          <article class="feature reveal"><span class="feature-index">03</span><div><h3>Клавиатура</h3><p>Используй каомодзи в других приложениях, не копируя их вручную.</p></div></article>
-          <article class="feature reveal"><span class="feature-index">04</span><div><h3>Виджет</h3><p>Копируй любимые выражения с главного экрана Android.</p></div></article>
-          <article class="feature reveal"><span class="feature-index">05</span><div><h3>Два языка</h3><p>Переключай интерфейс между русским и английским.</p></div></article>
-          <article class="feature reveal"><span class="feature-index">06</span><div><h3>Настройка внешнего вида</h3><p>Выбирай цвет акцента и режим оформления.</p></div></article>
+          <div class="stage">
+            <span class="stage__kicker">Сегодня ты —</span>
+            <button class="stage__face" id="stageFace" type="button" data-copy="(˶ᵔ ᵕ ᵔ˶)" aria-label="Скопировать каомодзи"><span id="stageText">(˶ᵔ ᵕ ᵔ˶)</span></button>
+            <span class="stage__caption" id="stageCaption">мягкий вайб, большие эмоции</span>
+            <button class="spark spark--a" id="favBtn" type="button" aria-pressed="false" aria-label="В избранное"><svg class="ic" aria-hidden="true"><use href="#i-heart"/></svg></button>
+            <button class="spark spark--b" id="shuffleBtn" type="button" aria-label="Другой каомодзи"><svg class="ic" aria-hidden="true"><use href="#i-sparkle"/></svg></button>
+          </div>
+
+          <div class="moods" role="group" aria-label="Настроения">
+            <button class="mood is-on" type="button" data-mood="love" aria-pressed="true"><svg class="ic" aria-hidden="true"><use href="#i-heart"/></svg>Влюблённость</button>
+            <button class="mood" type="button" data-mood="joy" aria-pressed="false"><svg class="ic" aria-hidden="true"><use href="#i-sparkle"/></svg>Радость</button>
+            <button class="mood" type="button" data-mood="calm" aria-pressed="false"><svg class="ic" aria-hidden="true"><use href="#i-moon"/></svg>Спокойствие</button>
+          </div>
+
+          <div class="picks" id="picks">
+            <button class="pick" type="button" data-pick="(｡♥‿♥｡)"><svg class="ic" aria-hidden="true"><use href="#i-heart"/></svg><strong>(｡♥‿♥｡)</strong><small>нежность</small></button>
+            <button class="pick is-feat" type="button" data-pick="٩(ˊᗜˋ*)و"><svg class="ic" aria-hidden="true"><use href="#i-sparkle"/></svg><strong>٩(ˊᗜˋ*)و</strong><small>ура!</small></button>
+            <button class="pick" type="button" data-pick="(っ˘ω˘ς)"><svg class="ic" aria-hidden="true"><use href="#i-cloud"/></svg><strong>(っ˘ω˘ς)</strong><small>уют</small></button>
+          </div>
+
+          <div class="board__foot">
+            <span>Твоя эмоция — твои правила</span>
+            <button class="board__next" id="nextMood" type="button" aria-label="Следующее настроение"><svg class="ic ic--line" aria-hidden="true"><use href="#i-arrow"/></svg></button>
+          </div>
         </div>
       </div>
     </section>
 
-    <section class="section" id="how">
-      <div class="container workflow">
-        <div class="reveal">
-          <span class="overline">Как пользоваться</span>
-          <h2>От выбора<br>до сообщения.</h2>
-          <p class="section-intro">Выбери выражение в библиотеке или открой клавиатуру My Kaomoji в поле ввода.</p>
-          <div class="steps">
-            <div class="step"><span class="step-number">01</span><div><h3>Выбери настроение</h3><p>Открой категорию или найди каомодзи через поиск.</p></div></div>
-            <div class="step"><span class="step-number">02</span><div><h3>Сохрани своё любимое</h3><p>Добавляй часто используемые выражения в избранное.</p></div></div>
-            <div class="step"><span class="step-number">03</span><div><h3>Поделись эмоцией</h3><p>Копируй символ или используй клавиатуру в переписке.</p></div></div>
+    <!-- ВОЗМОЖНОСТИ -->
+    <section class="section" id="features">
+      <div class="wrap">
+        <div class="head">
+          <div class="head__main">
+            <span class="label rise">Возможности</span>
+            <h2 class="rise">Всё нужное.<br>Без лишних шагов.</h2>
+            <p class="lead rise">Ищи по категориям, сохраняй любимое и используй каомодзи в&nbsp;любом чате.</p>
+          </div>
+          <div class="head__art">
+            <button class="fstar" type="button" data-star aria-label="Случайный каомодзи"><svg class="ic" aria-hidden="true"><use href="#i-sparkle"/></svg></button>
+            <button class="bigface" type="button" data-copy="( ˶ˆᗜˆ˵ )" aria-label="Скопировать каомодзи">( ˶ˆᗜˆ˵ )</button>
           </div>
         </div>
-        <div class="demo-panel reveal chat-showcase" aria-label="Пример сообщения с каомодзи">
-          <div class="chat-showcase-head"><div><span class="chat-eyebrow">МАЛЕНЬКИЙ ЖЕСТ</span><h3>Скажи чуть больше.</h3></div><span class="chat-online"><i></i> в сети</span></div>
-          <div class="chat-stage">
-            <div class="chat-day">сегодня, 19:42</div>
-            <div class="chat-bubble received"><span class="bubble-name">mika</span>ты идёшь? ♡</div>
-            <div class="chat-bubble sent"><span class="bubble-reaction">✦</span>уже лечу!<strong>٩(ˊᗜˋ*)و</strong><span class="bubble-time">19:42&nbsp; ✓✓</span></div>
-            <div class="chat-bubble received reply-bubble">АХАХА, обожаю тебя <span>(｡♥‿♥｡)</span></div>
-            <div class="floating-kaomoji float-heart" aria-hidden="true">♡</div><div class="floating-kaomoji float-star" aria-hidden="true">✦</div>
-          </div>
-          <div class="chat-composer"><span class="composer-face">☺</span><span class="composer-placeholder">Добавь эмоцию к словам…</span><span class="composer-send" aria-hidden="true">↗</span></div>
-          <div class="chat-caption"><span>Не просто текст.</span><strong>Твоё настроение.</strong></div>
+
+        <div class="features" data-stagger>
+          <article class="feature tone-blush f7 rise" data-face="(˶˃ ᵕ ˂˶)">
+            <button class="feature__idx" type="button" aria-expanded="false" aria-label="Показать каомодзи">01</button>
+            <div class="feature__body">
+              <h3>Библиотека и поиск</h3>
+              <p>Выбирай каомодзи по категориям или находи нужное через поиск.</p>
+              <div class="reveal"><div><button class="chip" type="button" data-copy="(˶˃ ᵕ ˂˶)">(˶˃ ᵕ ˂˶)</button></div></div>
+            </div>
+          </article>
+          <article class="feature tone-pink f5 rise" data-face="(｡♥‿♥｡)">
+            <button class="feature__idx" type="button" aria-expanded="false" aria-label="Показать каомодзи">02</button>
+            <div class="feature__body">
+              <h3>Избранное</h3>
+              <p>Сохраняй любимые выражения долгим нажатием и быстро возвращайся к ним.</p>
+              <div class="reveal"><div><button class="chip" type="button" data-copy="(｡♥‿♥｡)">(｡♥‿♥｡)</button></div></div>
+            </div>
+          </article>
+          <article class="feature tone-ink f5 rise" data-face="(๑˃ᴗ˂)ﻭ">
+            <button class="feature__idx" type="button" aria-expanded="false" aria-label="Показать каомодзи">03</button>
+            <div class="feature__body">
+              <h3>Клавиатура</h3>
+              <p>Используй каомодзи в&nbsp;других приложениях, не копируя их вручную.</p>
+              <div class="reveal"><div><button class="chip" type="button" data-copy="(๑˃ᴗ˂)ﻭ">(๑˃ᴗ˂)ﻭ</button></div></div>
+            </div>
+          </article>
+          <article class="feature tone-blush f7 rise" data-face="(づ｡◕‿‿◕｡)づ">
+            <button class="feature__idx" type="button" aria-expanded="false" aria-label="Показать каомодзи">04</button>
+            <div class="feature__body">
+              <h3>Виджет</h3>
+              <p>Копируй любимые выражения с&nbsp;главного экрана Android.</p>
+              <div class="reveal"><div><button class="chip" type="button" data-copy="(づ｡◕‿‿◕｡)づ">(づ｡◕‿‿◕｡)づ</button></div></div>
+            </div>
+          </article>
+          <article class="feature tone-blush f6 rise" data-face="(ﾉ◕ヮ◕)ﾉ*:･ﾟ✧">
+            <button class="feature__idx" type="button" aria-expanded="false" aria-label="Показать каомодзи">05</button>
+            <div class="feature__body">
+              <h3>Два языка</h3>
+              <p>Переключай интерфейс между русским и&nbsp;английским.</p>
+              <div class="reveal"><div><button class="chip" type="button" data-copy="(ﾉ◕ヮ◕)ﾉ*:･ﾟ✧">(ﾉ◕ヮ◕)ﾉ*:･ﾟ✧</button></div></div>
+            </div>
+          </article>
+          <article class="feature tone-pink f6 rise" data-face="(✿◠‿◠)">
+            <button class="feature__idx" type="button" aria-expanded="false" aria-label="Показать каомодзи">06</button>
+            <div class="feature__body">
+              <h3>Настройка внешнего вида</h3>
+              <p>Выбирай цвет акцента и&nbsp;режим оформления.</p>
+              <div class="reveal"><div><button class="chip" type="button" data-copy="(✿◠‿◠)">(✿◠‿◠)</button></div></div>
+            </div>
+          </article>
         </div>
       </div>
     </section>
 
-    <div class="starfield-bridge" aria-hidden="true">
-      <span class="bridge-star">✦</span><span class="bridge-star">✦</span>
-      <span class="bridge-star">✦</span><span class="bridge-star">✦</span>
-      <span class="bridge-star">✦</span><span class="bridge-star">✦</span>
+    <!-- КАК РАБОТАЕТ -->
+    <section class="how" id="how">
+      <div class="how__text">
+        <span class="label rise">Как пользоваться</span>
+        <h2 class="rise">От выбора<br>до сообщения.</h2>
+        <p class="lead rise">Выбери выражение в&nbsp;библиотеке или открой клавиатуру My Kaomoji в&nbsp;поле ввода.</p>
+        <ol class="steps" data-stagger>
+          <li class="rise"><button class="step" type="button" data-step="1"><span class="step__n">01</span><span class="step__body"><span class="step__title">Выбери настроение</span><span class="step__text">Открой категорию или найди каомодзи через поиск.</span></span></button></li>
+          <li class="rise"><button class="step" type="button" data-step="2"><span class="step__n">02</span><span class="step__body"><span class="step__title">Сохрани своё любимое</span><span class="step__text">Добавляй часто используемые выражения в&nbsp;избранное.</span></span></button></li>
+          <li class="rise"><button class="step" type="button" data-step="3"><span class="step__n">03</span><span class="step__body"><span class="step__title">Поделись эмоцией</span><span class="step__text">Копируй символ или используй клавиатуру в&nbsp;переписке.</span></span></button></li>
+        </ol>
+      </div>
+
+      <div class="how__panel grain">
+        <div class="chat" aria-label="Пример сообщения с каомодзи">
+          <div class="chat__head">
+            <div>
+              <span class="label">Маленький жест</span>
+              <h3>Скажи чуть больше.</h3>
+            </div>
+            <span class="chat__online"><svg class="ic" aria-hidden="true"><use href="#i-spark"/></svg>в сети</span>
+          </div>
+
+          <div class="chat__stage" id="chatStage">
+            <div class="chat__day">сегодня, 19:42</div>
+            <div class="bubble bubble--in"><span class="bubble__name">mika</span>ты идёшь?&nbsp;<svg class="ic ic--inline" aria-hidden="true"><use href="#i-heart"/></svg></div>
+            <div class="bubble bubble--out">
+              <button class="react" type="button" aria-pressed="false" aria-label="Реакция"><svg class="ic" aria-hidden="true"><use href="#i-spark"/></svg></button>
+              <span class="bubble__text">уже лечу!</span>
+              <button class="bubble__face" type="button" data-copy="٩(ˊᗜˋ*)و">٩(ˊᗜˋ*)و</button>
+              <span class="bubble__time">19:42&nbsp;<svg class="ic ic--line" aria-hidden="true"><use href="#i-check2"/></svg></span>
+            </div>
+            <div class="bubble bubble--in bubble--reply">АХАХА, обожаю тебя&nbsp;<button class="bubble__face bubble__face--inline" type="button" data-copy="(｡♥‿♥｡)">(｡♥‿♥｡)</button></div>
+            <button class="sticker" id="sticker" type="button" aria-pressed="false" aria-label="Сердце в ответ"><svg class="ic" aria-hidden="true"><use href="#i-heart"/></svg></button>
+          </div>
+
+          <div class="picker" id="picker" hidden>
+            <button class="pk" type="button" data-pk="(｡♥‿♥｡)">(｡♥‿♥｡)<svg class="ic fav" aria-hidden="true"><use href="#i-heart"/></svg></button>
+            <button class="pk is-sel" type="button" data-pk="٩(ˊᗜˋ*)و">٩(ˊᗜˋ*)و<svg class="ic fav" aria-hidden="true"><use href="#i-heart"/></svg></button>
+            <button class="pk" type="button" data-pk="(っ˘ω˘ς )">(っ˘ω˘ς )<svg class="ic fav" aria-hidden="true"><use href="#i-heart"/></svg></button>
+            <button class="pk" type="button" data-pk="(ﾉ◕ヮ◕)ﾉ*:･ﾟ✧">(ﾉ◕ヮ◕)ﾉ*:･ﾟ✧<svg class="ic fav" aria-hidden="true"><use href="#i-heart"/></svg></button>
+            <button class="pk" type="button" data-pk="(˶ᵔ ᵕ ᵔ˶)">(˶ᵔ ᵕ ᵔ˶)<svg class="ic fav" aria-hidden="true"><use href="#i-heart"/></svg></button>
+            <button class="pk" type="button" data-pk="(≧◡≦)">(≧◡≦)<svg class="ic fav" aria-hidden="true"><use href="#i-heart"/></svg></button>
+          </div>
+
+          <form class="composer" id="composer" autocomplete="off">
+            <button class="composer__face" id="faceBtn" type="button" aria-expanded="false" aria-controls="picker" aria-label="Выбрать каомодзи"><svg class="ic ic--line" aria-hidden="true"><use href="#i-face"/></svg></button>
+            <input class="composer__input" id="composerInput" type="text" placeholder="Добавь эмоцию к словам…" aria-label="Сообщение">
+            <button class="composer__send" type="submit" aria-label="Отправить"><svg class="ic ic--line" aria-hidden="true"><use href="#i-arrow"/></svg></button>
+          </form>
+
+          <p class="chat__caption"><span>Не просто текст.</span> <strong>Твоё настроение.</strong></p>
+        </div>
+      </div>
+    </section>
+
+    <!-- МОСТ: звёзды, которые можно трогать -->
+    <div class="bridge" role="group" aria-label="Звёзды: нажми, чтобы получить случайный каомодзи">
+      <button class="bstar bstar--1" type="button" data-star aria-label="Случайный каомодзи"><svg class="ic" aria-hidden="true"><use href="#i-sparkle"/></svg></button>
+      <button class="bstar bstar--2" type="button" data-star aria-label="Случайный каомодзи"><svg class="ic" aria-hidden="true"><use href="#i-sparkle"/></svg></button>
+      <button class="bstar bstar--3" type="button" data-star aria-label="Случайный каомодзи"><svg class="ic" aria-hidden="true"><use href="#i-sparkle"/></svg></button>
+      <button class="bstar bstar--4" type="button" data-star aria-label="Случайный каомодзи"><svg class="ic" aria-hidden="true"><use href="#i-sparkle"/></svg></button>
+      <button class="bstar bstar--5" type="button" data-star aria-label="Случайный каомодзи"><svg class="ic" aria-hidden="true"><use href="#i-sparkle"/></svg></button>
+      <button class="bstar bstar--6" type="button" data-star aria-label="Случайный каомодзи"><svg class="ic" aria-hidden="true"><use href="#i-sparkle"/></svg></button>
+      <button class="bstar bstar--big" type="button" data-star aria-label="Случайный каомодзи"><svg class="ic" aria-hidden="true"><use href="#i-sparkle-g"/></svg></button>
     </div>
 
-    <section class="container cta-wrap" id="about">
-      <div class="cta reveal">
-        <div class="cta-copy">
-          <span class="overline">Пора добавить немного магии</span>
-          <h2>Добавь эмоцию в переписку.</h2>
+    <!-- ФИНАЛЬНЫЙ CTA -->
+    <section class="cta grain" id="about">
+      <button class="cta__star cta__star--a" type="button" data-star aria-label="Случайный каомодзи"><svg class="ic" aria-hidden="true"><use href="#i-sparkle"/></svg></button>
+      <button class="cta__star cta__star--b" type="button" data-star aria-label="Случайный каомодзи"><svg class="ic" aria-hidden="true"><use href="#i-sparkle"/></svg></button>
+      <div class="cta__inner">
+        <div class="cta__copy">
+          <span class="label">Пора добавить немного магии</span>
+          <h2>Добавь эмоцию<br>в&nbsp;переписку.</h2>
           <p>Твоя следующая любимая эмоция уже ждёт. Выбирай, сохраняй и делись — легко и красиво.</p>
         </div>
-        <a class="button button-primary release-cta" href="https://github.com/FortesQ0/My-Kaomoji/releases"><span class="release-copy"><strong>Выбрать свою эмоцию</strong></span><span class="release-arrow" aria-hidden="true">↗</span></a>
+        <a class="btn btn--ink btn--xl" href="https://github.com/FortesQ0/My-Kaomoji/releases"><span class="btn__fill"></span><span class="btn__label">Выбрать свою эмоцию</span><svg class="ic ic--line btn__arrow" aria-hidden="true"><use href="#i-arrow"/></svg></a>
       </div>
     </section>
   </main>
 
-  <footer class="container footer">
-    <div><strong>My Kaomoji ✦</strong> — японские смайлики, большие эмоции.</div>
-    <div class="footer-links"><a href="https://github.com/FortesQ0/My-Kaomoji">GitHub</a><a href="#top">Наверх ↑</a><span>Сделано с ♡</span></div>
+  <footer class="footer">
+    <div class="footer__in">
+      <div><strong>My Kaomoji<svg class="ic ic--brand" aria-hidden="true"><use href="#i-spark"/></svg></strong> — японские смайлики, большие эмоции.</div>
+      <div class="footer__links">
+        <a class="link" href="https://github.com/FortesQ0/My-Kaomoji">GitHub</a>
+        <a class="link" href="#top">Наверх<svg class="ic ic--line" aria-hidden="true"><use href="#i-up"/></svg></a>
+        <span>Сделано с&nbsp;<svg class="ic ic--inline" aria-hidden="true"><use href="#i-heart"/></svg></span>
+      </div>
+    </div>
   </footer>
 
-  <script>
-    // Связываем короткие русские предлоги со следующим словом, чтобы не оставались в конце строки.
-    (function keepRussianShortWordsTogether() {
-      const walker = document.createTreeWalker(document.body, NodeFilter.SHOW_TEXT);
-      const nodes = [];
-      while (walker.nextNode()) nodes.push(walker.currentNode);
-      const shortWords = /(^|\s)(в|во|к|ко|с|со|у|о|об|от|до|за|на|по|из|изо|под|над|при|про|для|без|не|ни|и|а|но)(\s+)(?=\S)/giu;
-      nodes.forEach(node => {
-        if (node.parentElement?.closest('script,style,svg,code,pre')) return;
-        node.nodeValue = node.nodeValue.replace(shortWords, '$1$2\u00A0');
-      });
-    })();
-
-    const topbar = document.querySelector('#topbar');
-    const updateTopbar = () => topbar.classList.toggle('scrolled', window.scrollY > 12);
-    updateTopbar();
-    window.addEventListener('scroll', updateTopbar, { passive: true });
-
-    const revealItems = document.querySelectorAll('.reveal');
-    if ('IntersectionObserver' in window && !window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
-      const observer = new IntersectionObserver((entries, currentObserver) => {
-        entries.forEach(entry => {
-          if (entry.isIntersecting) {
-            entry.target.classList.add('visible');
-            currentObserver.unobserve(entry.target);
-          }
-        });
-      }, { threshold: 0.12, rootMargin: '0px 0px -35px 0px' });
-      revealItems.forEach(item => observer.observe(item));
-    } else {
-      revealItems.forEach(item => item.classList.add('visible'));
-    }
-  </script>
+  <div class="toast" id="toast" role="status" aria-live="polite"><span class="toast__face" id="toastFace"></span><span id="toastText">Скопировано</span></div>
 </body>
 </html>
