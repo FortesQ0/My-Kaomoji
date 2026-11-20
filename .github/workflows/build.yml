@@ -37,8 +37,8 @@ jobs:
           KEYSTORE_PASSPHRASE: ${{ secrets.KEYSTORE_PASSPHRASE }}
         run: |
           if [ -z "$KEYSTORE_PASSPHRASE" ]; then
-            echo "::warning title=Подпись::Секрет KEYSTORE_PASSPHRASE не задан, подпись случайным ключом"
-            exit 0
+            echo "::error title=Подпись::Секрет KEYSTORE_PASSPHRASE не задан. Сборка остановлена: APK с другим ключом не встанет поверх установленного приложения"
+            exit 1
           fi
           mkdir -p signing
           KS="$RUNNER_TEMP/kaomoji.keystore"
@@ -105,15 +105,25 @@ jobs:
 
       - name: Подписать постоянным ключом
         run: |
-          if [ -z "$KAOMOJI_KEYSTORE" ]; then exit 0; fi
+          if [ -z "$KAOMOJI_KEYSTORE" ]; then
+            echo "::error title=Подпись::Постоянный ключ не подготовлен, сборка остановлена"
+            exit 1
+          fi
           sdk="${ANDROID_HOME:-$ANDROID_SDK_ROOT}"
           apksigner=$(ls "$sdk"/build-tools/*/apksigner 2>/dev/null | sort -V | tail -1)
           if [ -z "$apksigner" ]; then
-            echo "::warning title=Подпись::apksigner не найден, APK подписан случайным ключом"
-            exit 0
+            echo "::error title=Подпись::apksigner не найден, сборка остановлена: APK без постоянного ключа не встанет поверх старого"
+            exit 1
           fi
           "$apksigner" sign --ks "$KAOMOJI_KEYSTORE" --ks-pass pass:android --ks-key-alias androiddebugkey --key-pass pass:android my-kaomoji.apk
           sha=$("$apksigner" verify --print-certs my-kaomoji.apk | grep 'certificate SHA-256 digest' | head -1 | sed 's/.*: //')
+          # Закреплённый отпечаток постоянного ключа. Если он изменится, сборка падает,
+          # потому что такой APK не обновит уже установленное приложение.
+          expected="62a9a096d607372e929bfc9bfed582ee2f7c63f7463c0010b12568fe63a17fca"
+          if [ "$sha" != "$expected" ]; then
+            echo "::error title=Подпись::Отпечаток ключа $sha не совпадает с закреплённым $expected. Сборка остановлена"
+            exit 1
+          fi
           echo "::notice title=Подпись::SHA-256 сертификата APK: $sha"
           echo "Сертификат APK (SHA-256): $sha" >> "$GITHUB_STEP_SUMMARY"
 
