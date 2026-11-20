@@ -432,3 +432,73 @@
   setMood('love', true);
   syncPicker();
 })();
+
+/* ---------- Макап телефона: демо «выбрал на клавиатуре, отправил» ----------
+   Только показ: управляет разметкой #phone и ничего не трогает на остальной странице. */
+(() => {
+  'use strict';
+  const phone = document.getElementById('phone');
+  if (!phone) return;
+  const chat = document.getElementById('phChat');
+  const typed = document.getElementById('phTyped');
+  const field = typed.closest('.ph-field');
+  const send = field.querySelector('.ph-send');
+  const keys = [...document.querySelectorAll('#phKeys span')];
+  const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const firstBubble = chat.querySelector('.ph-b--in');
+  const TEXT = 'уже лечу! ';
+  const KEY = '٩(ˊᗜˋ*)و';
+  const REPLY = ['АХАХА, обожаю тебя ', '(｡♥‿♥｡)'];
+
+  const wait = (ms) => new Promise((r) => setTimeout(r, ms));
+  let visible = true;
+  if ('IntersectionObserver' in window) {
+    new IntersectionObserver((e) => { visible = e[0].isIntersecting; }, { threshold: 0.2 }).observe(phone);
+  }
+  const ready = async () => { while (!visible || document.hidden) await wait(400); };
+
+  function bubble(cls, text, face) {
+    const b = document.createElement('div');
+    b.className = 'ph-b ' + cls;
+    b.append(text);
+    if (face) { const em = document.createElement('em'); em.textContent = face; b.append(em); }
+    chat.append(b);
+  }
+  function setTyped(v) { typed.textContent = v; field.classList.toggle('has-text', v.length > 0); }
+  function reset() {
+    chat.querySelectorAll('.ph-b').forEach((n) => { if (n !== firstBubble) n.remove(); });
+    setTyped('');
+    keys.forEach((k) => k.classList.remove('is-press'));
+  }
+
+  if (reduce) {
+    bubble('ph-b--out', 'уже лечу! ', KEY);
+    bubble('ph-b--in', REPLY[0], REPLY[1]);
+    return;
+  }
+
+  (async function loop() {
+    for (;;) {
+      await ready();
+      reset();
+      await wait(900);
+      for (const ch of TEXT) { await ready(); setTyped(typed.textContent + ch); await wait(85); }
+      await wait(450);
+      const key = keys.find((k) => k.dataset.k === KEY);
+      key.classList.add('is-press');
+      await wait(260);
+      setTyped(typed.textContent + KEY);
+      await wait(320);
+      key.classList.remove('is-press');
+      await wait(650);
+      send.classList.add('is-press');
+      await wait(200);
+      send.classList.remove('is-press');
+      bubble('ph-b--out', TEXT, KEY);
+      setTyped('');
+      await wait(1100);
+      bubble('ph-b--in', REPLY[0], REPLY[1]);
+      await wait(3600);
+    }
+  })();
+})();

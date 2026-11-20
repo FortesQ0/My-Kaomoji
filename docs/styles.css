@@ -555,3 +555,119 @@ main, .footer { position: relative; z-index: 1; }
   *, *::before, *::after { animation: none !important; transition-duration: .01ms !important; transition-delay: 0ms !important; }
   .rise { opacity: 1; transform: none; filter: none; }
 }
+
+/* =====================================================================
+   ДОПОЛНЕНИЕ: глубина, контраст и макап телефона в первом экране.
+   Разметка, классы и скрипты сайта не менялись, только добавлен блок .phone.
+   ===================================================================== */
+
+/* --- лёгкий белый градиент вместо плоской заливки --- */
+body { background: linear-gradient(180deg, #fffaff 0%, #fff 22%, #fff3f9 52%, #fffaff 78%, #fff0f7 100%); }
+.hero__text {
+  background:
+    radial-gradient(60% 45% at 8% 100%, rgb(255 94 156 / .14), transparent 70%),
+    radial-gradient(70% 50% at 30% 0%, #fff 0%, transparent 70%),
+    linear-gradient(165deg, #fffaff 0%, #fff0f7 100%);
+}
+.section {
+  background:
+    radial-gradient(40% 30% at 90% 8%, rgb(255 94 156 / .14), transparent 70%),
+    radial-gradient(45% 30% at 4% 70%, rgb(245 139 184 / .16), transparent 70%),
+    linear-gradient(180deg, #fffaff 0%, #fff 40%, #ffeaf3 100%);
+}
+.how__text {
+  background:
+    radial-gradient(60% 40% at 0% 0%, rgb(255 94 156 / .12), transparent 70%),
+    linear-gradient(170deg, #fffaff 0%, #ffe9f3 100%);
+}
+
+/* --- розовые панели: свет сверху и глубина снизу --- */
+.hero__panel, .how__panel {
+  background:
+    radial-gradient(70% 45% at 20% 0%, rgb(255 255 255 / .38), transparent 70%),
+    radial-gradient(60% 40% at 100% 100%, rgb(53 0 21 / .22), transparent 70%),
+    var(--grad);
+}
+.cta {
+  background:
+    radial-gradient(50% 70% at 0% 0%, rgb(255 255 255 / .35), transparent 70%),
+    radial-gradient(50% 60% at 100% 100%, rgb(53 0 21 / .24), transparent 70%),
+    var(--grad);
+}
+
+/* --- карточки возможностей: объём вместо плоских плашек --- */
+.tone-blush { background: linear-gradient(145deg, #fff 0%, #ffdfee 100%); box-shadow: 0 30px 50px -34px rgb(255 94 156 / .65), 0 2px 0 #fff inset; }
+.tone-pink  { box-shadow: 0 34px 56px -30px rgb(255 94 156 / .9), 0 2px 0 rgb(255 255 255 / .35) inset; }
+.tone-ink   { background: linear-gradient(150deg, #5c0f35 0%, #350015 65%); box-shadow: 0 34px 56px -28px rgb(53 0 21 / .75); }
+.tone-ink h3 { color: #fff; }
+
+/* --- тёмный контрастный мост между розовыми блоками --- */
+.bridge { background: radial-gradient(40% 90% at 50% 50%, rgb(255 94 156 / .28), transparent 75%), linear-gradient(180deg, #350015 0%, #5a0f33 100%); }
+.bstar { color: #ff8fbb; }
+.bstar--2, .bstar--4 { color: #fff; }
+
+/* --- подвал: тёмный, чтобы страница заканчивалась весомо --- */
+.footer { background: var(--ink); color: rgb(255 250 255 / .78); box-shadow: none; }
+.footer strong { color: #fff; }
+.footer .ic--brand, .footer .ic--inline { color: var(--pink-2); }
+.footer :focus-visible { outline-color: #fff; }
+
+/* --- макап телефона в первом экране --- */
+.hero__panel { display: flex; flex-direction: column; align-items: center; gap: var(--s5); }
+.phone {
+  position: relative; z-index: 1; flex: none;
+  height: min(580px, 64svh); aspect-ratio: 9 / 18.4; min-height: 420px;
+  filter: drop-shadow(0 50px 50px rgb(53 0 21 / .38));
+}
+.phone__bezel { height: 100%; padding: 9px; border-radius: 42px; background: linear-gradient(160deg, #5a1236, #1d0009); box-shadow: inset 0 0 0 1px rgb(255 255 255 / .12); }
+.phone__screen {
+  position: relative; display: flex; flex-direction: column; height: 100%; overflow: hidden;
+  border-radius: 34px; background: linear-gradient(180deg, #fff 0%, #fff0f7 100%);
+  font-size: 12px; line-height: 1.3; color: var(--ink);
+}
+.ph-status { display: flex; align-items: center; justify-content: space-between; padding: 12px 20px 4px; font-size: 11px; }
+.ph-island { width: 56px; height: 16px; border-radius: 99px; background: var(--ink); }
+.ph-bat { width: 20px; height: 9px; border-radius: 3px; background: var(--ink); opacity: .75; }
+.ph-head { display: flex; align-items: center; gap: 8px; padding: 8px 16px 10px; box-shadow: 0 1px 0 var(--hair); }
+.ph-head b { display: block; font-weight: 400; font-size: 13px; }
+.ph-head small { font-size: 10px; color: var(--ink-3); }
+.ph-ava { display: grid; place-items: center; width: 28px; height: 28px; border-radius: 50%; background: var(--grad); font-size: 12px; }
+.ph-chat { display: flex; flex-direction: column; justify-content: flex-end; flex: 1; gap: 7px; min-height: 0; padding: 10px 12px; overflow: hidden; }
+.ph-day { align-self: center; font-size: 10px; color: var(--ink-3); }
+.ph-b { max-width: 86%; padding: 8px 11px; font-size: 12px; animation: bubble-in 600ms var(--ease); }
+.ph-b--in { align-self: flex-start; background: #fff; border-radius: 15px 15px 15px 4px; box-shadow: 0 6px 14px -10px rgb(53 0 21 / .5); }
+.ph-b--out { align-self: flex-end; background: var(--ink); color: #fff; border-radius: 15px 15px 4px 15px; }
+.ph-b--out em, .ph-b--in em { font-style: normal; color: var(--pink-2); white-space: nowrap; }
+.ph-b--in em { color: var(--pink); }
+.ph-field { display: flex; align-items: center; gap: 2px; margin: 0 10px 8px; padding: 5px 5px 5px 14px; min-height: 36px; border-radius: 99px; background: #fff; box-shadow: 0 8px 18px -12px rgb(53 0 21 / .5); font-size: 12px; white-space: nowrap; overflow: hidden; }
+.ph-ph { color: var(--ink-3); }
+.ph-field.has-text .ph-ph { display: none; }
+.ph-caret { width: 1px; height: 14px; background: var(--ink); animation: ph-blink 1s steps(2) infinite; }
+.ph-send { display: grid; place-items: center; margin-left: auto; flex: none; width: 26px; height: 26px; border-radius: 50%; background: var(--grad); font-size: 13px; transition: transform 520ms var(--ease); }
+.ph-send.is-press { transform: scale(.82); }
+.ph-kb { padding: 8px 8px 12px; background: #ffd9ea; border-radius: 18px 18px 0 0; }
+.ph-tabs { display: flex; gap: 4px; margin-bottom: 7px; }
+.ph-tabs span { flex: 1; padding: 5px 0; border-radius: 99px; text-align: center; font-size: 10px; color: var(--ink-2); }
+.ph-tabs .is-on { background: var(--ink); color: #fff; }
+.ph-keys { display: grid; grid-template-columns: 1fr 1fr; gap: 6px; }
+.ph-keys span { display: grid; place-items: center; min-height: 34px; padding: 0 4px; border-radius: 11px; background: #fff; font-size: 12px; letter-spacing: -.02em; white-space: nowrap; box-shadow: 0 3px 0 rgb(53 0 21 / .14); transition: transform 320ms var(--ease), background 320ms var(--ease); }
+.ph-keys span.is-press { transform: translateY(2px); background: var(--grad); box-shadow: none; }
+@keyframes ph-blink { 50% { opacity: 0; } }
+
+/* широкий экран: телефон справа, доска настроений слева и выходит на белое поле */
+@media (min-width: 1200px) {
+  .hero__panel { display: block; padding: 0; }
+  .phone { position: absolute; right: var(--s5); top: 50%; margin: calc(min(580px, 64svh) / -2 - 16px) 0 0; }
+  .hero__panel .board { position: absolute; left: -48px; bottom: clamp(40px, 9svh, 96px); width: 312px; padding: 22px; }
+  .hero__panel .stage { min-height: 170px; margin: var(--s4) 0 var(--s3); }
+  .hero__panel .stage__face { font-size: 2.1rem; }
+  .hero__panel .board__foot { margin-top: var(--s4); }
+  .hero__sub { max-width: 46ch; }
+}
+@media (max-width: 900px) { .phone { height: 500px; } }
+@media (prefers-reduced-motion: reduce) { .ph-caret { animation: none; } }
+@media (min-width: 1200px) {
+  .hero__panel .board__brand span, .hero__panel .board__live { white-space: nowrap; }
+  .hero__panel .board__live { font-size: .82rem; }
+  .hero__panel .mood { padding: 0 10px; font-size: .8rem; }
+}
