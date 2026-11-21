@@ -403,32 +403,47 @@
 })();
 
 /* ---------- стопка карточек ----------
-   Каждый блок липнет к экрану: низкий — к верху, высокий — когда долистан до своего низа.
-   Пока следующий блок наезжает, предыдущий чуть уменьшается и темнеет (переменная --p от 0 до 1). */
+   Каждый блок сначала спокойно прокручивается: пока его визуальная часть не дойдёт примерно до середины экрана,
+   следующий блок даже не показывается. Потом блок замирает, а следующий выезжает снизу и накладывается сверху.
+   Пока идёт наезд, предыдущий блок чуть уменьшается и темнеет (переменная --p от 0 до 1).
+   Для этого у блока есть «пауза» (--dwell): отступ снизу, который не показывает следующий блок слишком рано. */
 (() => {
   'use strict';
   const items = Array.from(document.querySelectorAll('.stack'));
   if (items.length < 2) return;
   const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const DWELL = 0.42;          /* доля высоты экрана: на столько визуальная часть поднимается до наезда */
   let ticking = false;
+  const stuck = new Map();     /* где у блока будет низ, когда он «прилипнет» */
+
+  function viewH() { return document.documentElement.clientHeight || window.innerHeight; }
 
   function layout() {
-    const vh = window.innerHeight;
-    items.forEach((el) => { el.style.top = Math.min(0, vh - el.offsetHeight) + 'px'; });
+    const vh = viewH();
+    items.forEach((el, i) => {
+      const h = el.offsetHeight;
+      const last = i === items.length - 1;
+      const dwell = last ? 0 : Math.round(vh * DWELL);
+      const top = Math.min(0, vh - h - dwell);
+      el.style.top = top + 'px';
+      el.style.marginBottom = last ? '0px' : Math.max(vh - (h + top), 0) + 'px';
+      stuck.set(el, h + top);
+    });
     update();
   }
 
   function update() {
     ticking = false;
     if (reduce) return;
-    const vh = window.innerHeight;
+    const vh = viewH();
     items.forEach((el, i) => {
       const next = items[i + 1];
       if (!next) return;
-      const top = next.getBoundingClientRect().top;
-      const p = Math.max(0, Math.min(1, 1 - top / vh));
+      const bottom = stuck.get(el) || vh;
+      const nextTop = next.getBoundingClientRect().top;
+      /* наезд считается от момента, когда следующий блок дошёл до нижнего края видимой части */
+      const p = Math.max(0, Math.min(1, (bottom - nextTop) / bottom));
       el.style.setProperty('--p', p.toFixed(3));
-      /* масштабируем вокруг центра экрана, а не центра высокого блока */
       el.style.transformOrigin = '50% ' + (vh / 2 - (parseFloat(el.style.top) || 0)) + 'px';
     });
   }
@@ -439,6 +454,7 @@
 
   window.addEventListener('scroll', onScroll, { passive: true });
   window.addEventListener('resize', layout);
+  window.addEventListener('orientationchange', layout);
   window.addEventListener('load', layout);
   if (document.fonts && document.fonts.ready) document.fonts.ready.then(layout);
   if (window.ResizeObserver) { const ro = new ResizeObserver(layout); items.forEach((el) => ro.observe(el)); }

@@ -254,7 +254,7 @@ h3 { font-size: clamp(1.25rem, 2vw, 1.75rem); line-height: 1.05; letter-spacing:
   --col: var(--s5);
   --card-bg: linear-gradient(160deg, #fff 0%, #fff3f9 100%);
   --card-line: rgb(255 94 156 / .26);
-  --card-shadow: 0 28px 44px -32px rgb(255 94 156 / .6);
+  --card-shadow: 0 24px 40px -30px rgb(240 120 170 / .42);
   --tint: linear-gradient(180deg, #ffd9e8 0%, #fff0f7 100%);
   --ring: #fff6fa;
 }
@@ -392,8 +392,8 @@ h3 { font-size: clamp(1.25rem, 2vw, 1.75rem); line-height: 1.05; letter-spacing:
 .chat__caption strong { color: var(--ink); }
 
 /* ---------- финальный CTA ---------- */
-.cta { position: relative; display: flex; flex-direction: column; overflow: hidden; min-height: 100svh; padding: var(--s9) 0 0; background: linear-gradient(135deg, #fbc0d8 0%, #f58bb8 62%, #f783b4 100%); }
-.cta__inner { position: relative; z-index: 1; flex: 1 0 auto; align-self: center; margin-bottom: var(--s8); width: min(var(--max), calc(100% - var(--gutter) * 2)); margin-inline: auto; display: flex; align-items: center; justify-content: space-between; gap: var(--s7); }
+.cta { position: relative; display: flex; flex-direction: column; overflow: hidden; min-height: 100svh; padding: var(--s9) 0 0; background: linear-gradient(160deg, #ffe6f0 0%, #ffd0e2 55%, #fcbcd4 100%); }
+.cta__inner { position: relative; z-index: 1; align-self: center; margin-block: auto; padding-bottom: var(--s7); width: min(var(--max), calc(100% - var(--gutter) * 2)); margin-inline: auto; display: flex; align-items: center; justify-content: space-between; gap: var(--s7); }
 .cta__copy { max-width: 610px; }
 .cta__copy .label { color: var(--ink-2); }
 .cta p { max-width: 44ch; margin-top: var(--s5); color: var(--ink-2); font-size: clamp(1rem, 1.3vw, 1.25rem); text-wrap: balance; }
@@ -406,14 +406,16 @@ h3 { font-size: clamp(1.25rem, 2vw, 1.75rem); line-height: 1.05; letter-spacing:
 .cta__star--a { right: 6%; top: 10%; width: clamp(56px, 6vw, 88px); height: clamp(56px, 6vw, 88px); }
 
 /* ---------- подвал: светлый розовый, пилюли и каомодзи ---------- */
-.footer { position: relative; margin-top: auto; padding: var(--s6) 0 var(--s7); border-top: 1px solid rgb(255 255 255 / .55); color: var(--ink-2); }
+.footer { position: relative; margin-top: auto; padding: var(--s4) 0 var(--s5); border-top: 1px solid rgb(255 255 255 / .7); color: var(--ink-2); }
 .footer__top { display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); column-gap: var(--col); align-items: center; }
 .footer__brand { grid-column: 1 / span 6; display: flex; align-items: center; gap: var(--s4); }
-.footer__mark { width: 48px; height: 48px; border-radius: 14px; }
-.footer__brand strong { display: block; color: var(--ink); font-size: 1.25rem; line-height: 1.2; }
+.footer__mark { width: 40px; height: 40px; border-radius: 12px; }
+.footer__brand strong { display: block; color: var(--ink); font-size: 1.1rem; line-height: 1.2; }
 .footer .footer__brand p { margin: 0; max-width: none; font-size: .95rem; color: var(--ink-2); }
 .footer__nav { grid-column: 7 / span 6; display: flex; flex-wrap: wrap; justify-content: flex-end; gap: var(--s3); }
-.footer .pill { background: rgb(255 255 255 / .85); }
+.footer .pill { min-height: 40px; padding: 0 var(--s4); background: rgb(255 255 255 / .9); }
+.pill .ic--fill { width: 18px; height: 18px; color: var(--pink); }
+.pill--grad .ic--fill { color: var(--ink); }
 .pill {
   display: inline-flex; align-items: center; gap: var(--s2); min-height: 44px; padding: 0 var(--s5); border: 0; border-radius: var(--r-pill);
   background: #fff; color: var(--ink); box-shadow: 0 0 0 1px var(--card-line) inset; font-size: .95rem; letter-spacing: -.01em; white-space: nowrap; cursor: pointer;
@@ -509,9 +511,9 @@ h3 { font-size: clamp(1.25rem, 2vw, 1.75rem); line-height: 1.05; letter-spacing:
 /* =====================================================================
    Фон страницы и розовые панели первого экрана.
    ===================================================================== */
-body { background: #2a0010; }
-.hero__text { background: linear-gradient(160deg, #fffaff 0%, #ffe9f3 55%, #ffd3e6 100%); }
-.hero__panel { background: radial-gradient(70% 50% at 20% 0%, rgb(255 255 255 / .34), transparent 70%), linear-gradient(150deg, #fbb6d2 0%, #f58bb8 100%); }
+body { background: #f6d2e1; }
+.hero__text { background: linear-gradient(165deg, #fffaff 0%, #fff1f7 55%, #ffe3ee 100%); }
+.hero__panel { background: radial-gradient(70% 50% at 20% 0%, rgb(255 255 255 / .55), transparent 70%), linear-gradient(160deg, #ffe6f0 0%, #ffd3e4 55%, #fcc0d6 100%); }
 
 /* --- макап телефона: экран настоящего приложения (размеры в em, масштабируются с телефоном) --- */
 .hero__panel { display: flex; flex-direction: column; align-items: center; gap: var(--s5); }
@@ -595,9 +597,9 @@ body { background: #2a0010; }
    пока на него наезжают, он чуть уменьшается и темнеет.
    ===================================================================== */
 main { display: contents; }
-.stack { position: sticky; top: 0; z-index: var(--z, 1); transform: scale(calc(1 - var(--p, 0) * .06)); will-change: transform; }
-.stack::after { content: ""; position: absolute; inset: 0; z-index: 60; pointer-events: none; background: #2a0010; opacity: calc(var(--p, 0) * .3); border-radius: inherit; }
-.stack--over { border-radius: 32px 32px 0 0; box-shadow: 0 -16px 40px -22px rgb(53 0 21 / .28); }
+.stack { position: sticky; top: 0; z-index: var(--z, 1); transform: scale(calc(1 - var(--p, 0) * .05)); will-change: transform; }
+.stack::after { content: ""; position: absolute; inset: 0; z-index: 60; pointer-events: none; background: #6a2a48; opacity: calc(var(--p, 0) * .16); border-radius: inherit; }
+.stack--over { border-radius: 32px 32px 0 0; box-shadow: 0 -14px 36px -22px rgb(120 40 80 / .22); }
 .hero.stack { overflow: clip; }
 
 @media (max-width: 600px) { .stack--over { border-radius: 24px 24px 0 0; } }
@@ -616,24 +618,36 @@ main { display: contents; }
 .hero__panel .stars i { animation-name: st-x-panel; }
 @keyframes st-x-panel { from { transform: translateX(-60px); } to { transform: translateX(560px); } }
 
-/* ---------- первый экран: карточка и половинка телефона справа от заголовка ---------- */
-.board__foot { justify-content: center; text-align: center; }
-.hero__phone { position: relative; pointer-events: none; user-select: none; }
-.hero__phone .phone { filter: drop-shadow(0 40px 40px rgb(53 0 21 / .26)); }
-@media (min-width: 1200px) {
-  .hero__panel { --vis: 176px; display: block; padding: 0; }
-  .hero__panel .board { position: absolute; left: var(--s6); top: 50%; width: calc(100% - var(--vis) - var(--s6) - var(--s4)); max-width: 330px; margin: 0; padding: 22px; transform: translateY(-50%); }
-  .hero__panel .board.rise:not(.is-in) { transform: translateY(calc(-50% + 24px)); }
-  .hero__phone { position: absolute; left: calc(100% - var(--vis)); top: 50%; transform: translateY(-50%) rotate(-6deg); transform-origin: 0 50%; }
-  .hero__phone .phone { height: min(660px, 74svh); min-height: 0; }
-}
-@media (min-width: 1200px) and (max-width: 1360px) { .hero__panel { --vis: 150px; } }
-@media (max-width: 1199px) {
-  .hero__panel { display: flex; flex-direction: column; align-items: center; gap: var(--s6); padding: var(--s8) var(--gutter) 0; }
-  .hero__panel .board { width: min(360px, 100%); }
-  .hero__phone { width: min(320px, 80vw); height: 280px; overflow: hidden; transform: rotate(-4deg); transform-origin: 50% 100%; }
-  .hero__phone .phone { width: 100%; height: auto; min-height: 0; }
-}
 
-/* на узких экранах заголовок первого экрана стоит сразу под шапкой: верхних звёзд там нет */
-@media (max-width: 900px) { .hero__text .stars i:nth-child(-n + 2) { display: none; } }
+/* ---------- первый экран: заголовок, текст и кнопки слева, половина телефона справа вверху ---------- */
+.board__foot { justify-content: center; text-align: center; }
+.hero h1 { font-size: clamp(2.4rem, 5.6vw, 6.2rem); }
+.hero__panel { display: grid; place-items: center; padding: 96px var(--s7) var(--s7); }
+.hero__phone {
+  --pw: clamp(230px, 21vw, 310px);
+  position: absolute; z-index: 0; top: 92px; right: calc(var(--pw) * -.36); width: var(--pw); pointer-events: none; user-select: none;
+  transform: rotate(6deg); transform-origin: 50% 0;
+  -webkit-mask-image: linear-gradient(180deg, #000 0%, #000 36%, transparent 82%); mask-image: linear-gradient(180deg, #000 0%, #000 36%, transparent 82%);
+}
+.hero__phone .phone { width: 100%; height: auto; min-height: 0; filter: drop-shadow(0 24px 30px rgb(180 70 120 / .22)); }
+.hero__phone .phone__bezel { padding: 5px; border-radius: calc(var(--pw) * .15); background: linear-gradient(160deg, #6a2a48, #3a1428); box-shadow: inset 0 0 0 1px rgb(255 255 255 / .1); }
+.hero__phone .phone__screen { border-radius: calc(var(--pw) * .125); }
+.hero__text > :not(.stars):not(.hero__phone) { position: relative; z-index: 1; }
+@media (min-width: 901px) { .hero__text { padding-right: calc(var(--s7) + 14vw); } }
+@media (max-width: 900px) {
+  .hero h1 { font-size: clamp(2rem, 9.4vw, 3.1rem); }
+  .hero__text { padding: 104px var(--gutter) var(--s7); }
+  .hero__text > :not(.stars):not(.hero__phone) { max-width: 56%; }
+  .hero__sub { font-size: .95rem; margin-top: var(--s4); }
+  .hero__cta { flex-direction: column; align-items: stretch; gap: var(--s2); margin-top: var(--s5); }
+  .hero__cta .btn { flex: 0 0 auto; width: 100%; min-height: 48px; padding-inline: var(--s4); font-size: .95rem; }
+  .hero__note { font-size: 12px; }
+  .hero__phone { --pw: 230px; top: 96px; right: -84px; transform: rotate(5deg); }
+  .hero__panel { padding: var(--s7) var(--gutter); }
+  .hero__panel .board { width: min(380px, 100%); }
+  .hero__text .stars i:nth-child(-n + 2) { display: none; }
+}
+@media (max-width: 380px) { .hero__phone { --pw: 210px; right: -86px; } }
+.hero__phone { animation: phone-in 1100ms var(--ease) 350ms both; }
+@keyframes phone-in { from { opacity: 0; translate: 0 18px; } }
+@media (prefers-reduced-motion: reduce) { .hero__phone { animation: none; } }
