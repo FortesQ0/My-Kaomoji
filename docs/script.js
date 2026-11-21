@@ -489,3 +489,50 @@
     if (sel) select(sel.dataset.set);
   });
 })();
+
+
+/* ---------- стопка карточек ----------
+   Каждый блок липнет к экрану: низкий — к верху, высокий — когда долистан до своего низа.
+   Пока следующий блок наезжает, предыдущий чуть уменьшается и темнеет (переменная --p от 0 до 1). */
+(() => {
+  'use strict';
+  const items = Array.from(document.querySelectorAll('.stack'));
+  if (items.length < 2) return;
+  const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  let ticking = false;
+
+  function layout() {
+    const vh = window.innerHeight;
+    const foot = document.querySelector('.footer');
+    if (foot) document.documentElement.style.setProperty('--foot', foot.offsetHeight + 'px');
+    items.forEach((el) => { el.style.top = Math.min(0, vh - el.offsetHeight) + 'px'; });
+    update();
+  }
+
+  function update() {
+    ticking = false;
+    if (reduce) return;
+    const vh = window.innerHeight;
+    items.forEach((el, i) => {
+      const next = items[i + 1];
+      /* финал и подвал: подвал просто ложится сверху, без сжатия и затемнения */
+      if (!next || i >= items.length - 2) { el.style.setProperty('--p', 0); return; }
+      const top = next.getBoundingClientRect().top;
+      const p = Math.max(0, Math.min(1, 1 - top / vh));
+      el.style.setProperty('--p', p.toFixed(3));
+      /* масштабируем вокруг центра экрана, а не центра высокого блока */
+      el.style.transformOrigin = '50% ' + (vh / 2 - (parseFloat(el.style.top) || 0)) + 'px';
+    });
+  }
+
+  function onScroll() {
+    if (!ticking) { ticking = true; requestAnimationFrame(update); }
+  }
+
+  window.addEventListener('scroll', onScroll, { passive: true });
+  window.addEventListener('resize', layout);
+  window.addEventListener('load', layout);
+  if (document.fonts && document.fonts.ready) document.fonts.ready.then(layout);
+  if (window.ResizeObserver) { const ro = new ResizeObserver(layout); items.forEach((el) => ro.observe(el)); }
+  layout();
+})();
