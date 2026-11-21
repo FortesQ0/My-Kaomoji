@@ -265,35 +265,27 @@
 
   /* ---------- карточки возможностей ---------- */
   $$('.feature').forEach((card) => {
-    card.addEventListener('click', (e) => {
-      if (e.target.closest('.chip')) return;
-      const open = !card.classList.contains('is-open');
-      card.classList.toggle('is-open', open);
-      $('.feature__idx', card).setAttribute('aria-expanded', String(open));
-      if (open) copyFace(card.dataset.face, $('.feature__idx', card));
+    card.addEventListener('click', () => {
+      card.classList.remove('is-pop');
+      void card.offsetWidth;
+      card.classList.add('is-pop');
+      copyFace(card.dataset.face, $('.feature__idx', card));
     });
   });
 
-  /* ---------- чат ---------- */
+  /* ---------- чат: готовые плашки с каомодзи вместо поля ввода ---------- */
   const stage = $('#chatStage');
   const picker = $('#picker');
-  const faceBtn = $('#faceBtn');
-  const form = $('#composer');
-  const input = $('#composerInput');
   const sticker = $('#sticker');
   const steps = $$('.step');
   let selected = '٩(ˊᗜˋ*)و';
 
   function syncPicker() {
-    $$('.pk', picker).forEach((pk) => {
+    $$('.pk', picker).forEach((pk, i) => {
+      pk.style.setProperty('--i', i);
       pk.classList.toggle('is-sel', pk.dataset.pk === selected);
       pk.classList.toggle('is-fav', favs.has(pk.dataset.pk));
     });
-  }
-
-  function setPicker(open) {
-    picker.hidden = !open;
-    faceBtn.setAttribute('aria-expanded', String(open));
   }
 
   function markStep(n) {
@@ -346,42 +338,20 @@
     return b;
   }
 
-  function send(fromStep) {
-    let text = input.value.trim();
-    let face = '';
-    if (selected && text.includes(selected)) {
-      face = selected;
-      text = text.replace(selected, '').replace(/\s+/g, ' ').trim();
-    } else if (!text || fromStep) {
-      face = selected;
-    }
-    if (!text && !face) {
-      form.classList.remove('is-shake');
-      void form.offsetWidth;
-      form.classList.add('is-shake');
-      input.focus();
-      return;
-    }
-    const mine = addBubble({ text, face, out: true });
-    input.value = '';
-    setPicker(false);
-    if (face) copyFace(face, mine);
+  function sendFace(face) {
+    selected = face;
+    syncPicker();
+    const mine = addBubble({ face, out: true });
+    copyFace(face, mine);
     setTimeout(() => addBubble({ face: rand(POOL), out: false }), 900);
   }
-
-  faceBtn.addEventListener('click', () => { setPicker(picker.hidden); markStep(1); });
 
   picker.addEventListener('click', (e) => {
     const pk = e.target.closest('.pk');
     if (!pk) return;
-    selected = pk.dataset.pk;
-    input.value = (input.value.trim() + ' ' + selected).trim();
-    syncPicker();
-    input.focus();
-    burst(pk);
+    markStep(3);
+    sendFace(pk.dataset.pk);
   });
-
-  form.addEventListener('submit', (e) => { e.preventDefault(); markStep(3); send(false); });
 
   stage.addEventListener('click', (e) => {
     const react = e.target.closest('.react');
@@ -414,16 +384,18 @@
       const n = step.dataset.step;
       markStep(n);
       if (n === '1') {
-        setPicker(true);
+        picker.classList.remove('is-hint');
+        void picker.offsetWidth;
+        picker.classList.add('is-hint');
         picker.scrollIntoView({ block: 'nearest', behavior: reduce ? 'auto' : 'smooth' });
       } else if (n === '2') {
         if (favs.has(selected)) { favs.delete(selected); showToast('Убрано из избранного', selected); }
         else { favs.add(selected); showToast('В избранном', selected); burst(step); }
         saveFavs();
-        setPicker(true);
         syncFav();
+        syncPicker();
       } else {
-        send(true);
+        sendFace(selected);
       }
     });
   });
