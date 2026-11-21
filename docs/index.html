@@ -55,17 +55,6 @@
     <symbol id="i-s-send" viewBox="0 0 24 24"><path d="M2.6 11.2l17.9-7.7c.9-.4 1.8.5 1.4 1.4l-7.7 17.9c-.4.9-1.6.9-2 0l-2.3-5.6-5.6-2.3c-.9-.4-.9-1.6 0-1.7z"/></symbol>
   </svg>
 
-  <div class="sky" aria-hidden="true">
-    <i style="--y:14vh;--s:46px;--t:150s;--d:-20s;--c:var(--pink);--o:0.34"><b><svg class="ic" aria-hidden="true"><use href="#i-sparkle"/></svg></b></i>
-    <i style="--y:62vh;--s:22px;--t:110s;--d:-70s;--c:var(--pink);--o:0.42"><b><svg class="ic" aria-hidden="true"><use href="#i-sparkle"/></svg></b></i>
-    <i style="--y:30vh;--s:72px;--t:170s;--d:-40s;--c:#fff;--o:0.5"><b><svg class="ic" aria-hidden="true"><use href="#i-sparkle"/></svg></b></i>
-    <i style="--y:80vh;--s:30px;--t:125s;--d:-95s;--c:var(--pink);--o:0.34"><b><svg class="ic" aria-hidden="true"><use href="#i-sparkle"/></svg></b></i>
-    <i style="--y:8vh;--s:18px;--t:100s;--d:-15s;--c:#fff;--o:0.55"><b><svg class="ic" aria-hidden="true"><use href="#i-sparkle"/></svg></b></i>
-    <i style="--y:48vh;--s:54px;--t:180s;--d:-120s;--c:var(--pink);--o:0.24"><b><svg class="ic" aria-hidden="true"><use href="#i-sparkle"/></svg></b></i>
-    <i style="--y:90vh;--s:38px;--t:140s;--d:-60s;--c:#fff;--o:0.5"><b><svg class="ic" aria-hidden="true"><use href="#i-sparkle"/></svg></b></i>
-    <i style="--y:22vh;--s:26px;--t:115s;--d:-85s;--c:var(--pink);--o:0.4"><b><svg class="ic" aria-hidden="true"><use href="#i-sparkle"/></svg></b></i>
-  </div>
-
   <header class="topbar" id="topbar">
     <div class="nav">
       <a class="brand rise" data-d="300" href="#top" aria-label="My Kaomoji — на главную">
@@ -90,7 +79,7 @@
 
     <!-- HERO: схема C, 60/40 -->
     <section class="hero stack" style="--z:1" aria-labelledby="hero-title">
-      <div class="hero__text">
+      <div class="hero__text"><div class="stars" aria-hidden="true"><i style="--y:112px;--s:40px;--t:130s;--d:-30s;--c:rgb(255 94 156);--o:0.3"><b><svg class="ic" aria-hidden="true"><use href="#i-sparkle"/></svg></b></i><i style="--y:160px;--s:22px;--t:95s;--d:-70s;--c:rgb(255 94 156);--o:0.4"><b><svg class="ic" aria-hidden="true"><use href="#i-spark"/></svg></b></i><i style="--y:calc(100% - 74px);--s:30px;--t:150s;--d:-100s;--c:rgb(255 94 156);--o:0.26"><b><svg class="ic" aria-hidden="true"><use href="#i-sparkle"/></svg></b></i><i style="--y:calc(100% - 44px);--s:18px;--t:110s;--d:-20s;--c:rgb(255 94 156);--o:0.38"><b><svg class="ic" aria-hidden="true"><use href="#i-spark"/></svg></b></i></div>
         <h1 id="hero-title" class="rise" data-d="900">Оживи свою<br><span class="grad">переписку.</span></h1>
         <p class="hero__sub rise" data-d="1040">Японские текстовые смайлики для переписки. Найди подходящий, добавь в&nbsp;избранное или отправь прямо с&nbsp;клавиатуры.</p>
         <div class="hero__cta rise" data-d="1200">
@@ -100,9 +89,10 @@
         <p class="hero__note rise" data-d="1200"><svg class="ic" aria-hidden="true"><use href="#i-spark"/></svg>Твоё настроение — в&nbsp;одном касании</p>
       </div>
 
-      <div class="hero__panel grain" aria-label="Пример коллекции каомодзи">
-        <!-- Макап телефона: настоящий экран приложения My Kaomoji. Кликабельный мини-демо (script.js, блок «Макап телефона») -->
-        <div class="phone rise" data-d="500" id="phone" role="group" aria-label="Экран приложения My Kaomoji: нажми на каомодзи, чтобы скопировать">
+      <div class="hero__panel grain" aria-label="Пример коллекции каомодзи"><div class="stars" aria-hidden="true"><i style="--y:92px;--s:20px;--t:120s;--d:-50s;--c:#fff;--o:0.55"><b><svg class="ic" aria-hidden="true"><use href="#i-sparkle"/></svg></b></i><i style="--y:calc(100% - 52px);--s:26px;--t:100s;--d:-15s;--c:#fff;--o:0.6"><b><svg class="ic" aria-hidden="true"><use href="#i-spark"/></svg></b></i><i style="--y:calc(100% - 90px);--s:44px;--t:160s;--d:-90s;--c:#fff;--o:0.35"><b><svg class="ic" aria-hidden="true"><use href="#i-sparkle"/></svg></b></i></div>
+        <!-- Половинка мокапа: неинтерактивный силуэт экрана приложения, справа от заголовка -->
+        <div class="hero__phone rise" data-d="500" aria-hidden="true">
+          <div class="phone">
           <div class="phone__bezel">
             <div class="phone__screen">
               <div class="ph-status" aria-hidden="true"><span>9:41</span><i class="ph-island"></i><span class="ph-bat"></span></div>
@@ -111,35 +101,35 @@
                 <span class="ap-title">My Kaomoji</span>
                 <span class="ap-gear" aria-hidden="true"><svg class="ic"><use href="#i-gear"/></svg></span>
               </div>
-              <div class="ap-chips" role="group" aria-label="Категории">
-                <button class="ap-chip is-on" type="button" data-set="all" aria-pressed="true">Все</button>
-                <button class="ap-chip" type="button" data-set="solo" aria-pressed="false"><svg class="ic" aria-hidden="true"><use href="#i-user"/></svg>Одиночные</button>
-                <button class="ap-chip" type="button" data-set="group" aria-pressed="false"><svg class="ic" aria-hidden="true"><use href="#i-users"/></svg>Компания</button>
-                <button class="ap-chip" type="button" data-set="special" aria-pressed="false"><svg class="ic" aria-hidden="true"><use href="#i-sparkle"/></svg>Особые</button>
+              <div class="ap-chips" role="group">
+                <span class="ap-chip is-on">Все</span>
+                <span class="ap-chip"><svg class="ic" aria-hidden="true"><use href="#i-user"/></svg>Одиночные</span>
+                <span class="ap-chip"><svg class="ic" aria-hidden="true"><use href="#i-users"/></svg>Компания</span>
+                <span class="ap-chip"><svg class="ic" aria-hidden="true"><use href="#i-sparkle"/></svg>Особые</span>
               </div>
               <div class="ap-body">
-                <section class="ap-hits" aria-label="Хиты дня">
+                <section class="ap-hits">
                   <div class="ap-hits__top"><span class="ap-hits__title">Хиты дня</span><span class="ap-search" aria-hidden="true">Поиск<svg class="ic ic--line"><use href="#i-search"/></svg></span></div>
-                  <div class="ap-list" id="apHits"><div class="ap-row" style="--i:0"><button class="ap-face" type="button" data-copy="(•ө•)">(•ө•)</button><button class="ap-heart" type="button" data-fav="(•ө•)" aria-pressed="false" aria-label="В избранное"><svg class="ic" aria-hidden="true"><use href="#i-heart"/></svg></button></div><div class="ap-row" style="--i:1"><button class="ap-face" type="button" data-copy="＼(´∀｀)／">＼(´∀｀)／</button><button class="ap-heart" type="button" data-fav="＼(´∀｀)／" aria-pressed="false" aria-label="В избранное"><svg class="ic" aria-hidden="true"><use href="#i-heart"/></svg></button></div><div class="ap-row" style="--i:2"><button class="ap-face" type="button" data-copy="*♪٩(ˊᗜˋ )و♬*">*♪٩(ˊᗜˋ )و♬*</button><button class="ap-heart" type="button" data-fav="*♪٩(ˊᗜˋ )و♬*" aria-pressed="false" aria-label="В избранное"><svg class="ic" aria-hidden="true"><use href="#i-heart"/></svg></button></div><div class="ap-row" style="--i:3"><button class="ap-face" type="button" data-copy="————(°∀°)————!">————(°∀°)————!</button><button class="ap-heart" type="button" data-fav="————(°∀°)————!" aria-pressed="false" aria-label="В избранное"><svg class="ic" aria-hidden="true"><use href="#i-heart"/></svg></button></div></div>
+                  <div class="ap-list"><div class="ap-row" style="--i:0"><span class="ap-face">(•ө•)</span><span class="ap-heart"><svg class="ic" aria-hidden="true"><use href="#i-heart"/></svg></span></div><div class="ap-row" style="--i:1"><span class="ap-face">＼(´∀｀)／</span><span class="ap-heart"><svg class="ic" aria-hidden="true"><use href="#i-heart"/></svg></span></div><div class="ap-row" style="--i:2"><span class="ap-face">*♪٩(ˊᗜˋ )و♬*</span><span class="ap-heart"><svg class="ic" aria-hidden="true"><use href="#i-heart"/></svg></span></div><div class="ap-row" style="--i:3"><span class="ap-face">————(°∀°)————!</span><span class="ap-heart"><svg class="ic" aria-hidden="true"><use href="#i-heart"/></svg></span></div></div>
                 </section>
-                <section class="ap-rec" aria-label="Недавние">
+                <section class="ap-rec">
                   <div class="ap-rec__title"><svg class="ic" aria-hidden="true"><use href="#i-clock"/></svg>Недавние</div>
-                  <div class="ap-list ap-list--rec" id="apRecent"><div class="ap-row" style="--i:0"><button class="ap-face" type="button" data-copy="@ˆ▽ˆ@">@ˆ▽ˆ@</button><button class="ap-heart" type="button" data-fav="@ˆ▽ˆ@" aria-pressed="false" aria-label="В избранное"><svg class="ic" aria-hidden="true"><use href="#i-heart"/></svg></button></div><div class="ap-row" style="--i:1"><button class="ap-face" type="button" data-copy="(*^‿^)ﾉ~♪">(*^‿^)ﾉ~♪</button><button class="ap-heart" type="button" data-fav="(*^‿^)ﾉ~♪" aria-pressed="false" aria-label="В избранное"><svg class="ic" aria-hidden="true"><use href="#i-heart"/></svg></button></div><div class="ap-row" style="--i:2"><button class="ap-face" type="button" data-copy="(••)ゞ">(••)ゞ</button><button class="ap-heart" type="button" data-fav="(••)ゞ" aria-pressed="false" aria-label="В избранное"><svg class="ic" aria-hidden="true"><use href="#i-heart"/></svg></button></div><div class="ap-row" style="--i:3"><button class="ap-face" type="button" data-copy="٩(××)۶">٩(××)۶</button><button class="ap-heart" type="button" data-fav="٩(××)۶" aria-pressed="false" aria-label="В избранное"><svg class="ic" aria-hidden="true"><use href="#i-heart"/></svg></button></div></div>
+                  <div class="ap-list ap-list--rec"><div class="ap-row" style="--i:0"><span class="ap-face">@ˆ▽ˆ@</span><span class="ap-heart"><svg class="ic" aria-hidden="true"><use href="#i-heart"/></svg></span></div><div class="ap-row" style="--i:1"><span class="ap-face">(*^‿^)ﾉ~♪</span><span class="ap-heart"><svg class="ic" aria-hidden="true"><use href="#i-heart"/></svg></span></div><div class="ap-row" style="--i:2"><span class="ap-face">(••)ゞ</span><span class="ap-heart"><svg class="ic" aria-hidden="true"><use href="#i-heart"/></svg></span></div><div class="ap-row" style="--i:3"><span class="ap-face">٩(××)۶</span><span class="ap-heart"><svg class="ic" aria-hidden="true"><use href="#i-heart"/></svg></span></div></div>
                 </section>
               </div>
-              <button class="ap-dice" type="button" data-star aria-label="Случайный каомодзи"><svg class="ic" aria-hidden="true"><use href="#i-dice"/></svg></button>
-              <nav class="ap-nav" aria-label="Настроения">
-                <button class="ap-nb" type="button" data-set="fav" aria-label="Избранное" aria-pressed="false"><svg class="ic" aria-hidden="true"><use href="#i-heart"/></svg></button>
-                <button class="ap-nb is-on" type="button" data-set="all" aria-label="Все" aria-pressed="true"><svg class="ic" aria-hidden="true"><use href="#i-f-home"/></svg></button>
-                <button class="ap-nb" type="button" data-set="sad" aria-label="Грусть" aria-pressed="false"><svg class="ic" aria-hidden="true"><use href="#i-f-sad"/></svg></button>
-                <button class="ap-nb" type="button" data-set="calm" aria-label="Спокойствие" aria-pressed="false"><svg class="ic" aria-hidden="true"><use href="#i-f-calm"/></svg></button>
-                <button class="ap-nb" type="button" data-set="angry" aria-label="Злость" aria-pressed="false"><svg class="ic" aria-hidden="true"><use href="#i-f-angry"/></svg></button>
-                <button class="ap-nb" type="button" data-set="joy" aria-label="Радость" aria-pressed="false"><svg class="ic" aria-hidden="true"><use href="#i-f-joy"/></svg></button>
+              <span class="ap-dice" data-star><svg class="ic" aria-hidden="true"><use href="#i-dice"/></svg></span>
+              <nav class="ap-nav">
+                <span class="ap-nb"><svg class="ic" aria-hidden="true"><use href="#i-heart"/></svg></span>
+                <span class="ap-nb is-on"><svg class="ic" aria-hidden="true"><use href="#i-f-home"/></svg></span>
+                <span class="ap-nb"><svg class="ic" aria-hidden="true"><use href="#i-f-sad"/></svg></span>
+                <span class="ap-nb"><svg class="ic" aria-hidden="true"><use href="#i-f-calm"/></svg></span>
+                <span class="ap-nb"><svg class="ic" aria-hidden="true"><use href="#i-f-angry"/></svg></span>
+                <span class="ap-nb"><svg class="ic" aria-hidden="true"><use href="#i-f-joy"/></svg></span>
               </nav>
             </div>
           </div>
         </div>
-
+        </div>
         <div class="board rise" data-d="700" id="board">
           <div class="board__head">
             <div class="board__brand"><img class="board__mark" src="assets/my-kaomoji-icon.svg" alt="" width="36" height="36"><span>My Kaomoji</span></div>
@@ -168,7 +158,6 @@
 
           <div class="board__foot">
             <span>Твоя эмоция — твои правила</span>
-            <button class="board__next" id="nextMood" type="button" aria-label="Следующее настроение"><svg class="ic ic--line" aria-hidden="true"><use href="#i-arrow"/></svg></button>
           </div>
         </div>
       </div>
@@ -176,6 +165,7 @@
 
     <!-- ВОЗМОЖНОСТИ -->
     <section class="section stack stack--over" style="--z:2" id="features">
+      <div class="stars" aria-hidden="true"><i style="--y:30px;--s:34px;--t:105s;--d:-60s;--c:rgb(255 94 156);--o:0.34"><b><svg class="ic" aria-hidden="true"><use href="#i-spark"/></svg></b></i><i style="--y:58px;--s:20px;--t:140s;--d:-10s;--c:rgb(255 94 156);--o:0.4"><b><svg class="ic" aria-hidden="true"><use href="#i-sparkle"/></svg></b></i><i style="--y:calc(100% - 60px);--s:46px;--t:170s;--d:-95s;--c:rgb(255 94 156);--o:0.26"><b><svg class="ic" aria-hidden="true"><use href="#i-spark"/></svg></b></i><i style="--y:calc(100% - 36px);--s:24px;--t:115s;--d:-40s;--c:rgb(255 94 156);--o:0.38"><b><svg class="ic" aria-hidden="true"><use href="#i-sparkle"/></svg></b></i></div>
       <div class="wrap">
         <div class="head">
           <div class="head__main">
@@ -202,13 +192,9 @@
             <header class="feature__top"><button class="feature__idx" type="button" aria-label="Скопировать каомодзи (๑˃ᴗ˂)ﻭ"><svg class="ic" aria-hidden="true"><use href="#i-s-keys"/></svg></button><h3>Клавиатура</h3></header>
             <p>Используй каомодзи в&nbsp;других приложениях, не копируя их вручную.</p>
           </article>
-          <article class="feature rise" data-face="(づ｡◕‿‿◕｡)づ">
-            <header class="feature__top"><button class="feature__idx" type="button" aria-label="Скопировать каомодзи (づ｡◕‿‿◕｡)づ"><svg class="ic" aria-hidden="true"><use href="#i-s-widget"/></svg></button><h3>Виджет</h3></header>
-            <p>Копируй любимые выражения с&nbsp;главного экрана Android.</p>
-          </article>
           <article class="feature rise" data-face="(ﾉ◕ヮ◕)ﾉ*:･ﾟ✧">
-            <header class="feature__top"><button class="feature__idx" type="button" aria-label="Скопировать каомодзи (ﾉ◕ヮ◕)ﾉ*:･ﾟ✧"><svg class="ic" aria-hidden="true"><use href="#i-s-chat"/></svg></button><h3>Два языка</h3></header>
-            <p>Переключай интерфейс между русским и&nbsp;английским.</p>
+            <header class="feature__top"><button class="feature__idx" type="button" aria-label="Скопировать каомодзи (ﾉ◕ヮ◕)ﾉ*:･ﾟ✧"><svg class="ic" aria-hidden="true"><use href="#i-s-chat"/></svg></button><h3>10 языков</h3></header>
+            <p>Приложение говорит на&nbsp;многих языках: выбирай тот, на&nbsp;котором привычнее общаться.</p>
           </article>
           <article class="feature rise" data-face="(✿◠‿◠)">
             <header class="feature__top"><button class="feature__idx" type="button" aria-label="Скопировать каомодзи (✿◠‿◠)"><svg class="ic" aria-hidden="true"><use href="#i-s-palette"/></svg></button><h3>Настройка внешнего вида</h3></header>
@@ -220,6 +206,7 @@
 
     <!-- КАК РАБОТАЕТ -->
     <section class="section how stack stack--over" style="--z:3" id="how">
+      <div class="stars" aria-hidden="true"><i style="--y:24px;--s:50px;--t:160s;--d:-80s;--c:rgb(255 94 156);--o:0.26"><b><svg class="ic" aria-hidden="true"><use href="#i-sparkle"/></svg></b></i><i style="--y:64px;--s:24px;--t:100s;--d:-30s;--c:rgb(255 94 156);--o:0.38"><b><svg class="ic" aria-hidden="true"><use href="#i-spark"/></svg></b></i><i style="--y:calc(100% - 64px);--s:26px;--t:120s;--d:-55s;--c:rgb(255 94 156);--o:0.34"><b><svg class="ic" aria-hidden="true"><use href="#i-sparkle"/></svg></b></i><i style="--y:calc(100% - 34px);--s:38px;--t:145s;--d:-110s;--c:rgb(255 94 156);--o:0.3"><b><svg class="ic" aria-hidden="true"><use href="#i-spark"/></svg></b></i></div>
       <div class="wrap">
         <div class="head head--solo">
           <div class="head__main">
@@ -231,9 +218,9 @@
 
         <div class="how__grid">
           <ol class="steps" data-stagger>
-          <li class="rise"><button class="step" type="button" data-step="1"><span class="step__n"><svg class="ic" aria-hidden="true"><use href="#i-f-home"/></svg></span><span class="step__body"><span class="step__title">Выбери настроение</span><span class="step__text">Открой категорию или найди каомодзи через поиск.</span></span></button></li>
-          <li class="rise"><button class="step" type="button" data-step="2"><span class="step__n"><svg class="ic" aria-hidden="true"><use href="#i-heart"/></svg></span><span class="step__body"><span class="step__title">Сохрани своё любимое</span><span class="step__text">Добавляй часто используемые выражения в&nbsp;избранное.</span></span></button></li>
-          <li class="rise"><button class="step" type="button" data-step="3"><span class="step__n"><svg class="ic" aria-hidden="true"><use href="#i-s-send"/></svg></span><span class="step__body"><span class="step__title">Поделись эмоцией</span><span class="step__text">Копируй символ или используй клавиатуру в&nbsp;переписке.</span></span></button></li>
+          <li class="rise"><button class="step" type="button" data-step="1"><span class="step__n">01</span><span class="step__body"><span class="step__title">Выбери настроение</span><span class="step__text">Открой категорию или найди каомодзи через поиск.</span></span></button></li>
+          <li class="rise"><button class="step" type="button" data-step="2"><span class="step__n">02</span><span class="step__body"><span class="step__title">Сохрани своё любимое</span><span class="step__text">Добавляй часто используемые выражения в&nbsp;избранное.</span></span></button></li>
+          <li class="rise"><button class="step" type="button" data-step="3"><span class="step__n">03</span><span class="step__body"><span class="step__title">Поделись эмоцией</span><span class="step__text">Копируй символ или используй клавиатуру в&nbsp;переписке.</span></span></button></li>
           </ol>
 
           <div class="how__panel">
@@ -272,8 +259,8 @@
 
     <!-- ФИНАЛЬНЫЙ CTA -->
     <section class="cta grain stack stack--over" style="--z:4" id="about">
+      <div class="stars" aria-hidden="true"><i style="--y:26px;--s:44px;--t:150s;--d:-45s;--c:#fff;--o:0.5"><b><svg class="ic" aria-hidden="true"><use href="#i-spark"/></svg></b></i><i style="--y:62px;--s:24px;--t:105s;--d:-5s;--c:#fff;--o:0.6"><b><svg class="ic" aria-hidden="true"><use href="#i-sparkle"/></svg></b></i><i style="--y:calc(100% - 120px);--s:30px;--t:125s;--d:-70s;--c:#fff;--o:0.5"><b><svg class="ic" aria-hidden="true"><use href="#i-sparkle"/></svg></b></i></div>
       <button class="cta__star cta__star--a" type="button" data-star aria-label="Случайный каомодзи"><svg class="ic" aria-hidden="true"><use href="#i-sparkle"/></svg></button>
-      <button class="cta__star cta__star--b" type="button" data-star aria-label="Случайный каомодзи"><svg class="ic" aria-hidden="true"><use href="#i-sparkle"/></svg></button>
       <div class="cta__inner">
         <div class="cta__copy">
           <span class="label">Пора добавить немного магии</span>
@@ -282,10 +269,7 @@
         </div>
         <a class="btn btn--ink btn--xl" href="https://github.com/FortesQ0/My-Kaomoji/releases"><span class="btn__fill"></span><span class="btn__label">Выбрать свою эмоцию</span><svg class="ic ic--line btn__arrow" aria-hidden="true"><use href="#i-arrow"/></svg></a>
       </div>
-    </section>
-  </main>
-
-  <footer class="footer stack stack--over" style="--z:5">
+      <footer class="footer">
     <div class="wrap">
       <div class="footer__top">
         <div class="footer__brand">
@@ -300,6 +284,10 @@
       </div>
     </div>
   </footer>
+    </section>
+  </main>
+
+  
 
   <div class="toast" id="toast" role="status" aria-live="polite"><span class="toast__face" id="toastFace"></span><span id="toastText">Скопировано</span></div>
 </body>

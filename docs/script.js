@@ -252,9 +252,6 @@
     copyFace(next, e.currentTarget);
   });
 
-  $('#nextMood').addEventListener('click', () => {
-    setMood(ORDER[(ORDER.indexOf(mood) + 1) % ORDER.length]);
-  });
 
   favBtn.addEventListener('click', () => {
     if (favs.has(current)) { favs.delete(current); showToast('Убрано из избранного', current); }
@@ -405,92 +402,6 @@
   syncPicker();
 })();
 
-/* ---------- Макап телефона: экран настоящего приложения, кликабельный мини-демо ----------
-   Нажатие на каомодзи копирует его (общий обработчик data-copy выше), сердце добавляет в избранное,
-   чипы и нижнее меню переключают подборки, кубик выдаёт случайный каомодзи (data-star). */
-(() => {
-  'use strict';
-  const phone = document.getElementById('phone');
-  if (!phone) return;
-  const hitsEl = document.getElementById('apHits');
-  const recEl = document.getElementById('apRecent');
-  const chips = [...phone.querySelectorAll('.ap-chip')];
-  const navs = [...phone.querySelectorAll('.ap-nb')];
-  const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-  const CHIP_KEYS = ['all', 'solo', 'group', 'special'];
-
-  const SETS = {
-    all: ['(•ө•)', '＼(´∀｀)／', '*♪٩(ˊᗜˋ )و♬*', '————(°∀°)————!'],
-    solo: ['(˶ᵔ ᵕ ᵔ˶)', '( ˶ˆᗜˆ˵ )', '(｡•̀ᴗ-)✧', '(≧◡≦)'],
-    group: ['(づ｡◕‿‿◕｡)づ', 'ヽ(・∀・)ﾉ', '(ﾉ◕ヮ◕)ﾉ*:･ﾟ✧', '٩(ˊᗜˋ*)و'],
-    special: ['(⌐■_■)', 'ヽ(>∀<☆)ノ', '≽^•⩊•^≼', '(๑˃ᴗ˂)ﻭ'],
-    fav: ['(｡♥‿♥｡)', '(♡˙︶˙♡)', '૮ ˶ᵔ ᵕ ᵔ˶ ა', '(˶˃ ᵕ ˂˶)'],
-    sad: ['(╥﹏╥)', '(｡•́︿•̀｡)', '(╥_╥)', '(；︵；)'],
-    calm: ['(っ˘ω˘ς )', '(－ω－) zzZ', '(˘⌣˘)', '(´-ω-`)'],
-    angry: ['(╬ Ò﹏Ó)', '(｀Д´)', 'ヽ(`Д´)ﾉ', '(҂`з´)'],
-    joy: ['(≧◡≦)', '٩(◕‿◕｡)۶', '＼(^o^)／', '(ﾉ◕ヮ◕)ﾉ*:･ﾟ✧']
-  };
-  let recent = ['@ˆ▽ˆ@', '(*^‿^)ﾉ~♪', '(••)ゞ', '٩(××)۶'];
-  const favs = new Set(SETS.fav);
-
-  function row(face, i) {
-    const r = document.createElement('div');
-    r.className = 'ap-row';
-    r.style.setProperty('--i', i);
-    const b = document.createElement('button');
-    b.type = 'button'; b.className = 'ap-face'; b.dataset.copy = face; b.textContent = face;
-    const h = document.createElement('button');
-    h.type = 'button'; h.className = 'ap-heart'; h.dataset.fav = face;
-    h.setAttribute('aria-label', 'В избранное');
-    h.setAttribute('aria-pressed', favs.has(face) ? 'true' : 'false');
-    h.innerHTML = '<svg class="ic" aria-hidden="true"><use href="#i-heart"/></svg>';
-    r.append(b, h);
-    return r;
-  }
-  function fill(el, list, animate = true) {
-    el.replaceChildren(...list.map(row));
-    el.classList.remove('is-swap');
-    if (animate && !reduce) { void el.offsetWidth; el.classList.add('is-swap'); }
-  }
-  function listFor(key) {
-    if (key !== 'fav') return SETS[key];
-    return favs.size ? [...favs].slice(-4).reverse() : SETS.fav;
-  }
-  function select(key) {
-    fill(hitsEl, listFor(key));
-    chips.forEach((c) => { const on = c.dataset.set === key; c.classList.toggle('is-on', on); c.setAttribute('aria-pressed', on); });
-    navs.forEach((n) => {
-      const on = n.dataset.set === key || (n.dataset.set === 'all' && CHIP_KEYS.includes(key));
-      n.classList.toggle('is-on', on); n.setAttribute('aria-pressed', on);
-    });
-  }
-
-  phone.addEventListener('click', (e) => {
-    const heart = e.target.closest('.ap-heart');
-    if (heart) {
-      const f = heart.dataset.fav;
-      if (favs.has(f)) favs.delete(f); else favs.add(f);
-      heart.setAttribute('aria-pressed', favs.has(f) ? 'true' : 'false');
-      return;
-    }
-    const face = e.target.closest('.ap-face');
-    if (face) {
-      const f = face.dataset.copy;
-      /* пересобираем «Недавние» чуть позже, чтобы не убрать из DOM кнопку до того, как отработает копирование */
-      setTimeout(() => { recent = [f, ...recent.filter((x) => x !== f)].slice(0, 4); fill(recEl, recent); }, 160);
-      return;
-    }
-    const dice = e.target.closest('.ap-dice');
-    if (dice) {
-      if (!reduce) dice.animate([{ transform: 'rotate(0)' }, { transform: 'rotate(300deg) scale(1.14)' }, { transform: 'rotate(360deg)' }], { duration: 620, easing: 'cubic-bezier(.22, 1, .36, 1)' });
-      return;
-    }
-    const sel = e.target.closest('[data-set]');
-    if (sel) select(sel.dataset.set);
-  });
-})();
-
-
 /* ---------- стопка карточек ----------
    Каждый блок липнет к экрану: низкий — к верху, высокий — когда долистан до своего низа.
    Пока следующий блок наезжает, предыдущий чуть уменьшается и темнеет (переменная --p от 0 до 1). */
@@ -503,8 +414,6 @@
 
   function layout() {
     const vh = window.innerHeight;
-    const foot = document.querySelector('.footer');
-    if (foot) document.documentElement.style.setProperty('--foot', foot.offsetHeight + 'px');
     items.forEach((el) => { el.style.top = Math.min(0, vh - el.offsetHeight) + 'px'; });
     update();
   }
@@ -515,8 +424,7 @@
     const vh = window.innerHeight;
     items.forEach((el, i) => {
       const next = items[i + 1];
-      /* финал и подвал: подвал просто ложится сверху, без сжатия и затемнения */
-      if (!next || i >= items.length - 2) { el.style.setProperty('--p', 0); return; }
+      if (!next) return;
       const top = next.getBoundingClientRect().top;
       const p = Math.max(0, Math.min(1, 1 - top / vh));
       el.style.setProperty('--p', p.toFixed(3));
