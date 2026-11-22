@@ -426,7 +426,8 @@
       const dwell = last ? 0 : Math.round(vh * DWELL);
       const top = Math.min(0, vh - h - dwell);
       el.style.top = top + 'px';
-      el.style.marginBottom = last ? '0px' : Math.max(vh - (h + top), 0) + 'px';
+      const gapEl = el.nextElementSibling && el.nextElementSibling.classList.contains('gap') ? el.nextElementSibling : null;
+      if (gapEl) { gapEl.style.height = Math.max(vh - (h + top), 0) + 'px'; gapEl.style.top = (h + top) + 'px'; }
       stuck.set(el, h + top);
     });
     update();
