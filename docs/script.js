@@ -461,3 +461,52 @@
   if (window.ResizeObserver) { const ro = new ResizeObserver(layout); items.forEach((el) => ro.observe(el)); }
   layout();
 })();
+
+
+/* ---------- шаги «Выбери настроение → Сохрани → Поделись»: бегунок едет по линии вместе с прокруткой ---------- */
+(() => {
+  'use strict';
+  const steps = document.querySelector('.steps');
+  if (!steps) return;
+  const items = Array.from(steps.querySelectorAll('li:not(.steps__track)'));
+  if (!items.length) return;
+  let centers = [];
+  let ticking = false;
+
+  function measure() {
+    centers = items.map((li) => {
+      const n = li.querySelector('.step__n');
+      return li.offsetTop + n.offsetTop + n.offsetHeight / 2;
+    });
+    const y0 = centers[0];
+    const y1 = centers[centers.length - 1];
+    steps.style.setProperty('--ty', y0 + 'px');
+    steps.style.setProperty('--th', (y1 - y0) + 'px');
+    update();
+  }
+
+  function update() {
+    ticking = false;
+    if (!centers.length) return;
+    const vh = document.documentElement.clientHeight || window.innerHeight;
+    const top = steps.getBoundingClientRect().top;
+    const anchor = vh * 0.58 - top;                 /* линия «взгляда» на экране */
+    const y0 = centers[0];
+    const y1 = centers[centers.length - 1];
+    const fill = Math.max(0, Math.min(y1 - y0, anchor - y0));
+    steps.style.setProperty('--fill', fill.toFixed(1) + 'px');
+    items.forEach((li, i) => {
+      const btn = li.querySelector('.step');
+      if (btn) btn.classList.toggle('is-reached', anchor >= centers[i] - 2);
+    });
+  }
+
+  function onScroll() { if (!ticking) { ticking = true; requestAnimationFrame(update); } }
+
+  window.addEventListener('scroll', onScroll, { passive: true });
+  window.addEventListener('resize', measure);
+  window.addEventListener('load', measure);
+  if (document.fonts && document.fonts.ready) document.fonts.ready.then(measure);
+  if (window.ResizeObserver) new ResizeObserver(measure).observe(steps);
+  measure();
+})();
