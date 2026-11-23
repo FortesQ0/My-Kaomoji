@@ -71,9 +71,7 @@ h3 { font-size: clamp(1.25rem, 2vw, 1.75rem); line-height: 1.05; letter-spacing:
 .grad {
   display: inline-block;
   padding-bottom: .12em; margin-bottom: -.12em;
-  background: linear-gradient(100deg, #d4186b 0%, #ff5e9c 100%);
-  -webkit-background-clip: text; background-clip: text;
-  color: transparent;
+  color: #c82d70;
 }
 
 .lead { max-width: 56ch; margin-top: var(--s5); color: var(--ink-2); font-size: clamp(1rem, 1.3vw, 1.25rem); text-wrap: balance; }
@@ -552,10 +550,11 @@ main { display: contents; }
    ПЕРВЫЙ ЭКРАН. Цельный блок «заголовок + макет», ниже второстепенное:
    абзац, кнопки, подпись. Всё по одной сетке, макет не лезет в нижний блок.
    ===================================================================== */
-@media (min-width: 901px) { .hero { grid-template-columns: minmax(0, 2fr) minmax(0, 1fr); } }
+@media (min-width: 901px) { .hero { grid-template-columns: minmax(0, 1.63fr) minmax(0, 1fr); } }
 .hero__text { justify-content: center; gap: var(--s6); padding: 112px var(--s6) var(--s7) var(--edge); }
 .hero__lead { position: relative; z-index: 1; display: grid; grid-template-columns: minmax(0, 1fr) auto; align-items: center; column-gap: var(--s5); width: 100%; }
-.hero h1 { font-size: clamp(2.4rem, 5.7vw, 6.4rem); line-height: .98; }
+.hero h1 { font-size: clamp(2.4rem, 4.1vw, 5rem); line-height: .98; }
+.hero__title-line { white-space: nowrap; }
 .hero__more { position: relative; z-index: 1; display: grid; justify-items: start; gap: var(--s4); width: 100%; }
 .hero__sub { margin: 0; max-width: 38ch; font-size: clamp(.95rem, 1.05vw, 1.08rem); color: var(--ink-2); }
 .hero__cta { margin: 0; gap: var(--s2); }
@@ -618,29 +617,8 @@ main { display: contents; }
 .stack::after { display: none; }
 .stack--over { box-shadow: 0 -1px 0 rgb(255 255 255 / .9), 0 -18px 40px -26px rgb(244 130 175 / .38); }
 
-/* =====================================================================
-   ПАУЗЫ между блоками: лента крупных звёзд идёт бесконечно и бесшовно,
-   внизу выглядывает вкладка следующего блока.
-   ===================================================================== */
+/* Прокручиваемые секции складываются; между ними остаётся место для ленты звёзд. */
 .gap { position: sticky; z-index: 0; overflow: hidden; pointer-events: none; --k: 1; }
-.gap--hero { background: linear-gradient(180deg, rgb(255 246 250 / 0) 0%, #fff6fa 100%), linear-gradient(90deg, #ffe3ee 0 66.667%, #fcc0d6 66.667% 100%); }
-.gap--feat { background: #fff6fa; }
-.gap--how { background: linear-gradient(180deg, #ffeaf3 0%, #ffe6f0 100%); }
-@media (max-width: 900px) { .gap--hero { background: linear-gradient(180deg, rgb(255 246 250 / 0) 0%, #fff6fa 100%), #fcc0d6; } }
-.gap__ribbon { position: absolute; left: 0; top: 0; display: flex; width: max-content; height: calc(100% - 84px); animation: ribbon var(--t) linear infinite; animation-delay: var(--d); will-change: transform; }
-.gap__period { position: relative; flex: none; width: 780px; height: 100%; }
-.rs { position: absolute; left: var(--x); top: calc(var(--y) * var(--k) * 1px); width: calc(var(--z) * var(--k) * 1px); height: calc(var(--z) * var(--k) * 1px); margin: calc(var(--z) * var(--k) * -.5px) 0 0 calc(var(--z) * var(--k) * -.5px); color: rgb(255 150 190); opacity: .62; filter: drop-shadow(0 0 16px rgb(255 140 185 / .42)); }
-.rs b { display: block; width: 100%; height: 100%; animation: rs-bob 11s ease-in-out infinite alternate; }
-.gap__period:nth-child(even) .rs b { animation-delay: -5s; }
-.rs .ic { width: 100%; height: 100%; }
-@keyframes ribbon { to { transform: translateX(-780px); } }
-@keyframes rs-bob { from { transform: translateY(-7px) rotate(-6deg); } to { transform: translateY(7px) rotate(6deg); } }
-.gap__tab { position: absolute; left: 0; right: 0; bottom: 0; height: 84px; padding: 30px var(--edge) 0; border-radius: 32px 32px 0 0; background: #fffaff; box-shadow: 0 -1px 0 rgb(255 255 255 / .9), 0 -18px 40px -26px rgb(244 130 175 / .38); }
-.gap--feat .gap__tab { background: #fff6fa; }
-.gap--how .gap__tab { background: #ffe6f0; }
-.gap__tab .label { margin: 0; }
-@media (max-width: 600px) { .gap__tab { border-radius: 24px 24px 0 0; padding-inline: var(--gutter); } }
-@media (prefers-reduced-motion: reduce) { .gap__ribbon, .rs b { animation: none; } }
 
 /* звёзды внутри блоков: крупнее, с мягким свечением, только в свободных полосах */
 .stars i { filter: drop-shadow(0 0 12px rgb(255 140 185 / .35)); }
@@ -657,9 +635,194 @@ main { display: contents; }
 /* =====================================================================
    ФИНАЛ: ровно один экран. Огромный заголовок, кнопка, подвал прижат к низу.
    ===================================================================== */
-.cta { min-height: 100vh; min-height: 100lvh; padding: 96px 0 0; }
+.cta { min-height: 100svh; min-height: 100dvh; padding: 96px 0 0; }
 .cta__inner { flex: 1 1 auto; flex-direction: column; align-items: flex-start; justify-content: center; gap: var(--s6); margin-block: 0; padding-block: var(--s6); }
 .cta h2 { font-size: clamp(2.6rem, 10.6vw, 10rem); line-height: .94; letter-spacing: -.035em; }
 .cta__copy { max-width: none; }
 .cta p { margin-top: var(--s5); }
 @media (max-width: 900px) { .cta h2 { font-size: clamp(2.6rem, 15.4vw, 5.6rem); } .cta { padding-top: 88px; } }
+
+/* Локальная версия: непрерывный ритм фона и лента без вкладки-разделителя. */
+body { background: #fff0f7; }
+.section, .how { background: #fff0f7; }
+.gap { background: #fff0f7; border: 0; box-shadow: none; }
+.gap--hero, .gap--feat, .gap--how { background: #fff0f7; }
+.gap__track {
+  position: absolute; inset: 0 auto 0 0; display: flex; width: 200%; height: 100%;
+  transform: translate3d(-50%, 0, 0); animation: star-stream 56s linear infinite;
+}
+.gap--feat .gap__track { animation-delay: -18s; }
+.gap--how .gap__track { animation-delay: -36s; }
+.gap__period { position: relative; flex: 0 0 50%; width: 50%; height: 100%; }
+.gap__spark {
+  position: absolute; left: var(--x); top: var(--y); display: block;
+  width: var(--size); height: var(--size); color: #ed75a5; opacity: var(--opacity);
+  transform: translate(-50%, -50%);
+}
+.gap__spark .ic { width: 100%; height: 100%; fill: currentColor; }
+.gap__spark--1 { --x: 6%; --y: 60%; --size: clamp(28px, 5vw, 42px); --opacity: .42; }
+.gap__spark--2 { --x: 20%; --y: 30%; --size: clamp(42px, 8vw, 104px); --opacity: .4; }
+.gap__spark--3 { --x: 34%; --y: 72%; --size: clamp(32px, 5.4vw, 72px); --opacity: .34; }
+.gap__spark--4 { --x: 48%; --y: 46%; --size: clamp(26px, 4.4vw, 58px); --opacity: .46; }
+.gap__spark--5 { --x: 62%; --y: 66%; --size: clamp(38px, 7vw, 92px); --opacity: .36; }
+.gap__spark--6 { --x: 76%; --y: 28%; --size: clamp(30px, 4.8vw, 62px); --opacity: .43; }
+.gap__spark--7 { --x: 90%; --y: 58%; --size: clamp(44px, 8vw, 112px); --opacity: .32; }
+@keyframes star-stream { from { transform: translate3d(-50%, 0, 0); } to { transform: translate3d(0, 0, 0); } }
+
+/* Белый кант показывает каждый новый слой стопки, без тёмной вуали. */
+.stack::after { display: none; }
+.stack--over { border-top: 2px solid #fff; box-shadow: 0 -18px 36px -28px rgb(213 95 145 / .24); }
+
+/* Акценты остаются в свободной зоне карточек и не заходят на текст. */
+.hero__spark, .head__spark, .cta__spark {
+  color: #ed5793; fill: currentColor; pointer-events: none;
+  animation: star-accent-float 8s ease-in-out infinite alternate;
+}
+.cta__eyebrow { display: flex; width: 100%; align-items: center; justify-content: space-between; gap: var(--s4); }
+.hero__spark { position: absolute; z-index: 0; top: 16px; right: 20px; width: 62px; height: 62px; opacity: .78; }
+.head--solo { position: relative; }
+.head--solo .head__main { grid-column: 1 / span 8; }
+.head__art--solo { grid-column: 9 / span 4; justify-content: center; align-items: center; }
+.head__spark { width: clamp(72px, 8vw, 120px); height: clamp(72px, 8vw, 120px); opacity: .72; }
+.feature, .how__panel { border: 1px solid #fff; }
+.cta {
+  min-height: 100svh; min-height: 100dvh; padding: 96px 0 0;
+  background: #fff0f7;
+}
+.cta__inner {
+  flex: 1 1 auto; width: min(var(--max), calc(100% - var(--gutter) * 2));
+  margin: auto; padding-block: var(--s6); display: flex; flex-direction: column;
+  align-items: flex-start; justify-content: center; gap: var(--s5);
+}
+.cta__copy {
+  position: relative; width: 100%; max-width: 900px; padding: clamp(24px, 5vw, 56px);
+  overflow: hidden; border: 1px solid #fff; border-radius: var(--r-card); background: #fffaff;
+}
+.cta__copy .label, .cta__copy p { color: var(--ink-2); }
+.cta h2 { max-width: 720px; font-size: clamp(3rem, 7vw, 6.5rem); line-height: .98; letter-spacing: -.03em; }
+.cta__copy p { max-width: 44ch; margin-top: var(--s5); font-size: clamp(1.05rem, 1.3vw, 1.25rem); }
+.cta__copy .btn { margin-top: var(--s6); }
+.cta__spark { position: absolute; top: 11%; right: 12%; width: 168px; height: 168px; }
+.footer { position: relative; overflow: hidden; min-height: 124px; padding-block: var(--s4); border-top: 0; background: #f6c4d8; }
+.footer__top { min-height: 0; align-items: flex-end; }
+.footer__tag { gap: var(--s2); font-size: 1.125rem; line-height: 1.4; }
+.footer__kaomoji {
+  display: inline-block; flex: none; font-size: 1.08em; font-weight: 500; line-height: 1;
+  color: #ed5793; background: linear-gradient(110deg, #d4186b 0%, #ff5e9c 100%);
+  -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent;
+  transform-origin: center; animation: footer-kaomoji-drift 6s ease-in-out infinite alternate;
+}
+@keyframes footer-kaomoji-drift { from { transform: translateY(1px) rotate(-2deg); } to { transform: translateY(-1px) rotate(2deg); } }
+.head .label, .chat__head .label, .cta__eyebrow .label {
+  font-size: clamp(.9rem, 1.16vw, 1.1rem); line-height: 1.45; letter-spacing: .12em;
+}
+.hero h1, .head h2, .cta h2 { margin-left: -4px; }
+@keyframes star-accent-float { from { transform: translate3d(-5px, 3px, 0) rotate(-5deg); } to { transform: translate3d(5px, -3px, 0) rotate(5deg); } }
+
+@media (max-width: 900px) {
+  .gap__spark--1 { --x: 5%; --y: 34%; --size: 32px; --opacity: .56; }
+  .gap__spark--2 { --x: 20%; --y: 25%; --size: 56px; --opacity: .56; }
+  .gap__spark--3 { --x: 36%; --y: 42%; --size: 40px; --opacity: .5; }
+  .gap__spark--4 { --x: 51%; --y: 30%; --size: 64px; --opacity: .62; }
+  .gap__spark--5 { --x: 67%; --y: 44%; --size: 46px; --opacity: .5; }
+  .gap__spark--6 { --x: 82%; --y: 23%; --size: 60px; --opacity: .58; }
+  .gap__spark--7 { --x: 96%; --y: 36%; --size: 32px; --opacity: .5; }
+  .head--solo .head__main { grid-column: 1 / -1; }
+  .head__art--solo { position: absolute; top: 0; right: 0; width: 52px; height: 52px; }
+  .head__spark { width: 42px; height: 42px; }
+  .footer { min-height: 0; }
+  .footer .footer__nav { margin-right: 0; }
+  .cta { min-height: 100svh; padding-top: 88px; }
+  .cta__inner { align-items: stretch; }
+  .cta__copy { max-width: none; padding: 24px; }
+  .cta__spark { top: 18px; right: 18px; width: 46px; height: 46px; }
+  .cta__eyebrow { padding-right: 54px; }
+  .cta__eyebrow .label { font-size: .7rem; letter-spacing: .1em; white-space: nowrap; }
+  .cta h2 { max-width: none; font-size: clamp(2.35rem, 10.5vw, 4.8rem); }
+  .cta__copy .btn { width: 100%; min-height: 60px; }
+  .footer__top { min-height: 0; }
+  .footer__tag { gap: 6px; font-size: .95rem; }
+  .head .label, .chat__head .label, .cta__eyebrow .label { font-size: .8rem; }
+}
+@media (max-width: 600px) {
+  .gap__track { height: 100%; }
+  .cta__spark { width: 38px; height: 38px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .stack { transform: none !important; }
+  .gap__track, .cta__spark, .hero__spark, .head__spark, .footer__kaomoji { animation: none; }
+  .gap__track { transform: translate3d(-50%, 0, 0); }
+}
+
+/* Final desktop override: keep the hero line inside its column after legacy type rules. */
+@media (min-width: 901px) {
+  .hero h1 { font-size: clamp(2.4rem, 8vw, 9.5rem); }
+}
+
+/* =====================================================================
+   МОБИЛЬНАЯ И ПЛАНШЕТНАЯ ВЕРСИЯ: главный экран, финальный блок, подвал.
+   Этот блок стоит в самом конце файла и перекрывает прежние правила.
+   ===================================================================== */
+
+/* Каомодзи в финальной карточке: свой размер, не ломается и не переносится.
+   Раньше ему достались размеры от звезды (46×46 px), поэтому на телефоне он «сыпался». */
+.cta__eyebrow { align-items: center; }
+.cta__spark.cta__kaomoji {
+  position: static; flex: none; width: auto; height: auto; padding: .08em .1em;
+  font-size: clamp(2.2rem, 4.2vw, 3.6rem); font-weight: 400; line-height: 1.15; letter-spacing: -.03em; white-space: nowrap;
+  color: transparent; -webkit-text-fill-color: transparent;
+  background: linear-gradient(110deg, #d4186b 0%, #ff5e9c 100%); -webkit-background-clip: text; background-clip: text;
+}
+
+@media (max-width: 900px) {
+  /* Главный экран: просторнее по вертикали, меньше пустоты между текстом и виджетом */
+  .hero__text { gap: var(--s6); padding: 128px var(--gutter) var(--s5); }
+  .hero__more { gap: var(--s5); }
+  .hero__sub { max-width: 36ch; font-size: 1rem; line-height: 1.6; }
+  .hero__cta { gap: var(--s3); }
+  .hero__cta .btn { min-height: 54px; font-size: .95rem; }
+  .hero__note { font-size: 13px; }
+  .hero__panel { padding: 56px var(--gutter) 56px; }
+  .hero__spark { top: 8px; right: 20px; width: 50px; height: 50px; }
+
+  /* Финальный блок: белая плашка тянется вверх до шапки, текст выстроен относительно неё */
+  .cta { padding-top: 84px; }
+  .cta__inner { padding-block: var(--s4) var(--s5); }
+  .cta__copy {
+    display: flex; flex-direction: column; container-type: inline-size;
+    padding: clamp(24px, 6vw, 40px);
+  }
+  .cta__eyebrow { padding-right: 0; }
+  .cta__copy h2 { margin-top: auto; padding-top: var(--s6); }
+  .cta__copy p { margin-top: var(--s4); margin-bottom: var(--s6); }
+  .cta__copy .btn { margin-top: 0; }
+
+  /* Подвал: прижат к левому краю, без лишнего воздуха сверху, с запасом снизу */
+  .footer { padding: var(--s5) 0 calc(var(--s5) + env(safe-area-inset-bottom, 0px)); }
+  .footer__top { align-items: flex-start; gap: var(--s4); }
+  .cta .footer__tag { max-width: none; margin: 0; flex-wrap: wrap; font-size: 1rem; line-height: 1.4; }
+  .footer .footer__nav { flex-wrap: wrap; justify-content: flex-start; gap: var(--s2); }
+}
+
+@media (max-width: 600px) {
+  .hero__text { padding-top: 120px; }
+  .hero__spark { width: 44px; height: 44px; }
+
+  /* На телефоне плашка тянется вверх до шапки и занимает всё свободное место над подвалом */
+  .cta__inner { justify-content: flex-start; }
+  .cta__copy { flex: 1 1 auto; }
+
+  /* Каомодзи на телефоне: отдельной крупной строкой под подписью, размер считается от ширины плашки */
+  .cta__eyebrow { flex-direction: column; align-items: flex-start; gap: var(--s2); }
+  .cta__eyebrow .label { margin-bottom: 0; }
+  .cta__spark.cta__kaomoji { max-width: 100%; font-size: clamp(2rem, 12vw, 3.6rem); font-size: clamp(2rem, 15cqw, 3.6rem); }
+}
+
+@media (max-width: 400px) {
+  .nav { gap: var(--s3); }
+  .brand { gap: 10px; }
+  .brand__name { white-space: nowrap; }
+  .nav__links .btn--sm { padding: 0 16px; }
+  .footer .pill { padding: 0 10px; gap: 6px; font-size: .85rem; }
+  .footer .footer__nav { gap: 6px; }
+}

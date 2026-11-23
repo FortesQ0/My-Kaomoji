@@ -9,6 +9,16 @@
   const EASE = 'cubic-bezier(.22, 1, .36, 1)';
   const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   const rand = (list) => list[Math.floor(Math.random() * list.length)];
+  const SVG_NS = 'http://www.w3.org/2000/svg';
+  const icon = (symbol, className = 'ic') => {
+    const svg = document.createElementNS(SVG_NS, 'svg');
+    const use = document.createElementNS(SVG_NS, 'use');
+    svg.setAttribute('class', className);
+    svg.setAttribute('aria-hidden', 'true');
+    use.setAttribute('href', '#' + symbol);
+    svg.appendChild(use);
+    return svg;
+  };
 
   /* Каомодзи из самого сайта и README: на них опираются звёзды и режим «другой» */
   const POOL = [
@@ -78,7 +88,7 @@
       p.className = 'fx';
       const size = 10 + Math.random() * 12;
       p.style.width = p.style.height = size + 'px';
-      p.innerHTML = '<svg class="ic" aria-hidden="true"><use href="#' + (i % 3 === 0 ? 'i-heart' : 'i-sparkle') + '"/></svg>';
+      p.appendChild(icon(i % 3 === 0 ? 'i-heart' : 'i-sparkle'));
       p.style.left = cx + 'px';
       p.style.top = cy + 'px';
       document.body.appendChild(p);
@@ -217,9 +227,12 @@
       b.type = 'button';
       b.className = 'pick' + (i === 1 ? ' is-feat' : '');
       b.dataset.pick = face;
-      b.innerHTML = '<svg class="ic" aria-hidden="true"><use href="#' + ICONS[i] + '"/></svg><strong></strong><small></small>';
-      $('strong', b).textContent = face;
-      $('small', b).textContent = word;
+      b.append(icon(ICONS[i]));
+      const strong = document.createElement('strong');
+      const small = document.createElement('small');
+      b.append(strong, small);
+      strong.textContent = face;
+      small.textContent = word;
       picksEl.appendChild(b);
     });
   }
@@ -300,7 +313,7 @@
       react.className = 'react';
       react.setAttribute('aria-pressed', 'false');
       react.setAttribute('aria-label', 'Реакция');
-      react.innerHTML = '<svg class="ic" aria-hidden="true"><use href="#i-spark"/></svg>';
+      react.appendChild(icon('i-spark'));
       b.appendChild(react);
       if (text) {
         const t = document.createElement('span');
@@ -326,8 +339,9 @@
       const d = new Date();
       const time = document.createElement('span');
       time.className = 'bubble__time';
-      time.innerHTML = '<span></span>&nbsp;<svg class="ic ic--line" aria-hidden="true"><use href="#i-check2"/></svg>';
-      $('span', time).textContent = String(d.getHours()).padStart(2, '0') + ':' + String(d.getMinutes()).padStart(2, '0');
+      const label = document.createElement('span');
+      label.textContent = String(d.getHours()).padStart(2, '0') + ':' + String(d.getMinutes()).padStart(2, '0');
+      time.append(label, document.createTextNode('\u00a0'), icon('i-check2', 'ic ic--line'));
       b.appendChild(time);
     }
     stage.insertBefore(b, sticker);
@@ -369,7 +383,7 @@
     if (on) {
       const heart = document.createElement('span');
       heart.className = 'liked';
-      heart.innerHTML = '<svg class="ic" aria-hidden="true"><use href="#i-heart"/></svg>';
+      heart.appendChild(icon('i-heart'));
       incoming.appendChild(heart);
       burst(sticker);
     }
@@ -402,19 +416,15 @@
   syncPicker();
 })();
 
-/* ---------- стопка карточек ----------
-   Каждый блок сначала спокойно прокручивается: пока его визуальная часть не дойдёт примерно до середины экрана,
-   следующий блок даже не показывается. Потом блок замирает, а следующий выезжает снизу и накладывается сверху.
-   Пока идёт наезд, предыдущий блок чуть уменьшается и темнеет (переменная --p от 0 до 1).
-   Для этого у блока есть «пауза» (--dwell): отступ снизу, который не показывает следующий блок слишком рано. */
+/* ---------- стопка карточек: следующий блок плавно заходит поверх предыдущего ---------- */
 (() => {
   'use strict';
   const items = Array.from(document.querySelectorAll('.stack'));
   if (items.length < 2) return;
   const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-  const DWELL = 0.42;          /* доля высоты экрана: на столько визуальная часть поднимается до наезда */
+  const DWELL = 0.42;
   let ticking = false;
-  const stuck = new Map();     /* где у блока будет низ, когда он «прилипнет» */
+  const stuck = new Map();
 
   function viewH() { return document.documentElement.clientHeight || window.innerHeight; }
 
@@ -447,7 +457,6 @@
       if (!next) return;
       const bottom = stuck.get(el) || vh;
       const nextTop = next.getBoundingClientRect().top;
-      /* наезд считается от момента, когда следующий блок дошёл до нижнего края видимой части */
       const p = Math.max(0, Math.min(1, (bottom - nextTop) / bottom));
       el.style.setProperty('--p', p.toFixed(3));
       el.style.transformOrigin = '50% ' + (vh / 2 - (parseFloat(el.style.top) || 0)) + 'px';
@@ -468,17 +477,15 @@
 })();
 
 
-/* ---------- шаги «Выбери настроение → Сохрани → Поделись»: бегунок мягко догоняет прокрутку ---------- */
+/* ---------- шаги: бегунок следует за прокруткой без инерционного «раскачивания» ---------- */
 (() => {
   'use strict';
   const steps = document.querySelector('.steps');
   if (!steps) return;
   const items = Array.from(steps.querySelectorAll('li:not(.steps__track)'));
   if (!items.length) return;
-  const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   let centers = [];
   let target = 0;
-  let current = 0;
   let raf = 0;
 
   function measure() {
@@ -489,7 +496,6 @@
     steps.style.setProperty('--ty', centers[0] + 'px');
     steps.style.setProperty('--th', (centers[centers.length - 1] - centers[0]) + 'px');
     readTarget();
-    current = target;
     paint();
   }
 
@@ -503,24 +509,22 @@
   function paint() {
     const y0 = centers[0];
     const y1 = centers[centers.length - 1];
-    steps.style.setProperty('--fill', Math.max(0, Math.min(y1 - y0, current - y0)).toFixed(1) + 'px');
+    const fill = Math.max(0, Math.min(y1 - y0, target - y0));
+    steps.style.setProperty('--fill', fill.toFixed(1) + 'px');
+    steps.style.setProperty('--progress', (y1 === y0 ? 0 : fill / (y1 - y0)).toFixed(4));
     items.forEach((li, i) => {
       const btn = li.querySelector('.step');
-      if (btn) btn.classList.toggle('is-reached', current >= centers[i] - 2);
+      if (btn) btn.classList.toggle('is-reached', target >= centers[i] - 2);
     });
   }
 
   function tick() {
     raf = 0;
-    const diff = target - current;
-    if (reduce || Math.abs(diff) < 0.3) { current = target; paint(); return; }
-    current += diff * 0.12;               /* плавное догоняние */
+    readTarget();
     paint();
-    raf = requestAnimationFrame(tick);
   }
 
   function onScroll() {
-    readTarget();
     if (!raf) raf = requestAnimationFrame(tick);
   }
 
