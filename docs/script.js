@@ -427,7 +427,12 @@
       const top = Math.min(0, vh - h - dwell);
       el.style.top = top + 'px';
       const gapEl = el.nextElementSibling && el.nextElementSibling.classList.contains('gap') ? el.nextElementSibling : null;
-      if (gapEl) { gapEl.style.height = Math.max(vh - (h + top), 0) + 'px'; gapEl.style.top = (h + top) + 'px'; }
+      if (gapEl) {
+        const gh = Math.max(vh - (h + top), 0);
+        gapEl.style.height = gh + 'px';
+        gapEl.style.top = (h + top) + 'px';
+        gapEl.style.setProperty('--k', Math.max(0.55, Math.min(1.2, (gh - 84) / 270)).toFixed(3));
+      }
       stuck.set(el, h + top);
     });
     update();
@@ -463,45 +468,61 @@
 })();
 
 
-/* ---------- шаги «Выбери настроение → Сохрани → Поделись»: бегунок едет по линии вместе с прокруткой ---------- */
+/* ---------- шаги «Выбери настроение → Сохрани → Поделись»: бегунок мягко догоняет прокрутку ---------- */
 (() => {
   'use strict';
   const steps = document.querySelector('.steps');
   if (!steps) return;
   const items = Array.from(steps.querySelectorAll('li:not(.steps__track)'));
   if (!items.length) return;
+  const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   let centers = [];
-  let ticking = false;
+  let target = 0;
+  let current = 0;
+  let raf = 0;
 
   function measure() {
     centers = items.map((li) => {
       const n = li.querySelector('.step__n');
       return li.offsetTop + n.offsetTop + n.offsetHeight / 2;
     });
-    const y0 = centers[0];
-    const y1 = centers[centers.length - 1];
-    steps.style.setProperty('--ty', y0 + 'px');
-    steps.style.setProperty('--th', (y1 - y0) + 'px');
-    update();
+    steps.style.setProperty('--ty', centers[0] + 'px');
+    steps.style.setProperty('--th', (centers[centers.length - 1] - centers[0]) + 'px');
+    readTarget();
+    current = target;
+    paint();
   }
 
-  function update() {
-    ticking = false;
+  function readTarget() {
     if (!centers.length) return;
     const vh = document.documentElement.clientHeight || window.innerHeight;
-    const top = steps.getBoundingClientRect().top;
-    const anchor = vh * 0.58 - top;                 /* линия «взгляда» на экране */
+    const anchor = vh * 0.58 - steps.getBoundingClientRect().top;
+    target = anchor;                      /* без обрезки: по нему же решаем, какие шаги уже «пройдены» */
+  }
+
+  function paint() {
     const y0 = centers[0];
     const y1 = centers[centers.length - 1];
-    const fill = Math.max(0, Math.min(y1 - y0, anchor - y0));
-    steps.style.setProperty('--fill', fill.toFixed(1) + 'px');
+    steps.style.setProperty('--fill', Math.max(0, Math.min(y1 - y0, current - y0)).toFixed(1) + 'px');
     items.forEach((li, i) => {
       const btn = li.querySelector('.step');
-      if (btn) btn.classList.toggle('is-reached', anchor >= centers[i] - 2);
+      if (btn) btn.classList.toggle('is-reached', current >= centers[i] - 2);
     });
   }
 
-  function onScroll() { if (!ticking) { ticking = true; requestAnimationFrame(update); } }
+  function tick() {
+    raf = 0;
+    const diff = target - current;
+    if (reduce || Math.abs(diff) < 0.3) { current = target; paint(); return; }
+    current += diff * 0.12;               /* плавное догоняние */
+    paint();
+    raf = requestAnimationFrame(tick);
+  }
+
+  function onScroll() {
+    readTarget();
+    if (!raf) raf = requestAnimationFrame(tick);
+  }
 
   window.addEventListener('scroll', onScroll, { passive: true });
   window.addEventListener('resize', measure);
