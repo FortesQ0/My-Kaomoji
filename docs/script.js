@@ -138,33 +138,60 @@
   onScroll();
   window.addEventListener('scroll', onScroll, { passive: true });
 
-  /* ---------- появление: лесенка 50 мс, смысловые группы 100 мс ---------- */
-  $$('[data-stagger]').forEach((group) => {
-    $$('.rise', group).forEach((el, i) => { el.dataset.d = String(i * 50); });
-  });
+  /* ---------- появление: строго сверху вниз ----------
+     Элементы, ставшие видимыми одновременно, собираются в пачку и появляются по очереди:
+     в первом блоке — по явному порядку (data-o), дальше — по положению на странице
+     (сверху вниз, в одной строке слева направо). Шаг между элементами — 100 мс. */
+  const STEP = 100;      /* пауза между соседними элементами */
+  const MAX_DELAY = 1200; /* общая лесенка не длиннее этого */
+  const DURATION = 1100; /* должна совпадать с transition в styles.css */
   const risers = $$('.rise');
-  risers.forEach((el) => {
-    if (el.dataset.d) el.style.setProperty('--d', reduce ? '0ms' : el.dataset.d + 'ms');
-  });
-  const settle = (el) => {
+  const settle = (el, delay) => {
     /* после появления вернуть элемент в обычное состояние, чтобы hover работал без задержки */
     const done = () => { el.classList.remove('rise', 'is-in'); el.style.removeProperty('--d'); };
     if (reduce) { done(); return; }
-    const total = (parseInt(el.dataset.d || '0', 10)) + 960;
-    setTimeout(done, total);
+    setTimeout(done, delay + DURATION + 80);
+  };
+  let pending = [];
+  let flushTimer = 0;
+  let lastStart = 0; /* момент старта последнего запланированного элемента: новые встают в очередь после него */
+  function flush() {
+    flushTimer = 0;
+    const batch = pending.map((el) => {
+      const r = el.getBoundingClientRect();
+      return { el, o: el.dataset.o === undefined ? null : Number(el.dataset.o), top: r.top, left: r.left };
+    });
+    pending = [];
+    batch.sort((a, b) => {
+      if (a.o !== null && b.o !== null) return a.o - b.o;
+      if (Math.abs(a.top - b.top) > 24) return a.top - b.top;
+      return a.left - b.left;
+    });
+    const now = performance.now();
+    const base = reduce ? 0 : Math.min(Math.max(0, lastStart + STEP - now), 600);
+    batch.forEach((item, i) => {
+      const delay = reduce ? 0 : Math.min(base + i * STEP, MAX_DELAY);
+      item.el.style.setProperty('--d', delay + 'ms');
+      item.el.classList.add('is-in');
+      lastStart = now + delay;
+      settle(item.el, delay);
+    });
+  }
+  const queue = (el) => {
+    pending.push(el);
+    if (!flushTimer) flushTimer = setTimeout(flush, 60);
   };
   if ('IntersectionObserver' in window) {
     const io = new IntersectionObserver((entries) => {
       entries.forEach((entry) => {
         if (!entry.isIntersecting) return;
-        entry.target.classList.add('is-in');
         io.unobserve(entry.target);
-        settle(entry.target);
+        queue(entry.target);
       });
     }, { threshold: 0.12, rootMargin: '0px 0px -30px 0px' });
     risers.forEach((el) => io.observe(el));
   } else {
-    risers.forEach((el) => { el.classList.add('is-in'); settle(el); });
+    risers.forEach((el) => { el.classList.add('is-in'); settle(el, 0); });
   }
 
   /* ---------- доска настроений в hero ---------- */

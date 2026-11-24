@@ -177,7 +177,7 @@ h3 { font-size: clamp(1.25rem, 2vw, 1.75rem); line-height: 1.05; letter-spacing:
   position: relative; z-index: 1; width: min(100%, 460px);
   padding: clamp(20px, 2.4vw, 32px);
   background: var(--white); border-radius: var(--r-card);
-  box-shadow: 0 44px 70px -34px rgb(176 16 90 / .7), 0 16px 30px -18px rgb(220 36 124 / .5);
+  box-shadow: 0 36px 64px -30px rgb(214 72 140 / .42), 0 12px 26px -18px rgb(232 92 158 / .28);
 }
 .board__head { display: flex; align-items: center; justify-content: space-between; gap: var(--s3); }
 .board__brand { display: flex; align-items: center; gap: var(--s2); }
@@ -440,13 +440,13 @@ h3 { font-size: clamp(1.25rem, 2vw, 1.75rem); line-height: 1.05; letter-spacing:
 
 /* ---------- появление: лесенка с блюром ---------- */
 @media (scripting: enabled) {
-  .rise { opacity: 0; transform: translateY(28px); filter: blur(14px); }
+  .rise { opacity: 0; transform: translateY(18px); filter: blur(8px); }
   .rise.is-in {
     opacity: 1; transform: none; filter: blur(0);
     transition:
-      opacity 900ms var(--ease) var(--d, 0ms),
-      transform 900ms var(--ease) var(--d, 0ms),
-      filter 900ms var(--ease) var(--d, 0ms);
+      opacity 1100ms var(--ease) var(--d, 0ms),
+      transform 1100ms var(--ease) var(--d, 0ms),
+      filter 1100ms var(--ease) var(--d, 0ms);
   }
 }
 
