@@ -71,8 +71,18 @@ h3 { font-size: clamp(1.25rem, 2vw, 1.75rem); line-height: 1.05; letter-spacing:
 .grad {
   display: inline-block;
   padding-bottom: .12em; margin-bottom: -.12em;
-  color: #c82d70;
+  color: #e0508f;
 }
+@supports ((-webkit-background-clip: text) or (background-clip: text)) {
+  .grad {
+    color: transparent; -webkit-text-fill-color: transparent;
+    background-image: linear-gradient(100deg, #d6377d 0%, #ec62a0 30%, #f78bb9 50%, #ec62a0 70%, #d6377d 100%);
+    background-size: 220% 100%; background-position: 0% 50%;
+    -webkit-background-clip: text; background-clip: text;
+    animation: grad-flow 7s ease-in-out infinite alternate;
+  }
+}
+@keyframes grad-flow { from { background-position: 0% 50%; } to { background-position: 100% 50%; } }
 
 .lead { max-width: 56ch; margin-top: var(--s5); color: var(--ink-2); font-size: clamp(1rem, 1.3vw, 1.25rem); text-wrap: balance; }
 
@@ -167,7 +177,7 @@ h3 { font-size: clamp(1.25rem, 2vw, 1.75rem); line-height: 1.05; letter-spacing:
   position: relative; z-index: 1; width: min(100%, 460px);
   padding: clamp(20px, 2.4vw, 32px);
   background: var(--white); border-radius: var(--r-card);
-  box-shadow: 0 40px 70px -40px rgb(53 0 21 / .55);
+  box-shadow: 0 44px 70px -34px rgb(176 16 90 / .7), 0 16px 30px -18px rgb(220 36 124 / .5);
 }
 .board__head { display: flex; align-items: center; justify-content: space-between; gap: var(--s3); }
 .board__brand { display: flex; align-items: center; gap: var(--s2); }
@@ -649,10 +659,10 @@ body { background: #fff0f7; }
 .gap--hero, .gap--feat, .gap--how { background: #fff0f7; }
 .gap__track {
   position: absolute; inset: 0 auto 0 0; display: flex; width: 200%; height: 100%;
-  transform: translate3d(-50%, 0, 0); animation: star-stream 56s linear infinite;
+  transform: translate3d(-50%, 0, 0); animation: star-stream 38s linear infinite;
 }
-.gap--feat .gap__track { animation-delay: -18s; }
-.gap--how .gap__track { animation-delay: -36s; }
+.gap--feat .gap__track { animation-delay: -12s; }
+.gap--how .gap__track { animation-delay: -24s; }
 .gap__period { position: relative; flex: 0 0 50%; width: 50%; height: 100%; }
 .gap__spark {
   position: absolute; left: var(--x); top: var(--y); display: block;
@@ -750,7 +760,7 @@ body { background: #fff0f7; }
 }
 @media (prefers-reduced-motion: reduce) {
   .stack { transform: none !important; }
-  .gap__track, .cta__spark, .hero__spark, .head__spark, .footer__kaomoji { animation: none; }
+  .gap__track, .cta__spark, .hero__spark, .head__spark, .footer__kaomoji, .grad { animation: none; }
   .gap__track { transform: translate3d(-50%, 0, 0); }
 }
 
@@ -791,18 +801,19 @@ body { background: #fff0f7; }
   .cta { padding-top: 84px; }
   .cta__inner { padding-block: var(--s4) var(--s5); }
   .cta__copy {
-    display: flex; flex-direction: column; container-type: inline-size;
+    display: grid; grid-template-columns: minmax(0, 1fr); grid-template-rows: minmax(min-content, 1fr) auto auto auto auto;
+    container-type: inline-size;
     padding: clamp(24px, 6vw, 40px);
   }
   /* Подпись «Добавим немного магии» уходит вниз и стоит прямо над заголовком;
      каомодзи остаётся наверху. Обёртка растворяется, чтобы переставить их порядком. */
   .cta__eyebrow { display: contents; }
   /* Каомодзи: чернила строго по центру рамки (чуть ниже, чем раньше), левый край — по линии текста */
-  .cta__eyebrow .cta__kaomoji { order: 0; align-self: flex-start; --k-t: .13em; --k-b: .03em; margin-left: -.32em; }
-  .cta__eyebrow .label { order: 1; margin: auto 0 var(--s3); padding-top: var(--s6); }
+  .cta__eyebrow .cta__kaomoji { order: 0; align-self: flex-start; --k-t: .13em; --k-b: .03em; margin: var(--s4) 0 var(--s4) -.32em; align-self: center; justify-self: start; }
+  .cta__eyebrow .label { order: 1; margin: 0 0 var(--s3); padding-top: 0; }
   .cta__copy h2 { order: 2; margin-top: 0; padding-top: 0; }
   .cta__copy p { order: 3; margin-top: var(--s4); margin-bottom: var(--s6); }
-  .cta__copy .btn { order: 4; margin-top: 0; align-self: stretch; }
+  .cta__copy .btn { order: 4; margin-top: 0; }
 
   /* Подвал: прижат к левому краю, без лишнего воздуха сверху, с запасом снизу */
   .footer { padding: var(--s5) 0 calc(var(--s5) + env(safe-area-inset-bottom, 0px)); }
@@ -818,6 +829,9 @@ body { background: #fff0f7; }
   /* На телефоне плашка тянется вверх до шапки и занимает всё свободное место над подвалом */
   .cta__inner { justify-content: flex-start; }
   .cta__copy { flex: 1 1 auto; }
+  /* «Пустое поле» — от верхнего края плашки до подписи: нижний отступ каомодзи больше на величину внутреннего поля плашки,
+     поэтому чернила стоят ровно посередине между краем плашки и надписью */
+  .cta__eyebrow .cta__kaomoji { margin-bottom: calc(var(--s4) + clamp(24px, 6vw, 40px) + 3px); }
 
   /* Каомодзи на телефоне: отдельной крупной строкой под подписью, размер считается от ширины плашки */
   .cta__spark.cta__kaomoji { font-size: clamp(2rem, 12vw, 3.6rem); font-size: clamp(2rem, 15cqw, 3.6rem); }
