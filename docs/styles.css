@@ -768,7 +768,9 @@ body { background: #fff0f7; }
    Раньше ему достались размеры от звезды (46×46 px), поэтому на телефоне он «сыпался». */
 .cta__eyebrow { align-items: center; }
 .cta__spark.cta__kaomoji {
-  position: static; flex: none; width: auto; height: auto; padding: .08em .1em;
+  position: static; flex: none; width: auto; height: auto;
+  --k-t: .08em; --k-r: .165em; --k-b: .08em; --k-l: .05em;
+  padding: var(--k-t) var(--k-r) var(--k-b) var(--k-l);
   font-size: clamp(2.2rem, 4.2vw, 3.6rem); font-weight: 400; line-height: 1.15; letter-spacing: -.03em; white-space: nowrap;
   color: transparent; -webkit-text-fill-color: transparent;
   background: linear-gradient(110deg, #d4186b 0%, #ff5e9c 100%); -webkit-background-clip: text; background-clip: text;
@@ -792,10 +794,15 @@ body { background: #fff0f7; }
     display: flex; flex-direction: column; container-type: inline-size;
     padding: clamp(24px, 6vw, 40px);
   }
-  .cta__eyebrow { padding-right: 0; }
-  .cta__copy h2 { margin-top: auto; padding-top: var(--s6); }
-  .cta__copy p { margin-top: var(--s4); margin-bottom: var(--s6); }
-  .cta__copy .btn { margin-top: 0; }
+  /* Подпись «Добавим немного магии» уходит вниз и стоит прямо над заголовком;
+     каомодзи остаётся наверху. Обёртка растворяется, чтобы переставить их порядком. */
+  .cta__eyebrow { display: contents; }
+  /* Каомодзи: чернила строго по центру рамки (чуть ниже, чем раньше), левый край — по линии текста */
+  .cta__eyebrow .cta__kaomoji { order: 0; align-self: flex-start; --k-t: .13em; --k-b: .03em; margin-left: -.32em; }
+  .cta__eyebrow .label { order: 1; margin: auto 0 var(--s3); padding-top: var(--s6); }
+  .cta__copy h2 { order: 2; margin-top: 0; padding-top: 0; }
+  .cta__copy p { order: 3; margin-top: var(--s4); margin-bottom: var(--s6); }
+  .cta__copy .btn { order: 4; margin-top: 0; align-self: stretch; }
 
   /* Подвал: прижат к левому краю, без лишнего воздуха сверху, с запасом снизу */
   .footer { padding: var(--s5) 0 calc(var(--s5) + env(safe-area-inset-bottom, 0px)); }
@@ -813,9 +820,7 @@ body { background: #fff0f7; }
   .cta__copy { flex: 1 1 auto; }
 
   /* Каомодзи на телефоне: отдельной крупной строкой под подписью, размер считается от ширины плашки */
-  .cta__eyebrow { flex-direction: column; align-items: flex-start; gap: var(--s2); }
-  .cta__eyebrow .label { margin-bottom: 0; }
-  .cta__spark.cta__kaomoji { max-width: 100%; font-size: clamp(2rem, 12vw, 3.6rem); font-size: clamp(2rem, 15cqw, 3.6rem); }
+  .cta__spark.cta__kaomoji { font-size: clamp(2rem, 12vw, 3.6rem); font-size: clamp(2rem, 15cqw, 3.6rem); }
 }
 
 @media (max-width: 400px) {
